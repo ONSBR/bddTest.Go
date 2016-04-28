@@ -1,0 +1,14 @@
+number = .
+label = .
+action = .
+object_type = .
+sign = .
+new_line = .
+text = .
+text_param = .
+Number_param = [sign]number["."number] .
+Param = text_param|Number_param .
+Object = object_type text .
+Assertion = label {text} action {text} Object {text} [Param] .
+Test_line = new_line | Assertion .
+Test_Scenario = Test_line { Test_line } .  
