@@ -1,0 +1,86 @@
+{
+	"ImportPath": "github.com/ONSBR/bddTest.Go",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v62",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/MichaelTJones/walk",
+			"Rev": "3af09438b0ab0e8f296410bfa646a7e635ea1fc0"
+		},
+		{
+			"ImportPath": "github.com/howeyc/gopass",
+			"Rev": "66487b23f2880ba32e185121d2cd51a338ea069a"
+		},
+		{
+			"ImportPath": "github.com/juju/loggo",
+			"Rev": "8477fc936adf0e382d680310047ca27e128a309a"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-colorable",
+			"Comment": "v0.0.1",
+			"Rev": "bc69d6cebca8dd5675346a34a1c545b67dc74d5e"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-isatty",
+			"Rev": "56b76bdf51f7708750eac80fa38b952bb9f32639"
+		},
+		{
+			"ImportPath": "github.com/mgutz/ansi",
+			"Rev": "c286dcecd19ff979eeb73ea444e479b903f2cfcb"
+		},
+		{
+			"ImportPath": "github.com/mgutz/minimist",
+			"Rev": "39eb8cf573ca29344bd7d7e6ba4d7febdebd37a9"
+		},
+		{
+			"ImportPath": "github.com/mgutz/str",
+			"Comment": "1.1.0-4-g968bf66",
+			"Rev": "968bf66e3da857419e4f6e71b2d5c9ae95682dc4"
+		},
+		{
+			"ImportPath": "github.com/mgutz/to",
+			"Rev": "2a0bcba0661696e339461f5efb2273f4459dd1b9"
+		},
+		{
+			"ImportPath": "github.com/nozzle/throttler",
+			"Comment": "v0.3-5-gd9b45f1",
+			"Rev": "d9b45f19996c645d38c9266d1f5cf1990e930119"
+		},
+		{
+			"ImportPath": "golang.org/x/crypto/ssh/terminal",
+			"Rev": "285fb2ed20d1dc450fc743a1b3ff7c36bef372b9"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "b776ec39b3e54652e09028aaaaac9757f4f8211a"
+		},
+		{
+			"ImportPath": "gopkg.in/godo.v2",
+			"Comment": "v2.0.9",
+			"Rev": "b5fd2f0bef1ebe832e628cfad18ab1cc707f65a1"
+		},
+		{
+			"ImportPath": "gopkg.in/godo.v2/glob",
+			"Comment": "v2.0.9",
+			"Rev": "b5fd2f0bef1ebe832e628cfad18ab1cc707f65a1"
+		},
+		{
+			"ImportPath": "gopkg.in/godo.v2/util",
+			"Comment": "v2.0.9",
+			"Rev": "b5fd2f0bef1ebe832e628cfad18ab1cc707f65a1"
+		},
+		{
+			"ImportPath": "gopkg.in/godo.v2/watcher",
+			"Comment": "v2.0.9",
+			"Rev": "b5fd2f0bef1ebe832e628cfad18ab1cc707f65a1"
+		},
+		{
+			"ImportPath": "gopkg.in/godo.v2/watcher/fswatch",
+			"Comment": "v2.0.9",
+			"Rev": "b5fd2f0bef1ebe832e628cfad18ab1cc707f65a1"
+		}
+	]
+}
