@@ -26,7 +26,7 @@ import (
 
 var log = util.GetLogger("lexer.lexer")
 
-//line bddLangLexer.y:29
+//line bddLangLexer.y:30
 type Test_ScenarioSymType struct {
 	yys  int
 	item interface{} //TODO insert real field(s)
@@ -61,7 +61,7 @@ const Test_ScenarioEofCode = 1
 const Test_ScenarioErrCode = 2
 const Test_ScenarioInitialStackSize = 16
 
-//line bddLangLexer.y:253
+//line bddLangLexer.y:254
 
 type (
 	Assertion struct {
@@ -177,7 +177,7 @@ var Test_ScenarioErrorMessages = [...]struct {
 
 var (
 	Test_ScenarioDebug        = 0
-	Test_ScenarioErrorVerbose = false
+	Test_ScenarioErrorVerbose = true
 )
 
 type Test_ScenarioLexer interface {
@@ -504,7 +504,7 @@ Test_Scenariodefault:
 
 	case 1:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-7 : Test_Scenariopt+1]
-		//line bddLangLexer.y:76
+		//line bddLangLexer.y:77
 		{
 			log.Infof("Assertion found!")
 			var buffer bytes.Buffer
@@ -527,14 +527,14 @@ Test_Scenariodefault:
 		}
 	case 2:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:99
+		//line bddLangLexer.y:100
 		{
 			log.Infof("Assertion1 empty found!")
 			Test_ScenarioVAL.item = ""
 		}
 	case 3:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:104
+		//line bddLangLexer.y:105
 		{
 			log.Infof("Assertion1 found!")
 			var buffer bytes.Buffer
@@ -544,14 +544,14 @@ Test_Scenariodefault:
 		}
 	case 4:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:114
+		//line bddLangLexer.y:115
 		{
 			log.Infof("Assertion2 empty found!")
 			Test_ScenarioVAL.item = ""
 		}
 	case 5:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:119
+		//line bddLangLexer.y:120
 		{
 			log.Infof("Assertion2 found!")
 			var buffer bytes.Buffer
@@ -561,14 +561,14 @@ Test_Scenariodefault:
 		}
 	case 6:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:129
+		//line bddLangLexer.y:130
 		{
 			log.Infof("Assertion3 empty found!")
 			Test_ScenarioVAL.item = ""
 		}
 	case 7:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:134
+		//line bddLangLexer.y:135
 		{
 			log.Infof("Assertion3 found!")
 			var buffer bytes.Buffer
@@ -578,21 +578,21 @@ Test_Scenariodefault:
 		}
 	case 8:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:144
+		//line bddLangLexer.y:145
 		{
 			log.Infof("Assertion4 empty found!")
 			Test_ScenarioVAL.item = ""
 		}
 	case 9:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:149
+		//line bddLangLexer.y:150
 		{
 			log.Infof("Assertion4 found!")
 			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
 		}
 	case 10:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-3 : Test_Scenariopt+1]
-		//line bddLangLexer.y:156
+		//line bddLangLexer.y:157
 		{
 			log.Infof("Number_param found!")
 			var buffer bytes.Buffer
@@ -610,28 +610,28 @@ Test_Scenariodefault:
 		}
 	case 11:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:174
+		//line bddLangLexer.y:175
 		{
 			log.Infof("Number_param1 empty found!")
 			Test_ScenarioVAL.item = ""
 		}
 	case 12:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:179
+		//line bddLangLexer.y:180
 		{
 			log.Infof("Number_param1 found!")
 			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
 		}
 	case 13:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:186
+		//line bddLangLexer.y:187
 		{
 			log.Infof("Number_param2 empty found!")
 			Test_ScenarioVAL.item = ""
 		}
 	case 14:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:191
+		//line bddLangLexer.y:192
 		{
 			log.Infof("Number_param2 found!")
 			var buffer bytes.Buffer
@@ -641,28 +641,28 @@ Test_Scenariodefault:
 		}
 	case 15:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:201
+		//line bddLangLexer.y:202
 		{
 			log.Infof("Object found!")
 			Test_ScenarioVAL.item = Object{ObjectType: Test_ScenarioDollar[1].item.(string), ObjectId: Test_ScenarioDollar[2].item.(string)}
 		}
 	case 16:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:208
+		//line bddLangLexer.y:209
 		{
 			log.Infof("Text param found!")
 			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
 		}
 	case 17:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:213
+		//line bddLangLexer.y:214
 		{
 			log.Infof("Number Param found!")
 			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
 		}
 	case 18:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:220
+		//line bddLangLexer.y:221
 		{
 			log.Infof("Start")
 			if v, ok := Test_Scenariolex.(*BddTestLex); ok {
@@ -671,31 +671,31 @@ Test_Scenariodefault:
 		}
 	case 19:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:229
+		//line bddLangLexer.y:230
 		{
 			Test_ScenarioVAL.item = append([]Assertion{Test_ScenarioDollar[1].item.(Assertion)}, Test_ScenarioDollar[2].item.([]Assertion)...)
 		}
 	case 20:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:235
+		//line bddLangLexer.y:236
 		{
 			Test_ScenarioVAL.item = []Assertion(nil)
 		}
 	case 21:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:239
+		//line bddLangLexer.y:240
 		{
 			Test_ScenarioVAL.item = append(Test_ScenarioDollar[1].item.([]Assertion), Test_ScenarioDollar[2].item.(Assertion))
 		}
 	case 22:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:245
+		//line bddLangLexer.y:246
 		{
 			//fmt.Println("Test_Line new line found!")
 		}
 	case 23:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:249
+		//line bddLangLexer.y:250
 		{
 			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item.(Assertion)
 		}

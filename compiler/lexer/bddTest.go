@@ -1,6 +1,7 @@
 package lexer
 
 type BddTestParseRes struct {
+	Error string
 	Lines interface{}
 }
 

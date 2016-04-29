@@ -21,34 +21,34 @@ state 1
 state 2
 	Start:  Test_Scenario.    (18)
 
-	.  reduce 18 (src line 218)
+	.  reduce 18 (src line 219)
 
 
 state 3
 	Test_Scenario:  Test_line.Test_Scenario1 
 	Test_Scenario1: .    (20)
 
-	.  reduce 20 (src line 233)
+	.  reduce 20 (src line 234)
 
 	Test_Scenario1  goto 7
 
 state 4
 	Test_line:  NEW_LINE.    (22)
 
-	.  reduce 22 (src line 243)
+	.  reduce 22 (src line 244)
 
 
 state 5
 	Test_line:  Assertion.    (23)
 
-	.  reduce 23 (src line 248)
+	.  reduce 23 (src line 249)
 
 
 state 6
 	Assertion:  LABEL.Assertion1 ACTION Assertion2 Object Assertion3 Assertion4 
 	Assertion1: .    (2)
 
-	.  reduce 2 (src line 97)
+	.  reduce 2 (src line 98)
 
 	Assertion1  goto 8
 
@@ -58,7 +58,7 @@ state 7
 
 	LABEL  shift 6
 	NEW_LINE  shift 4
-	.  reduce 19 (src line 227)
+	.  reduce 19 (src line 228)
 
 	Assertion  goto 5
 	Test_line  goto 9
@@ -75,21 +75,21 @@ state 8
 state 9
 	Test_Scenario1:  Test_Scenario1 Test_line.    (21)
 
-	.  reduce 21 (src line 238)
+	.  reduce 21 (src line 239)
 
 
 state 10
 	Assertion:  LABEL Assertion1 ACTION.Assertion2 Object Assertion3 Assertion4 
 	Assertion2: .    (4)
 
-	.  reduce 4 (src line 112)
+	.  reduce 4 (src line 113)
 
 	Assertion2  goto 12
 
 state 11
 	Assertion1:  Assertion1 TEXT.    (3)
 
-	.  reduce 3 (src line 103)
+	.  reduce 3 (src line 104)
 
 
 state 12
@@ -106,14 +106,14 @@ state 13
 	Assertion:  LABEL Assertion1 ACTION Assertion2 Object.Assertion3 Assertion4 
 	Assertion3: .    (6)
 
-	.  reduce 6 (src line 127)
+	.  reduce 6 (src line 128)
 
 	Assertion3  goto 16
 
 state 14
 	Assertion2:  Assertion2 TEXT.    (5)
 
-	.  reduce 5 (src line 118)
+	.  reduce 5 (src line 119)
 
 
 state 15
@@ -129,11 +129,11 @@ state 16
 	Assertion4: .    (8)
 	Number_param1: .    (11)
 
-	NUMBER  reduce 11 (src line 172)
+	NUMBER  reduce 11 (src line 173)
 	SIGN  shift 24
 	TEXT  shift 19
 	TEXT_PARAM  shift 21
-	.  reduce 8 (src line 142)
+	.  reduce 8 (src line 143)
 
 	Assertion4  goto 18
 	Number_param  goto 22
@@ -143,37 +143,37 @@ state 16
 state 17
 	Object:  OBJECT_TYPE TEXT.    (15)
 
-	.  reduce 15 (src line 199)
+	.  reduce 15 (src line 200)
 
 
 state 18
 	Assertion:  LABEL Assertion1 ACTION Assertion2 Object Assertion3 Assertion4.    (1)
 
-	.  reduce 1 (src line 74)
+	.  reduce 1 (src line 75)
 
 
 state 19
 	Assertion3:  Assertion3 TEXT.    (7)
 
-	.  reduce 7 (src line 133)
+	.  reduce 7 (src line 134)
 
 
 state 20
 	Assertion4:  Param.    (9)
 
-	.  reduce 9 (src line 148)
+	.  reduce 9 (src line 149)
 
 
 state 21
 	Param:  TEXT_PARAM.    (16)
 
-	.  reduce 16 (src line 206)
+	.  reduce 16 (src line 207)
 
 
 state 22
 	Param:  Number_param.    (17)
 
-	.  reduce 17 (src line 212)
+	.  reduce 17 (src line 213)
 
 
 state 23
@@ -186,7 +186,7 @@ state 23
 state 24
 	Number_param1:  SIGN.    (12)
 
-	.  reduce 12 (src line 178)
+	.  reduce 12 (src line 179)
 
 
 state 25
@@ -194,14 +194,14 @@ state 25
 	Number_param2: .    (13)
 
 	'.'  shift 27
-	.  reduce 13 (src line 184)
+	.  reduce 13 (src line 185)
 
 	Number_param2  goto 26
 
 state 26
 	Number_param:  Number_param1 NUMBER Number_param2.    (10)
 
-	.  reduce 10 (src line 154)
+	.  reduce 10 (src line 155)
 
 
 state 27
@@ -214,7 +214,7 @@ state 27
 state 28
 	Number_param2:  '.' NUMBER.    (14)
 
-	.  reduce 14 (src line 190)
+	.  reduce 14 (src line 191)
 
 
 12 terminals, 15 nonterminals

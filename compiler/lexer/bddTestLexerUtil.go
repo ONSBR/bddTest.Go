@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"fmt"
+//	"fmt"
 	"strconv"
 	"strings"
 )
@@ -70,7 +70,10 @@ func (this BddTestLex) data() (bb []byte) {
 }
 
 func (this BddTestLex) Error(s string) {
-	fmt.Println("error: " + s)
+	res := &BddTestParseRes{Error:s}
+	if nil != this.OnBddTestParse {
+		this.OnBddTestParse(res)
+	}
 }
 
 func (this BddTestLex) getInt() (n int, err error) {

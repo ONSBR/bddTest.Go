@@ -24,6 +24,7 @@ import (
 
 var log = util.GetLogger("lexer.lexer")
 
+
 %}
 
 %union {

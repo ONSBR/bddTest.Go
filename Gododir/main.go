@@ -20,7 +20,7 @@ func tasks(p *do.Project) {
     })
     
     p.Task("SimpleTest",nil, func(c *do.Context) {
-		c.Run("go run test/compiler/SimpleTest.go")
+		c.Run("go run test/SimpleTest.go")
     })
 //
 //    p.Task("assets?", nil,  func(c *do.Context) {

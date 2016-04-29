@@ -24,7 +24,7 @@ D			[0-9]
 L			[A-Za-z]
 LAB			"dado"|"Dado"|"quando"|"Quando"|"entao"|"Entao"|"e"|"E"
 ACT			"clico"|"seleciono"|"preencho"
-OBJTY		"botao"|"campo"|"selecao"
+OBJTY		"botao"|"campo"|"lista"
 SIGN		"-"
 TXTPA		\".+\"
 TXT		[A-Za-z0-9]+
