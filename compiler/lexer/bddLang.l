@@ -38,7 +38,7 @@ TXT		[A-Za-z0-9]+
 			this.buf = this.buf[len(this.buf)-1:]
 		}
 		
-[\n]+				logP.Infof("returning newline"); return NEW_LINE	
+[\n]+				logP.Infof("returning newline");this.newLine() //; return NEW_LINE	
 
 {D}+				if lval.item, err = this.getInt(); nil!=err {
 						return -1
@@ -60,7 +60,7 @@ TXT		[A-Za-z0-9]+
 
 {TXT}				lval.item = this.getStr(); logP.Infof("Text found"); return TEXT
 
-[ \t\n\r]+			
+[ \t]+			
 
 %%
 

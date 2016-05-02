@@ -47,7 +47,7 @@ yystart1:
 		goto yystate18
 	case c == '\n':
 		goto yystate4
-	case c == '\t' || c == '\r' || c == ' ':
+	case c == '\t' || c == ' ':
 		goto yystate3
 	case c == '\x00':
 		goto yystate2
@@ -76,7 +76,7 @@ yystate3:
 	switch {
 	default:
 		goto yyrule10
-	case c == '\t' || c == '\n' || c == '\r' || c == ' ':
+	case c == '\t' || c == ' ':
 		goto yystate3
 	}
 
@@ -87,8 +87,6 @@ yystate4:
 		goto yyrule1
 	case c == '\n':
 		goto yystate4
-	case c == '\t' || c == '\r' || c == ' ':
-		goto yystate3
 	}
 
 yystate5:
@@ -574,7 +572,7 @@ yystate49:
 yyrule1: // [\n]+
 	{
 		logP.Infof("returning newline")
-		return NEW_LINE
+		this.newLine() //; return NEW_LINE
 		goto yystate0
 	}
 yyrule2: // {D}+
@@ -630,7 +628,7 @@ yyrule9: // {TXT}
 		return TEXT
 		goto yystate0
 	}
-yyrule10: // [ \t\n\r]+
+yyrule10: // [ \t]+
 
 	goto yystate0
 	panic("unreachable")

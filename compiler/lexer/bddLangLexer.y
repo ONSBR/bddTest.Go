@@ -22,7 +22,7 @@ import (
 	"github.com/ONSBR/bddTest.Go/util"
 )
 
-var log = util.GetLogger("lexer.lexer")
+var log = util.GetLogger("lexer.lexer") 
 
 
 %}
@@ -228,7 +228,11 @@ Start:
 Test_Scenario:
 	Test_line Test_Scenario1
 	{
-		$$ = append([]Assertion{$1.(Assertion)}, $2.([]Assertion)...)
+		lineNum := 1
+		assertion := $1.(Assertion)
+		assertion.LineNum = lineNum
+		log.Infof("Line Num %d", assertion.LineNum)
+		$$ = append([]Assertion{assertion}, $2.([]Assertion)...)
 	}
 
 Test_Scenario1:
@@ -238,7 +242,11 @@ Test_Scenario1:
 	}
 |	Test_Scenario1 Test_line
 	{
-		$$ = append($1.([]Assertion),$2.(Assertion))
+		lineNum := (len($1.([]Assertion)) + 2)
+		assertion := $2.(Assertion)
+		assertion.LineNum = lineNum
+		log.Infof("Line Num %d", assertion.LineNum)
+		$$ = append($1.([]Assertion),assertion)
 	}
 
 Test_line:
@@ -255,6 +263,7 @@ Test_line:
 
 type (
 	Assertion struct {
+		LineNum int
 		FullText string
 		Label string
 		Action string

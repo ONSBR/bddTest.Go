@@ -4,6 +4,7 @@ import (
 //	"fmt"
 	"strconv"
 	"strings"
+	"github.com/ONSBR/bddTest.Go/util"
 )
 
 const (
@@ -13,6 +14,8 @@ const (
 )
 
 var _emptystruct struct{} = struct{}{}
+
+var logUtil = util.GetLogger("lexer.lexer") 
 
 func (this BddTestLex) OnBddTest(item interface{}) {
 //	fmt.Println("OnBddTest()")
@@ -38,6 +41,11 @@ func (this BddTestLex) OnBddTest(item interface{}) {
 func (this *BddTestLex) peek() (bret byte) {
 	bret = this.next()
 	this.pos -= 1
+	this.linePos -= 1
+	if this.linePos < 0 {
+		this.linePos = 0
+		this.lineNum -= 1
+	}
 	return
 }
 
@@ -50,14 +58,25 @@ func (this *BddTestLex) next() (bret byte) {
 		bret = 0
 	}
 	this.pos += 1
+	this.linePos += 1
 	return
 }
 
 func (this *BddTestLex) back() {
 	if 0 < this.pos {
 		this.pos -= 1
+		this.linePos -= 1
+		if this.linePos < 0 {
+			this.linePos = 0
+			this.lineNum -= 1
+		}
 	}
 	return
+}
+
+func (this *BddTestLex) newLine() {
+	this.lineNum += 1
+	this.linePos = 0
 }
 
 func (this BddTestLex) data() (bb []byte) {
@@ -70,7 +89,8 @@ func (this BddTestLex) data() (bb []byte) {
 }
 
 func (this BddTestLex) Error(s string) {
-	res := &BddTestParseRes{Error:s}
+	err := ParserError{Message:s,LineNum:this.lineNum+1,LinePos:this.linePos+1,Token:string(this.buf)}
+	res := &BddTestParseRes{Error:err, HasError:true}
 	if nil != this.OnBddTestParse {
 		this.OnBddTestParse(res)
 	}

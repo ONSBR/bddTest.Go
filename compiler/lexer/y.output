@@ -28,20 +28,20 @@ state 3
 	Test_Scenario:  Test_line.Test_Scenario1 
 	Test_Scenario1: .    (20)
 
-	.  reduce 20 (src line 234)
+	.  reduce 20 (src line 238)
 
 	Test_Scenario1  goto 7
 
 state 4
 	Test_line:  NEW_LINE.    (22)
 
-	.  reduce 22 (src line 244)
+	.  reduce 22 (src line 252)
 
 
 state 5
 	Test_line:  Assertion.    (23)
 
-	.  reduce 23 (src line 249)
+	.  reduce 23 (src line 257)
 
 
 state 6
@@ -75,7 +75,7 @@ state 8
 state 9
 	Test_Scenario1:  Test_Scenario1 Test_line.    (21)
 
-	.  reduce 21 (src line 239)
+	.  reduce 21 (src line 243)
 
 
 state 10

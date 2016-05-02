@@ -1,4 +1,4 @@
-// CAUTION: Generated file - DO NOT EDIT.
+//line bddLangLexer.y:2
 
 //TODO Put your favorite license here
 
@@ -12,12 +12,10 @@
 //
 //   [1]: http://github.com/cznic/ebnf2y
 
-package lexer
-
+package lexer //TODO real package name
 import __yyfmt__ "fmt"
 
-//TODO real package name
-
+//line bddLangLexer.y:15
 //TODO required only be the demo _dump function
 import (
 	"bytes"
@@ -28,547 +26,46 @@ import (
 
 var log = util.GetLogger("lexer.lexer")
 
+//line bddLangLexer.y:30
 type Test_ScenarioSymType struct {
 	yys  int
 	item interface{} //TODO insert real field(s)
 }
 
-type Test_ScenarioXError struct {
-	state, xsym int
+const ACTION = 57346
+const LABEL = 57347
+const NEW_LINE = 57348
+const NUMBER = 57349
+const OBJECT_TYPE = 57350
+const SIGN = 57351
+const TEXT = 57352
+const TEXT_PARAM = 57353
+
+var Test_ScenarioToknames = [...]string{
+	"$end",
+	"error",
+	"$unk",
+	"ACTION",
+	"LABEL",
+	"NEW_LINE",
+	"NUMBER",
+	"OBJECT_TYPE",
+	"SIGN",
+	"TEXT",
+	"TEXT_PARAM",
+	"'.'",
 }
+var Test_ScenarioStatenames = [...]string{}
 
-const (
-	Test_ScenarioDefault = 57354
-	Test_ScenarioEofCode = 57344
-	ACTION               = 57346
-	LABEL                = 57347
-	NEW_LINE             = 57348
-	NUMBER               = 57349
-	OBJECT_TYPE          = 57350
-	SIGN                 = 57351
-	TEXT                 = 57352
-	TEXT_PARAM           = 57353
-	Test_ScenarioErrCode = 57345
+const Test_ScenarioEofCode = 1
+const Test_ScenarioErrCode = 2
+const Test_ScenarioInitialStackSize = 16
 
-	Test_ScenarioMaxDepth = 200
-	Test_ScenarioTabOfs   = -24
-)
-
-var (
-	Test_ScenarioXLAT = map[int]int{
-		57344: 0,  // $end (18x)
-		57347: 1,  // LABEL (17x)
-		57348: 2,  // NEW_LINE (17x)
-		57352: 3,  // TEXT (11x)
-		57349: 4,  // NUMBER (7x)
-		57351: 5,  // SIGN (4x)
-		57353: 6,  // TEXT_PARAM (4x)
-		57346: 7,  // ACTION (3x)
-		57350: 8,  // OBJECT_TYPE (3x)
-		57355: 9,  // Assertion (2x)
-		57368: 10, // Test_line (2x)
-		46:    11, // '.' (1x)
-		57356: 12, // Assertion1 (1x)
-		57357: 13, // Assertion2 (1x)
-		57358: 14, // Assertion3 (1x)
-		57359: 15, // Assertion4 (1x)
-		57360: 16, // Number_param (1x)
-		57361: 17, // Number_param1 (1x)
-		57362: 18, // Number_param2 (1x)
-		57363: 19, // Object (1x)
-		57364: 20, // Param (1x)
-		57365: 21, // Start (1x)
-		57366: 22, // Test_Scenario (1x)
-		57367: 23, // Test_Scenario1 (1x)
-		57354: 24, // $default (0x)
-		57345: 25, // error (0x)
-	}
-
-	Test_ScenarioSymNames = []string{
-		"$end",
-		"LABEL",
-		"NEW_LINE",
-		"TEXT",
-		"NUMBER",
-		"SIGN",
-		"TEXT_PARAM",
-		"ACTION",
-		"OBJECT_TYPE",
-		"Assertion",
-		"Test_line",
-		"'.'",
-		"Assertion1",
-		"Assertion2",
-		"Assertion3",
-		"Assertion4",
-		"Number_param",
-		"Number_param1",
-		"Number_param2",
-		"Object",
-		"Param",
-		"Start",
-		"Test_Scenario",
-		"Test_Scenario1",
-		"$default",
-		"error",
-	}
-
-	Test_ScenarioTokenLiteralStrings = map[int]string{}
-
-	Test_ScenarioReductions = map[int]struct{ xsym, components int }{
-		0:  {0, 1},
-		1:  {9, 7},
-		2:  {12, 0},
-		3:  {12, 2},
-		4:  {13, 0},
-		5:  {13, 2},
-		6:  {14, 0},
-		7:  {14, 2},
-		8:  {15, 0},
-		9:  {15, 1},
-		10: {16, 3},
-		11: {17, 0},
-		12: {17, 1},
-		13: {18, 0},
-		14: {18, 2},
-		15: {19, 2},
-		16: {20, 1},
-		17: {20, 1},
-		18: {21, 1},
-		19: {22, 2},
-		20: {23, 0},
-		21: {23, 2},
-		22: {10, 1},
-		23: {10, 1},
-	}
-
-	Test_ScenarioXErrors = map[Test_ScenarioXError]string{}
-
-	Test_ScenarioParseTab = [29][]uint8{
-		// 0
-		{1: 26, 29, 9: 30, 28, 21: 25, 27},
-		{24},
-		{3: 22, 7: 22, 12: 33},
-		{6},
-		{4, 4, 4, 23: 31},
-		// 5
-		{2, 2, 2},
-		{1, 1, 1},
-		{5, 26, 29, 9: 30, 32},
-		{3, 3, 3},
-		{3: 35, 7: 34},
-		// 10
-		{3: 20, 8: 20, 13: 36},
-		{3: 21, 7: 21},
-		{3: 38, 8: 39, 19: 37},
-		{18, 18, 18, 18, 18, 18, 18, 14: 41},
-		{3: 19, 8: 19},
-		// 15
-		{3: 40},
-		{9, 9, 9, 9, 9, 9, 9},
-		{16, 16, 16, 43, 13, 46, 47, 15: 42, 48, 45, 20: 44},
-		{23, 23, 23},
-		{17, 17, 17, 17, 17, 17, 17},
-		// 20
-		{15, 15, 15},
-		{4: 49},
-		{4: 12},
-		{8, 8, 8},
-		{7, 7, 7},
-		// 25
-		{11, 11, 11, 11: 51, 18: 50},
-		{14, 14, 14},
-		{4: 52},
-		{10, 10, 10},
-	}
-)
-
-var Test_ScenarioDebug = 0
-
-type Test_ScenarioLexer interface {
-	Lex(lval *Test_ScenarioSymType) int
-	Error(s string)
-}
-
-type Test_ScenarioLexerEx interface {
-	Test_ScenarioLexer
-	Reduced(rule, state int, lval *Test_ScenarioSymType) bool
-}
-
-func Test_ScenarioSymName(c int) (s string) {
-	x, ok := Test_ScenarioXLAT[c]
-	if ok {
-		return Test_ScenarioSymNames[x]
-	}
-
-	if c < 0x7f {
-		return __yyfmt__.Sprintf("'%c'", c)
-	}
-
-	return __yyfmt__.Sprintf("%d", c)
-}
-
-func Test_Scenariolex1(yylex Test_ScenarioLexer, lval *Test_ScenarioSymType) (n int) {
-	n = yylex.Lex(lval)
-	if n <= 0 {
-		n = Test_ScenarioEofCode
-	}
-	if Test_ScenarioDebug >= 3 {
-		__yyfmt__.Printf("\nlex %s(%#x %d), lval: %+v\n", Test_ScenarioSymName(n), n, n, lval)
-	}
-	return n
-}
-
-func Test_ScenarioParse(yylex Test_ScenarioLexer) int {
-	const yyError = 25
-
-	yyEx, _ := yylex.(Test_ScenarioLexerEx)
-	var yyn int
-	var yylval Test_ScenarioSymType
-	var yyVAL Test_ScenarioSymType
-	yyS := make([]Test_ScenarioSymType, 200)
-
-	Nerrs := 0   /* number of errors */
-	Errflag := 0 /* error recovery flag */
-	yyerrok := func() {
-		if Test_ScenarioDebug >= 2 {
-			__yyfmt__.Printf("yyerrok()\n")
-		}
-		Errflag = 0
-	}
-	_ = yyerrok
-	yystate := 0
-	yychar := -1
-	var yyxchar int
-	var yyshift int
-	yyp := -1
-	goto yystack
-
-ret0:
-	return 0
-
-ret1:
-	return 1
-
-yystack:
-	/* put a state and value onto the stack */
-	yyp++
-	if yyp >= len(yyS) {
-		nyys := make([]Test_ScenarioSymType, len(yyS)*2)
-		copy(nyys, yyS)
-		yyS = nyys
-	}
-	yyS[yyp] = yyVAL
-	yyS[yyp].yys = yystate
-
-yynewstate:
-	if yychar < 0 {
-		yychar = Test_Scenariolex1(yylex, &yylval)
-		var ok bool
-		if yyxchar, ok = Test_ScenarioXLAT[yychar]; !ok {
-			yyxchar = len(Test_ScenarioSymNames) // > tab width
-		}
-	}
-	if Test_ScenarioDebug >= 4 {
-		var a []int
-		for _, v := range yyS[:yyp+1] {
-			a = append(a, v.yys)
-		}
-		__yyfmt__.Printf("state stack %v\n", a)
-	}
-	row := Test_ScenarioParseTab[yystate]
-	yyn = 0
-	if yyxchar < len(row) {
-		if yyn = int(row[yyxchar]); yyn != 0 {
-			yyn += Test_ScenarioTabOfs
-		}
-	}
-	switch {
-	case yyn > 0: // shift
-		yychar = -1
-		yyVAL = yylval
-		yystate = yyn
-		yyshift = yyn
-		if Test_ScenarioDebug >= 2 {
-			__yyfmt__.Printf("shift, and goto state %d\n", yystate)
-		}
-		if Errflag > 0 {
-			Errflag--
-		}
-		goto yystack
-	case yyn < 0: // reduce
-	case yystate == 1: // accept
-		if Test_ScenarioDebug >= 2 {
-			__yyfmt__.Println("accept")
-		}
-		goto ret0
-	}
-
-	if yyn == 0 {
-		/* error ... attempt to resume parsing */
-		switch Errflag {
-		case 0: /* brand new error */
-			if Test_ScenarioDebug >= 1 {
-				__yyfmt__.Printf("no action for %s in state %d\n", Test_ScenarioSymName(yychar), yystate)
-			}
-			msg, ok := Test_ScenarioXErrors[Test_ScenarioXError{yystate, yyxchar}]
-			if !ok {
-				msg, ok = Test_ScenarioXErrors[Test_ScenarioXError{yystate, -1}]
-			}
-			if !ok && yyshift != 0 {
-				msg, ok = Test_ScenarioXErrors[Test_ScenarioXError{yyshift, yyxchar}]
-			}
-			if !ok {
-				msg, ok = Test_ScenarioXErrors[Test_ScenarioXError{yyshift, -1}]
-			}
-			if yychar > 0 {
-				ls := Test_ScenarioTokenLiteralStrings[yychar]
-				if ls == "" {
-					ls = Test_ScenarioSymName(yychar)
-				}
-				if ls != "" {
-					switch {
-					case msg == "":
-						msg = __yyfmt__.Sprintf("unexpected %s", ls)
-					default:
-						msg = __yyfmt__.Sprintf("unexpected %s, %s", ls, msg)
-					}
-				}
-			}
-			if msg == "" {
-				msg = "syntax error"
-			}
-			yylex.Error(msg)
-			Nerrs++
-			fallthrough
-
-		case 1, 2: /* incompletely recovered error ... try again */
-			Errflag = 3
-
-			/* find a state where "error" is a legal shift action */
-			for yyp >= 0 {
-				row := Test_ScenarioParseTab[yyS[yyp].yys]
-				if yyError < len(row) {
-					yyn = int(row[yyError]) + Test_ScenarioTabOfs
-					if yyn > 0 { // hit
-						if Test_ScenarioDebug >= 2 {
-							__yyfmt__.Printf("error recovery found error shift in state %d\n", yyS[yyp].yys)
-						}
-						yystate = yyn /* simulate a shift of "error" */
-						goto yystack
-					}
-				}
-
-				/* the current p has no shift on "error", pop stack */
-				if Test_ScenarioDebug >= 2 {
-					__yyfmt__.Printf("error recovery pops state %d\n", yyS[yyp].yys)
-				}
-				yyp--
-			}
-			/* there is no state on the stack with an error shift ... abort */
-			if Test_ScenarioDebug >= 2 {
-				__yyfmt__.Printf("error recovery failed\n")
-			}
-			goto ret1
-
-		case 3: /* no shift yet; clobber input char */
-			if Test_ScenarioDebug >= 2 {
-				__yyfmt__.Printf("error recovery discards %s\n", Test_ScenarioSymName(yychar))
-			}
-			if yychar == Test_ScenarioEofCode {
-				goto ret1
-			}
-
-			yychar = -1
-			goto yynewstate /* try again in the same state */
-		}
-	}
-
-	r := -yyn
-	x0 := Test_ScenarioReductions[r]
-	x, n := x0.xsym, x0.components
-	yypt := yyp
-	_ = yypt // guard against "declared and not used"
-
-	yyp -= n
-	if yyp+1 >= len(yyS) {
-		nyys := make([]Test_ScenarioSymType, len(yyS)*2)
-		copy(nyys, yyS)
-		yyS = nyys
-	}
-	yyVAL = yyS[yyp+1]
-
-	/* consult goto table to find next state */
-	exState := yystate
-	yystate = int(Test_ScenarioParseTab[yyS[yyp].yys][x]) + Test_ScenarioTabOfs
-	/* reduction by production r */
-	if Test_ScenarioDebug >= 2 {
-		__yyfmt__.Printf("reduce using rule %v (%s), and goto state %d\n", r, Test_ScenarioSymNames[x], yystate)
-	}
-
-	switch r {
-	case 1:
-		{
-			log.Infof("Assertion found!")
-			var buffer bytes.Buffer
-			buffer.WriteString(yyS[yypt-6].item.(string))
-			buffer.WriteString(" ")
-			buffer.WriteString(yyS[yypt-5].item.(string))
-			buffer.WriteString(" ")
-			buffer.WriteString(yyS[yypt-4].item.(string))
-			buffer.WriteString(" ")
-			buffer.WriteString(yyS[yypt-3].item.(string))
-			buffer.WriteString(" ")
-			buffer.WriteString(yyS[yypt-2].item.(Object).ObjectType)
-			buffer.WriteString(" ")
-			buffer.WriteString(yyS[yypt-2].item.(Object).ObjectId)
-			buffer.WriteString(" ")
-			buffer.WriteString(yyS[yypt-1].item.(string))
-			buffer.WriteString(" ")
-			buffer.WriteString(yyS[yypt-0].item.(string))
-			yyVAL.item = Assertion{FullText: buffer.String(), Label: yyS[yypt-6].item.(string), Action: yyS[yypt-4].item.(string), ObjectType: yyS[yypt-2].item.(Object).ObjectType, ObjectId: yyS[yypt-2].item.(Object).ObjectId, Param: yyS[yypt-0].item.(string)}
-		}
-	case 2:
-		{
-			log.Infof("Assertion1 empty found!")
-			yyVAL.item = ""
-		}
-	case 3:
-		{
-			log.Infof("Assertion1 found!")
-			var buffer bytes.Buffer
-			buffer.WriteString(yyS[yypt-1].item.(string))
-			buffer.WriteString(yyS[yypt-0].item.(string))
-			yyVAL.item = buffer.String()
-		}
-	case 4:
-		{
-			log.Infof("Assertion2 empty found!")
-			yyVAL.item = ""
-		}
-	case 5:
-		{
-			log.Infof("Assertion2 found!")
-			var buffer bytes.Buffer
-			buffer.WriteString(yyS[yypt-1].item.(string))
-			buffer.WriteString(yyS[yypt-0].item.(string))
-			yyVAL.item = buffer.String()
-		}
-	case 6:
-		{
-			log.Infof("Assertion3 empty found!")
-			yyVAL.item = ""
-		}
-	case 7:
-		{
-			log.Infof("Assertion3 found!")
-			var buffer bytes.Buffer
-			buffer.WriteString(yyS[yypt-1].item.(string))
-			buffer.WriteString(yyS[yypt-0].item.(string))
-			yyVAL.item = buffer.String()
-		}
-	case 8:
-		{
-			log.Infof("Assertion4 empty found!")
-			yyVAL.item = ""
-		}
-	case 9:
-		{
-			log.Infof("Assertion4 found!")
-			yyVAL.item = yyS[yypt-0].item
-		}
-	case 10:
-		{
-			log.Infof("Number_param found!")
-			var buffer bytes.Buffer
-			if yyS[yypt-2].item != nil {
-				buffer.WriteString(yyS[yypt-2].item.(string))
-			}
-
-			buffer.WriteString(strconv.Itoa(yyS[yypt-1].item.(int)))
-
-			if yyS[yypt-0].item != nil {
-				buffer.WriteString(yyS[yypt-0].item.(string))
-			}
-
-			yyVAL.item = buffer.String()
-		}
-	case 11:
-		{
-			log.Infof("Number_param1 empty found!")
-			yyVAL.item = ""
-		}
-	case 12:
-		{
-			log.Infof("Number_param1 found!")
-			yyVAL.item = yyS[yypt-0].item
-		}
-	case 13:
-		{
-			log.Infof("Number_param2 empty found!")
-			yyVAL.item = ""
-		}
-	case 14:
-		{
-			log.Infof("Number_param2 found!")
-			var buffer bytes.Buffer
-			buffer.WriteString(".")
-			buffer.WriteString(yyS[yypt-0].item.(string))
-			yyVAL.item = buffer.String()
-		}
-	case 15:
-		{
-			log.Infof("Object found!")
-			yyVAL.item = Object{ObjectType: yyS[yypt-1].item.(string), ObjectId: yyS[yypt-0].item.(string)}
-		}
-	case 16:
-		{
-			log.Infof("Text param found!")
-			yyVAL.item = yyS[yypt-0].item
-		}
-	case 17:
-		{
-			log.Infof("Number Param found!")
-			yyVAL.item = yyS[yypt-0].item
-		}
-	case 18:
-		{
-			log.Infof("Start")
-			if v, ok := Test_Scenariolex.(*BddTestLex); ok {
-				v.OnBddTest(yyS[yypt-0].item)
-			}
-		}
-	case 19:
-		{
-			yyVAL.item = append([]Assertion{yyS[yypt-1].item.(Assertion)}, yyS[yypt-0].item.([]Assertion)...)
-		}
-	case 20:
-		{
-			yyVAL.item = []Assertion(nil)
-		}
-	case 21:
-		{
-			yyVAL.item = append(yyS[yypt-1].item.([]Assertion), yyS[yypt-0].item.(Assertion))
-		}
-	case 22:
-		{
-			//fmt.Println("Test_Line new line found!")
-		}
-	case 23:
-		{
-			yyVAL.item = yyS[yypt-0].item.(Assertion)
-		}
-
-	}
-
-	if yyEx != nil && yyEx.Reduced(r, exState, &yyVAL) {
-		return -1
-	}
-	goto yystack /* stack new state and value */
-}
+//line bddLangLexer.y:262
 
 type (
 	Assertion struct {
+		LineNum    int
 		FullText   string
 		Label      string
 		Action     string
@@ -593,3 +90,624 @@ type (
 	Test_Scenario1 []Assertion
 	Test_line      Assertion
 )
+
+//line yacctab:1
+var Test_ScenarioExca = [...]int{
+	-1, 1,
+	1, -1,
+	-2, 0,
+	-1, 16,
+	7, 11,
+	-2, 8,
+}
+
+const Test_ScenarioNprod = 24
+const Test_ScenarioPrivate = 57344
+
+var Test_ScenarioTokenNames []string
+var Test_ScenarioStates []string
+
+const Test_ScenarioLast = 28
+
+var Test_ScenarioAct = [...]int{
+
+	24, 19, 21, 15, 27, 14, 10, 17, 3, 7,
+	28, 25, 11, 6, 4, 2, 9, 1, 20, 13,
+	26, 23, 22, 18, 16, 12, 8, 5,
+}
+var Test_ScenarioPact = [...]int{
+
+	8, -1000, -1000, -1000, -1000, -1000, -1000, 8, 2, -1000,
+	-1000, -1000, -5, -1000, -1000, -3, -9, -1000, -1000, -1000,
+	-1000, -1000, -1000, 4, -1000, -8, -1000, 3, -1000,
+}
+var Test_ScenarioPgo = [...]int{
+
+	0, 27, 26, 25, 24, 23, 22, 21, 20, 19,
+	18, 17, 15, 9, 8,
+}
+var Test_ScenarioR1 = [...]int{
+
+	0, 1, 2, 2, 3, 3, 4, 4, 5, 5,
+	6, 7, 7, 8, 8, 9, 10, 10, 11, 12,
+	13, 13, 14, 14,
+}
+var Test_ScenarioR2 = [...]int{
+
+	0, 7, 0, 2, 0, 2, 0, 2, 0, 1,
+	3, 0, 1, 0, 2, 2, 1, 1, 1, 2,
+	0, 2, 1, 1,
+}
+var Test_ScenarioChk = [...]int{
+
+	-1000, -11, -12, -14, 6, -1, 5, -13, -2, -14,
+	4, 10, -3, -9, 10, 8, -4, 10, -5, 10,
+	-10, 11, -6, -7, 9, 7, -8, 12, 7,
+}
+var Test_ScenarioDef = [...]int{
+
+	0, -2, 18, 20, 22, 23, 2, 19, 0, 21,
+	4, 3, 0, 6, 5, 0, -2, 15, 1, 7,
+	9, 16, 17, 0, 12, 13, 10, 0, 14,
+}
+var Test_ScenarioTok1 = [...]int{
+
+	1, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 12,
+}
+var Test_ScenarioTok2 = [...]int{
+
+	2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
+}
+var Test_ScenarioTok3 = [...]int{
+	0,
+}
+
+var Test_ScenarioErrorMessages = [...]struct {
+	state int
+	token int
+	msg   string
+}{}
+
+//line yaccpar:1
+
+/*	parser for yacc output	*/
+
+var (
+	Test_ScenarioDebug        = 0
+	Test_ScenarioErrorVerbose = false
+)
+
+type Test_ScenarioLexer interface {
+	Lex(lval *Test_ScenarioSymType) int
+	Error(s string)
+}
+
+type Test_ScenarioParser interface {
+	Parse(Test_ScenarioLexer) int
+	Lookahead() int
+}
+
+type Test_ScenarioParserImpl struct {
+	lval  Test_ScenarioSymType
+	stack [Test_ScenarioInitialStackSize]Test_ScenarioSymType
+	char  int
+}
+
+func (p *Test_ScenarioParserImpl) Lookahead() int {
+	return p.char
+}
+
+func Test_ScenarioNewParser() Test_ScenarioParser {
+	return &Test_ScenarioParserImpl{}
+}
+
+const Test_ScenarioFlag = -1000
+
+func Test_ScenarioTokname(c int) string {
+	if c >= 1 && c-1 < len(Test_ScenarioToknames) {
+		if Test_ScenarioToknames[c-1] != "" {
+			return Test_ScenarioToknames[c-1]
+		}
+	}
+	return __yyfmt__.Sprintf("tok-%v", c)
+}
+
+func Test_ScenarioStatname(s int) string {
+	if s >= 0 && s < len(Test_ScenarioStatenames) {
+		if Test_ScenarioStatenames[s] != "" {
+			return Test_ScenarioStatenames[s]
+		}
+	}
+	return __yyfmt__.Sprintf("state-%v", s)
+}
+
+func Test_ScenarioErrorMessage(state, lookAhead int) string {
+	const TOKSTART = 4
+
+	if !Test_ScenarioErrorVerbose {
+		return "syntax error"
+	}
+
+	for _, e := range Test_ScenarioErrorMessages {
+		if e.state == state && e.token == lookAhead {
+			return "syntax error: " + e.msg
+		}
+	}
+
+	res := "syntax error: unexpected " + Test_ScenarioTokname(lookAhead)
+
+	// To match Bison, suggest at most four expected tokens.
+	expected := make([]int, 0, 4)
+
+	// Look for shiftable tokens.
+	base := Test_ScenarioPact[state]
+	for tok := TOKSTART; tok-1 < len(Test_ScenarioToknames); tok++ {
+		if n := base + tok; n >= 0 && n < Test_ScenarioLast && Test_ScenarioChk[Test_ScenarioAct[n]] == tok {
+			if len(expected) == cap(expected) {
+				return res
+			}
+			expected = append(expected, tok)
+		}
+	}
+
+	if Test_ScenarioDef[state] == -2 {
+		i := 0
+		for Test_ScenarioExca[i] != -1 || Test_ScenarioExca[i+1] != state {
+			i += 2
+		}
+
+		// Look for tokens that we accept or reduce.
+		for i += 2; Test_ScenarioExca[i] >= 0; i += 2 {
+			tok := Test_ScenarioExca[i]
+			if tok < TOKSTART || Test_ScenarioExca[i+1] == 0 {
+				continue
+			}
+			if len(expected) == cap(expected) {
+				return res
+			}
+			expected = append(expected, tok)
+		}
+
+		// If the default action is to accept or reduce, give up.
+		if Test_ScenarioExca[i+1] != 0 {
+			return res
+		}
+	}
+
+	for i, tok := range expected {
+		if i == 0 {
+			res += ", expecting "
+		} else {
+			res += " or "
+		}
+		res += Test_ScenarioTokname(tok)
+	}
+	return res
+}
+
+func Test_Scenariolex1(lex Test_ScenarioLexer, lval *Test_ScenarioSymType) (char, token int) {
+	token = 0
+	char = lex.Lex(lval)
+	if char <= 0 {
+		token = Test_ScenarioTok1[0]
+		goto out
+	}
+	if char < len(Test_ScenarioTok1) {
+		token = Test_ScenarioTok1[char]
+		goto out
+	}
+	if char >= Test_ScenarioPrivate {
+		if char < Test_ScenarioPrivate+len(Test_ScenarioTok2) {
+			token = Test_ScenarioTok2[char-Test_ScenarioPrivate]
+			goto out
+		}
+	}
+	for i := 0; i < len(Test_ScenarioTok3); i += 2 {
+		token = Test_ScenarioTok3[i+0]
+		if token == char {
+			token = Test_ScenarioTok3[i+1]
+			goto out
+		}
+	}
+
+out:
+	if token == 0 {
+		token = Test_ScenarioTok2[1] /* unknown char */
+	}
+	if Test_ScenarioDebug >= 3 {
+		__yyfmt__.Printf("lex %s(%d)\n", Test_ScenarioTokname(token), uint(char))
+	}
+	return char, token
+}
+
+func Test_ScenarioParse(Test_Scenariolex Test_ScenarioLexer) int {
+	return Test_ScenarioNewParser().Parse(Test_Scenariolex)
+}
+
+func (Test_Scenariorcvr *Test_ScenarioParserImpl) Parse(Test_Scenariolex Test_ScenarioLexer) int {
+	var Test_Scenarion int
+	var Test_ScenarioVAL Test_ScenarioSymType
+	var Test_ScenarioDollar []Test_ScenarioSymType
+	_ = Test_ScenarioDollar // silence set and not used
+	Test_ScenarioS := Test_Scenariorcvr.stack[:]
+
+	Nerrs := 0   /* number of errors */
+	Errflag := 0 /* error recovery flag */
+	Test_Scenariostate := 0
+	Test_Scenariorcvr.char = -1
+	Test_Scenariotoken := -1 // Test_Scenariorcvr.char translated into internal numbering
+	defer func() {
+		// Make sure we report no lookahead when not parsing.
+		Test_Scenariostate = -1
+		Test_Scenariorcvr.char = -1
+		Test_Scenariotoken = -1
+	}()
+	Test_Scenariop := -1
+	goto Test_Scenariostack
+
+ret0:
+	return 0
+
+ret1:
+	return 1
+
+Test_Scenariostack:
+	/* put a state and value onto the stack */
+	if Test_ScenarioDebug >= 4 {
+		__yyfmt__.Printf("char %v in %v\n", Test_ScenarioTokname(Test_Scenariotoken), Test_ScenarioStatname(Test_Scenariostate))
+	}
+
+	Test_Scenariop++
+	if Test_Scenariop >= len(Test_ScenarioS) {
+		nyys := make([]Test_ScenarioSymType, len(Test_ScenarioS)*2)
+		copy(nyys, Test_ScenarioS)
+		Test_ScenarioS = nyys
+	}
+	Test_ScenarioS[Test_Scenariop] = Test_ScenarioVAL
+	Test_ScenarioS[Test_Scenariop].yys = Test_Scenariostate
+
+Test_Scenarionewstate:
+	Test_Scenarion = Test_ScenarioPact[Test_Scenariostate]
+	if Test_Scenarion <= Test_ScenarioFlag {
+		goto Test_Scenariodefault /* simple state */
+	}
+	if Test_Scenariorcvr.char < 0 {
+		Test_Scenariorcvr.char, Test_Scenariotoken = Test_Scenariolex1(Test_Scenariolex, &Test_Scenariorcvr.lval)
+	}
+	Test_Scenarion += Test_Scenariotoken
+	if Test_Scenarion < 0 || Test_Scenarion >= Test_ScenarioLast {
+		goto Test_Scenariodefault
+	}
+	Test_Scenarion = Test_ScenarioAct[Test_Scenarion]
+	if Test_ScenarioChk[Test_Scenarion] == Test_Scenariotoken { /* valid shift */
+		Test_Scenariorcvr.char = -1
+		Test_Scenariotoken = -1
+		Test_ScenarioVAL = Test_Scenariorcvr.lval
+		Test_Scenariostate = Test_Scenarion
+		if Errflag > 0 {
+			Errflag--
+		}
+		goto Test_Scenariostack
+	}
+
+Test_Scenariodefault:
+	/* default state action */
+	Test_Scenarion = Test_ScenarioDef[Test_Scenariostate]
+	if Test_Scenarion == -2 {
+		if Test_Scenariorcvr.char < 0 {
+			Test_Scenariorcvr.char, Test_Scenariotoken = Test_Scenariolex1(Test_Scenariolex, &Test_Scenariorcvr.lval)
+		}
+
+		/* look through exception table */
+		xi := 0
+		for {
+			if Test_ScenarioExca[xi+0] == -1 && Test_ScenarioExca[xi+1] == Test_Scenariostate {
+				break
+			}
+			xi += 2
+		}
+		for xi += 2; ; xi += 2 {
+			Test_Scenarion = Test_ScenarioExca[xi+0]
+			if Test_Scenarion < 0 || Test_Scenarion == Test_Scenariotoken {
+				break
+			}
+		}
+		Test_Scenarion = Test_ScenarioExca[xi+1]
+		if Test_Scenarion < 0 {
+			goto ret0
+		}
+	}
+	if Test_Scenarion == 0 {
+		/* error ... attempt to resume parsing */
+		switch Errflag {
+		case 0: /* brand new error */
+			Test_Scenariolex.Error(Test_ScenarioErrorMessage(Test_Scenariostate, Test_Scenariotoken))
+			Nerrs++
+			if Test_ScenarioDebug >= 1 {
+				__yyfmt__.Printf("%s", Test_ScenarioStatname(Test_Scenariostate))
+				__yyfmt__.Printf(" saw %s\n", Test_ScenarioTokname(Test_Scenariotoken))
+			}
+			fallthrough
+
+		case 1, 2: /* incompletely recovered error ... try again */
+			Errflag = 3
+
+			/* find a state where "error" is a legal shift action */
+			for Test_Scenariop >= 0 {
+				Test_Scenarion = Test_ScenarioPact[Test_ScenarioS[Test_Scenariop].yys] + Test_ScenarioErrCode
+				if Test_Scenarion >= 0 && Test_Scenarion < Test_ScenarioLast {
+					Test_Scenariostate = Test_ScenarioAct[Test_Scenarion] /* simulate a shift of "error" */
+					if Test_ScenarioChk[Test_Scenariostate] == Test_ScenarioErrCode {
+						goto Test_Scenariostack
+					}
+				}
+
+				/* the current p has no shift on "error", pop stack */
+				if Test_ScenarioDebug >= 2 {
+					__yyfmt__.Printf("error recovery pops state %d\n", Test_ScenarioS[Test_Scenariop].yys)
+				}
+				Test_Scenariop--
+			}
+			/* there is no state on the stack with an error shift ... abort */
+			goto ret1
+
+		case 3: /* no shift yet; clobber input char */
+			if Test_ScenarioDebug >= 2 {
+				__yyfmt__.Printf("error recovery discards %s\n", Test_ScenarioTokname(Test_Scenariotoken))
+			}
+			if Test_Scenariotoken == Test_ScenarioEofCode {
+				goto ret1
+			}
+			Test_Scenariorcvr.char = -1
+			Test_Scenariotoken = -1
+			goto Test_Scenarionewstate /* try again in the same state */
+		}
+	}
+
+	/* reduction by production Test_Scenarion */
+	if Test_ScenarioDebug >= 2 {
+		__yyfmt__.Printf("reduce %v in:\n\t%v\n", Test_Scenarion, Test_ScenarioStatname(Test_Scenariostate))
+	}
+
+	Test_Scenariont := Test_Scenarion
+	Test_Scenariopt := Test_Scenariop
+	_ = Test_Scenariopt // guard against "declared and not used"
+
+	Test_Scenariop -= Test_ScenarioR2[Test_Scenarion]
+	// Test_Scenariop is now the index of $0. Perform the default action. Iff the
+	// reduced production is ε, $1 is possibly out of range.
+	if Test_Scenariop+1 >= len(Test_ScenarioS) {
+		nyys := make([]Test_ScenarioSymType, len(Test_ScenarioS)*2)
+		copy(nyys, Test_ScenarioS)
+		Test_ScenarioS = nyys
+	}
+	Test_ScenarioVAL = Test_ScenarioS[Test_Scenariop+1]
+
+	/* consult goto table to find next state */
+	Test_Scenarion = Test_ScenarioR1[Test_Scenarion]
+	Test_Scenariog := Test_ScenarioPgo[Test_Scenarion]
+	Test_Scenarioj := Test_Scenariog + Test_ScenarioS[Test_Scenariop].yys + 1
+
+	if Test_Scenarioj >= Test_ScenarioLast {
+		Test_Scenariostate = Test_ScenarioAct[Test_Scenariog]
+	} else {
+		Test_Scenariostate = Test_ScenarioAct[Test_Scenarioj]
+		if Test_ScenarioChk[Test_Scenariostate] != -Test_Scenarion {
+			Test_Scenariostate = Test_ScenarioAct[Test_Scenariog]
+		}
+	}
+	// dummy call; replaced with literal code
+	switch Test_Scenariont {
+
+	case 1:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-7 : Test_Scenariopt+1]
+		//line bddLangLexer.y:77
+		{
+			log.Infof("Assertion found!")
+			var buffer bytes.Buffer
+			buffer.WriteString(Test_ScenarioDollar[1].item.(string))
+			buffer.WriteString(" ")
+			buffer.WriteString(Test_ScenarioDollar[2].item.(string))
+			buffer.WriteString(" ")
+			buffer.WriteString(Test_ScenarioDollar[3].item.(string))
+			buffer.WriteString(" ")
+			buffer.WriteString(Test_ScenarioDollar[4].item.(string))
+			buffer.WriteString(" ")
+			buffer.WriteString(Test_ScenarioDollar[5].item.(Object).ObjectType)
+			buffer.WriteString(" ")
+			buffer.WriteString(Test_ScenarioDollar[5].item.(Object).ObjectId)
+			buffer.WriteString(" ")
+			buffer.WriteString(Test_ScenarioDollar[6].item.(string))
+			buffer.WriteString(" ")
+			buffer.WriteString(Test_ScenarioDollar[7].item.(string))
+			Test_ScenarioVAL.item = Assertion{FullText: buffer.String(), Label: Test_ScenarioDollar[1].item.(string), Action: Test_ScenarioDollar[3].item.(string), ObjectType: Test_ScenarioDollar[5].item.(Object).ObjectType, ObjectId: Test_ScenarioDollar[5].item.(Object).ObjectId, Param: Test_ScenarioDollar[7].item.(string)}
+		}
+	case 2:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
+		//line bddLangLexer.y:100
+		{
+			log.Infof("Assertion1 empty found!")
+			Test_ScenarioVAL.item = ""
+		}
+	case 3:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
+		//line bddLangLexer.y:105
+		{
+			log.Infof("Assertion1 found!")
+			var buffer bytes.Buffer
+			buffer.WriteString(Test_ScenarioDollar[1].item.(string))
+			buffer.WriteString(Test_ScenarioDollar[2].item.(string))
+			Test_ScenarioVAL.item = buffer.String()
+		}
+	case 4:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
+		//line bddLangLexer.y:115
+		{
+			log.Infof("Assertion2 empty found!")
+			Test_ScenarioVAL.item = ""
+		}
+	case 5:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
+		//line bddLangLexer.y:120
+		{
+			log.Infof("Assertion2 found!")
+			var buffer bytes.Buffer
+			buffer.WriteString(Test_ScenarioDollar[1].item.(string))
+			buffer.WriteString(Test_ScenarioDollar[2].item.(string))
+			Test_ScenarioVAL.item = buffer.String()
+		}
+	case 6:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
+		//line bddLangLexer.y:130
+		{
+			log.Infof("Assertion3 empty found!")
+			Test_ScenarioVAL.item = ""
+		}
+	case 7:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
+		//line bddLangLexer.y:135
+		{
+			log.Infof("Assertion3 found!")
+			var buffer bytes.Buffer
+			buffer.WriteString(Test_ScenarioDollar[1].item.(string))
+			buffer.WriteString(Test_ScenarioDollar[2].item.(string))
+			Test_ScenarioVAL.item = buffer.String()
+		}
+	case 8:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
+		//line bddLangLexer.y:145
+		{
+			log.Infof("Assertion4 empty found!")
+			Test_ScenarioVAL.item = ""
+		}
+	case 9:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
+		//line bddLangLexer.y:150
+		{
+			log.Infof("Assertion4 found!")
+			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
+		}
+	case 10:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-3 : Test_Scenariopt+1]
+		//line bddLangLexer.y:157
+		{
+			log.Infof("Number_param found!")
+			var buffer bytes.Buffer
+			if Test_ScenarioDollar[1].item != nil {
+				buffer.WriteString(Test_ScenarioDollar[1].item.(string))
+			}
+
+			buffer.WriteString(strconv.Itoa(Test_ScenarioDollar[2].item.(int)))
+
+			if Test_ScenarioDollar[3].item != nil {
+				buffer.WriteString(Test_ScenarioDollar[3].item.(string))
+			}
+
+			Test_ScenarioVAL.item = buffer.String()
+		}
+	case 11:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
+		//line bddLangLexer.y:175
+		{
+			log.Infof("Number_param1 empty found!")
+			Test_ScenarioVAL.item = ""
+		}
+	case 12:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
+		//line bddLangLexer.y:180
+		{
+			log.Infof("Number_param1 found!")
+			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
+		}
+	case 13:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
+		//line bddLangLexer.y:187
+		{
+			log.Infof("Number_param2 empty found!")
+			Test_ScenarioVAL.item = ""
+		}
+	case 14:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
+		//line bddLangLexer.y:192
+		{
+			log.Infof("Number_param2 found!")
+			var buffer bytes.Buffer
+			buffer.WriteString(".")
+			buffer.WriteString(Test_ScenarioDollar[2].item.(string))
+			Test_ScenarioVAL.item = buffer.String()
+		}
+	case 15:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
+		//line bddLangLexer.y:202
+		{
+			log.Infof("Object found!")
+			Test_ScenarioVAL.item = Object{ObjectType: Test_ScenarioDollar[1].item.(string), ObjectId: Test_ScenarioDollar[2].item.(string)}
+		}
+	case 16:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
+		//line bddLangLexer.y:209
+		{
+			log.Infof("Text param found!")
+			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
+		}
+	case 17:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
+		//line bddLangLexer.y:214
+		{
+			log.Infof("Number Param found!")
+			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item
+		}
+	case 18:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
+		//line bddLangLexer.y:221
+		{
+			log.Infof("Start")
+			if v, ok := Test_Scenariolex.(*BddTestLex); ok {
+				v.OnBddTest(Test_ScenarioDollar[1].item)
+			}
+		}
+	case 19:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
+		//line bddLangLexer.y:230
+		{
+			lineNum := 1
+			assertion := Test_ScenarioDollar[1].item.(Assertion)
+			assertion.LineNum = lineNum
+			log.Errorf("Line Num %d", assertion.LineNum)
+			Test_ScenarioVAL.item = append([]Assertion{assertion}, Test_ScenarioDollar[2].item.([]Assertion)...)
+		}
+	case 20:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
+		//line bddLangLexer.y:240
+		{
+			Test_ScenarioVAL.item = []Assertion(nil)
+		}
+	case 21:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
+		//line bddLangLexer.y:244
+		{
+			lineNum := (len(Test_ScenarioDollar[1].item.([]Assertion)) + 2)
+			assertion := Test_ScenarioDollar[2].item.(Assertion)
+			assertion.LineNum = lineNum
+			log.Errorf("Line Num %d", assertion.LineNum)
+			Test_ScenarioVAL.item = append(Test_ScenarioDollar[1].item.([]Assertion), assertion)
+		}
+	case 22:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
+		//line bddLangLexer.y:254
+		{
+			//fmt.Println("Test_Line new line found!")
+		}
+	case 23:
+		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
+		//line bddLangLexer.y:258
+		{
+			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item.(Assertion)
+		}
+	}
+	goto Test_Scenariostack /* stack new state and value */
+}

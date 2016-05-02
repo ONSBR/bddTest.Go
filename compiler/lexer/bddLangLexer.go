@@ -61,10 +61,11 @@ const Test_ScenarioEofCode = 1
 const Test_ScenarioErrCode = 2
 const Test_ScenarioInitialStackSize = 16
 
-//line bddLangLexer.y:254
+//line bddLangLexer.y:262
 
 type (
 	Assertion struct {
+		LineNum    int
 		FullText   string
 		Label      string
 		Action     string
@@ -673,29 +674,37 @@ Test_Scenariodefault:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
 		//line bddLangLexer.y:230
 		{
-			Test_ScenarioVAL.item = append([]Assertion{Test_ScenarioDollar[1].item.(Assertion)}, Test_ScenarioDollar[2].item.([]Assertion)...)
+			lineNum := 1
+			assertion := Test_ScenarioDollar[1].item.(Assertion)
+			assertion.LineNum = lineNum
+			log.Infof("Line Num %d", assertion.LineNum)
+			Test_ScenarioVAL.item = append([]Assertion{assertion}, Test_ScenarioDollar[2].item.([]Assertion)...)
 		}
 	case 20:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-0 : Test_Scenariopt+1]
-		//line bddLangLexer.y:236
+		//line bddLangLexer.y:240
 		{
 			Test_ScenarioVAL.item = []Assertion(nil)
 		}
 	case 21:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
-		//line bddLangLexer.y:240
+		//line bddLangLexer.y:244
 		{
-			Test_ScenarioVAL.item = append(Test_ScenarioDollar[1].item.([]Assertion), Test_ScenarioDollar[2].item.(Assertion))
+			lineNum := (len(Test_ScenarioDollar[1].item.([]Assertion)) + 2)
+			assertion := Test_ScenarioDollar[2].item.(Assertion)
+			assertion.LineNum = lineNum
+			log.Infof("Line Num %d", assertion.LineNum)
+			Test_ScenarioVAL.item = append(Test_ScenarioDollar[1].item.([]Assertion), assertion)
 		}
 	case 22:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:246
+		//line bddLangLexer.y:254
 		{
 			//fmt.Println("Test_Line new line found!")
 		}
 	case 23:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:250
+		//line bddLangLexer.y:258
 		{
 			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item.(Assertion)
 		}
