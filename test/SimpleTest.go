@@ -41,13 +41,15 @@ func main() {
 	var token string
 //	var ok bool
 	
-	token = "quando eu clico no botao teste com o valor \"clovis\"\nquando eu preencho o campo teste1 com o valor \"clovis\""
+	token = "quando eu clico no botao teste com o valor clovis\nquando eu preencho o campo teste1 com o valor \"clovis\"\nquando eu seleciono a lista teste2 com a opcao \"eu\""
 	
 	log.Infof("Line %s",token)
 	ret := compiler.ParseBddTest(strings.TrimSpace(token),func(res compiler.ParsedTest) {
 			log.Infof("Lines: %d", res.NumLines)
+			log.Errorf("Error: %s",res.Error)
 			for idx, line := range res.Lines {
-				log.Infof("Line: %d", idx)
+				_ = idx
+				log.Infof("Line: %d", line.LineNum)
 				log.Infof("%s Object: %s<%s>.%s(%s)\n",line.Label, line.ObjectId, line.ObjectType, line.Action, line.Param)
 			}
 		})
