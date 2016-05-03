@@ -41,7 +41,7 @@ func main() {
 	var token string
 //	var ok bool
 	
-	token = "quando eu clico no botao teste com o valor clovis\nquando eu preencho o campo teste1 com o valor \"clovis\"\nquando eu seleciono a lista teste2 com a opcao \"eu\""
+	token = "quando eu clico no botao teste com o valor \"clovis1\"\nquando eu preencho o campo teste1 com o valor \"clovis2\"\nquando eu seleciono a lista teste2 com a opcao \"clovis3\""
 	
 	log.Infof("Line %s",token)
 	ret := compiler.ParseBddTest(strings.TrimSpace(token),func(res compiler.ParsedTest) {

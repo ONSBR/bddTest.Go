@@ -242,17 +242,22 @@ Test_Scenario1:
 	}
 |	Test_Scenario1 Test_line
 	{
-		lineNum := (len($1.([]Assertion)) + 2)
-		assertion := $2.(Assertion)
-		assertion.LineNum = lineNum
-		log.Infof("Line Num %d", assertion.LineNum)
-		$$ = append($1.([]Assertion),assertion)
+		if nil != $2 {
+			lineNum := (len($1.([]Assertion)) + 2)
+			assertion := $2.(Assertion)
+			assertion.LineNum = lineNum
+			log.Infof("Line Num %d", assertion.LineNum)
+			$$ = append($1.([]Assertion),assertion)
+		} else {
+			$$ = $1.([]Assertion)
+		}
 	}
 
 Test_line:
 	NEW_LINE
 	{
-		//fmt.Println("Test_Line new line found!")
+		log.Infof("New line")
+		$$ = nil
 	}
 |	Assertion
 	{

@@ -61,7 +61,7 @@ const Test_ScenarioEofCode = 1
 const Test_ScenarioErrCode = 2
 const Test_ScenarioInitialStackSize = 16
 
-//line bddLangLexer.y:262
+//line bddLangLexer.y:267
 
 type (
 	Assertion struct {
@@ -690,21 +690,26 @@ Test_Scenariodefault:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-2 : Test_Scenariopt+1]
 		//line bddLangLexer.y:244
 		{
-			lineNum := (len(Test_ScenarioDollar[1].item.([]Assertion)) + 2)
-			assertion := Test_ScenarioDollar[2].item.(Assertion)
-			assertion.LineNum = lineNum
-			log.Infof("Line Num %d", assertion.LineNum)
-			Test_ScenarioVAL.item = append(Test_ScenarioDollar[1].item.([]Assertion), assertion)
+			if nil != Test_ScenarioDollar[2].item {
+				lineNum := (len(Test_ScenarioDollar[1].item.([]Assertion)) + 2)
+				assertion := Test_ScenarioDollar[2].item.(Assertion)
+				assertion.LineNum = lineNum
+				log.Infof("Line Num %d", assertion.LineNum)
+				Test_ScenarioVAL.item = append(Test_ScenarioDollar[1].item.([]Assertion), assertion)
+			} else {
+				Test_ScenarioVAL.item = Test_ScenarioDollar[1].item.([]Assertion)
+			}
 		}
 	case 22:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:254
+		//line bddLangLexer.y:258
 		{
-			//fmt.Println("Test_Line new line found!")
+			log.Infof("New line")
+			Test_ScenarioVAL.item = nil
 		}
 	case 23:
 		Test_ScenarioDollar = Test_ScenarioS[Test_Scenariopt-1 : Test_Scenariopt+1]
-		//line bddLangLexer.y:258
+		//line bddLangLexer.y:263
 		{
 			Test_ScenarioVAL.item = Test_ScenarioDollar[1].item.(Assertion)
 		}

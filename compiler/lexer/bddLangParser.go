@@ -572,7 +572,8 @@ yystate49:
 yyrule1: // [\n]+
 	{
 		logP.Infof("returning newline")
-		this.newLine() //; return NEW_LINE
+		this.newLine()
+		return NEW_LINE
 		goto yystate0
 	}
 yyrule2: // {D}+

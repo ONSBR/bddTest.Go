@@ -35,13 +35,13 @@ state 3
 state 4
 	Test_line:  NEW_LINE.    (22)
 
-	.  reduce 22 (src line 252)
+	.  reduce 22 (src line 256)
 
 
 state 5
 	Test_line:  Assertion.    (23)
 
-	.  reduce 23 (src line 257)
+	.  reduce 23 (src line 262)
 
 
 state 6
