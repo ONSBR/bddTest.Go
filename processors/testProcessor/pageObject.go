@@ -15,7 +15,7 @@ type PageObject struct {
 }
 
 /*
-Creates a new instance of PageObject
+NewPageObject creates a new instance of PageObject
 */
 func NewPageObject(uri string) *PageObject {
 	p := &PageObject{Uri: uri}
@@ -31,7 +31,7 @@ func NewPageObject(uri string) *PageObject {
 }
 
 /*
-Navigate to the web page object.
+Open navigates to the web page object.
 */
 func (p *PageObject) Open() {
 	var err error
@@ -39,29 +39,4 @@ func (p *PageObject) Open() {
 	if err = p.driver.Get(p.Uri); err != nil {
 		fmt.Printf("Failed to load page: %s\n", err)
 	}
-}
-
-/*
-
- */
-type PageElement struct {
-	Page        PageObject
-	Locator     string
-	ElementType string
-	ElementId   string
-}
-
-/*
-Creates a new instance of PageElement
-*/
-func NewPageElement(page *PageObject, locator string, elementType string, elementId string) *PageElement {
-	pageElement := &PageElement{
-		Page:        *page,
-		Locator:     locator,
-		ElementType: elementType,
-		ElementId:   elementId,
-	}
-
-	page.Elements = append(page.Elements, *pageElement)
-	return pageElement
 }
