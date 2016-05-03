@@ -2,14 +2,12 @@
 state 0
 	$accept: .Start $end 
 
-	LABEL  shift 6
-	NEW_LINE  shift 4
+	FEATURE_LABEL  shift 4
 	.  error
 
-	Assertion  goto 5
+	Feature  goto 2
+	Feature_block  goto 3
 	Start  goto 1
-	Test_Scenario  goto 2
-	Test_line  goto 3
 
 state 1
 	$accept:  Start.$end 
@@ -19,213 +17,331 @@ state 1
 
 
 state 2
-	Start:  Test_Scenario.    (18)
+	Start:  Feature.    (28)
 
-	.  reduce 18 (src line 219)
+	.  reduce 28 (src line 334)
 
 
 state 3
-	Test_Scenario:  Test_line.Test_Scenario1 
-	Test_Scenario1: .    (20)
+	Feature:  Feature_block.Feature1 
+	Feature1: .    (11)
 
-	.  reduce 20 (src line 238)
+	.  reduce 11 (src line 184)
 
-	Test_Scenario1  goto 7
+	Feature1  goto 5
 
 state 4
-	Test_line:  NEW_LINE.    (22)
+	Feature_block:  FEATURE_LABEL.Feature_block1 
+	Feature_block1: .    (14)
 
-	.  reduce 22 (src line 256)
+	.  reduce 14 (src line 217)
 
+	Feature_block1  goto 6
 
 state 5
-	Test_line:  Assertion.    (23)
+	Feature:  Feature_block Feature1.    (10)
+	Feature1:  Feature1.Scenario 
 
-	.  reduce 23 (src line 262)
+	SCENARIO_LABEL  shift 9
+	.  reduce 10 (src line 175)
 
+	Scenario  goto 7
+	Scenario_line  goto 8
 
 state 6
-	Assertion:  LABEL.Assertion1 ACTION Assertion2 Object Assertion3 Assertion4 
-	Assertion1: .    (2)
+	Feature_block:  FEATURE_LABEL Feature_block1.    (13)
+	Feature_block1:  Feature_block1.Text_line 
+	Text_line1: .    (36)
 
-	.  reduce 2 (src line 98)
+	NEW_LINE  reduce 36 (src line 408)
+	TEXT  reduce 36 (src line 408)
+	.  reduce 13 (src line 199)
 
-	Assertion1  goto 8
+	Text_line  goto 10
+	Text_line1  goto 11
 
 state 7
-	Test_Scenario:  Test_line Test_Scenario1.    (19)
-	Test_Scenario1:  Test_Scenario1.Test_line 
+	Feature1:  Feature1 Scenario.    (12)
 
-	LABEL  shift 6
-	NEW_LINE  shift 4
-	.  reduce 19 (src line 228)
+	.  reduce 12 (src line 189)
 
-	Assertion  goto 5
-	Test_line  goto 9
 
 state 8
-	Assertion:  LABEL Assertion1.ACTION Assertion2 Object Assertion3 Assertion4 
-	Assertion1:  Assertion1.TEXT 
+	Scenario:  Scenario_line.Scenario1 
+	Scenario1: .    (25)
 
-	ACTION  shift 10
-	TEXT  shift 11
-	.  error
+	LABEL  shift 16
+	.  reduce 25 (src line 311)
 
+	Assertion  goto 15
+	Scenario1  goto 12
+	Test_block  goto 13
+	Test_line  goto 14
 
 state 9
-	Test_Scenario1:  Test_Scenario1 Test_line.    (21)
+	Scenario_line:  SCENARIO_LABEL.Text_line 
+	Text_line1: .    (36)
 
-	.  reduce 21 (src line 243)
+	.  reduce 36 (src line 408)
 
+	Text_line  goto 17
+	Text_line1  goto 11
 
 state 10
-	Assertion:  LABEL Assertion1 ACTION.Assertion2 Object Assertion3 Assertion4 
-	Assertion2: .    (4)
+	Feature_block1:  Feature_block1 Text_line.    (15)
 
-	.  reduce 4 (src line 113)
+	.  reduce 15 (src line 222)
 
-	Assertion2  goto 12
 
 state 11
-	Assertion1:  Assertion1 TEXT.    (3)
+	Text_line:  Text_line1.NEW_LINE 
+	Text_line1:  Text_line1.TEXT 
 
-	.  reduce 3 (src line 104)
+	NEW_LINE  shift 18
+	TEXT  shift 19
+	.  error
 
 
 state 12
-	Assertion:  LABEL Assertion1 ACTION Assertion2.Object Assertion3 Assertion4 
-	Assertion2:  Assertion2.TEXT 
+	Scenario:  Scenario_line Scenario1.    (24)
 
-	OBJECT_TYPE  shift 15
-	TEXT  shift 14
-	.  error
+	.  reduce 24 (src line 298)
 
-	Object  goto 13
 
 state 13
-	Assertion:  LABEL Assertion1 ACTION Assertion2 Object.Assertion3 Assertion4 
-	Assertion3: .    (6)
+	Scenario1:  Test_block.    (26)
 
-	.  reduce 6 (src line 128)
+	.  reduce 26 (src line 316)
 
-	Assertion3  goto 16
 
 state 14
-	Assertion2:  Assertion2 TEXT.    (5)
+	Test_block:  Test_line.Test_block1 
+	Test_block1: .    (30)
 
-	.  reduce 5 (src line 119)
+	.  reduce 30 (src line 358)
 
+	Test_block1  goto 20
 
 state 15
-	Object:  OBJECT_TYPE.TEXT 
+	Test_line:  Assertion.Test_line1 
+	Test_line1: .    (33)
 
-	TEXT  shift 17
-	.  error
+	NEW_LINE  shift 22
+	.  reduce 33 (src line 387)
 
+	Test_line1  goto 21
 
 state 16
-	Assertion:  LABEL Assertion1 ACTION Assertion2 Object Assertion3.Assertion4 
-	Assertion3:  Assertion3.TEXT 
-	Assertion4: .    (8)
-	Number_param1: .    (11)
+	Assertion:  LABEL.Assertion1 ACTION Assertion2 Object Assertion3 Assertion4 
+	Assertion1: .    (2)
 
-	NUMBER  reduce 11 (src line 173)
-	SIGN  shift 24
-	TEXT  shift 19
-	TEXT_PARAM  shift 21
-	.  reduce 8 (src line 143)
+	.  reduce 2 (src line 109)
 
-	Assertion4  goto 18
-	Number_param  goto 22
-	Number_param1  goto 23
-	Param  goto 20
+	Assertion1  goto 23
 
 state 17
-	Object:  OBJECT_TYPE TEXT.    (15)
+	Scenario_line:  SCENARIO_LABEL Text_line.    (27)
 
-	.  reduce 15 (src line 200)
+	.  reduce 27 (src line 322)
 
 
 state 18
-	Assertion:  LABEL Assertion1 ACTION Assertion2 Object Assertion3 Assertion4.    (1)
+	Text_line:  Text_line1 NEW_LINE.    (35)
 
-	.  reduce 1 (src line 75)
+	.  reduce 35 (src line 398)
 
 
 state 19
-	Assertion3:  Assertion3 TEXT.    (7)
+	Text_line1:  Text_line1 TEXT.    (37)
 
-	.  reduce 7 (src line 134)
+	.  reduce 37 (src line 413)
 
 
 state 20
-	Assertion4:  Param.    (9)
+	Test_block:  Test_line Test_block1.    (29)
+	Test_block1:  Test_block1.Test_line 
 
-	.  reduce 9 (src line 149)
+	LABEL  shift 16
+	.  reduce 29 (src line 344)
 
+	Assertion  goto 15
+	Test_line  goto 24
 
 state 21
-	Param:  TEXT_PARAM.    (16)
+	Test_line:  Assertion Test_line1.    (32)
 
-	.  reduce 16 (src line 207)
+	.  reduce 32 (src line 380)
 
 
 state 22
-	Param:  Number_param.    (17)
+	Test_line1:  NEW_LINE.    (34)
 
-	.  reduce 17 (src line 213)
+	.  reduce 34 (src line 392)
 
 
 state 23
-	Number_param:  Number_param1.NUMBER Number_param2 
+	Assertion:  LABEL Assertion1.ACTION Assertion2 Object Assertion3 Assertion4 
+	Assertion1:  Assertion1.TEXT 
 
-	NUMBER  shift 25
+	ACTION  shift 25
+	TEXT  shift 26
 	.  error
 
 
 state 24
-	Number_param1:  SIGN.    (12)
+	Test_block1:  Test_block1 Test_line.    (31)
 
-	.  reduce 12 (src line 179)
+	.  reduce 31 (src line 363)
 
 
 state 25
-	Number_param:  Number_param1 NUMBER.Number_param2 
-	Number_param2: .    (13)
+	Assertion:  LABEL Assertion1 ACTION.Assertion2 Object Assertion3 Assertion4 
+	Assertion2: .    (4)
 
-	'.'  shift 27
-	.  reduce 13 (src line 185)
+	.  reduce 4 (src line 127)
 
-	Number_param2  goto 26
+	Assertion2  goto 27
 
 state 26
-	Number_param:  Number_param1 NUMBER Number_param2.    (10)
+	Assertion1:  Assertion1 TEXT.    (3)
 
-	.  reduce 10 (src line 155)
+	.  reduce 3 (src line 115)
 
 
 state 27
-	Number_param2:  '.'.NUMBER 
+	Assertion:  LABEL Assertion1 ACTION Assertion2.Object Assertion3 Assertion4 
+	Assertion2:  Assertion2.TEXT 
 
-	NUMBER  shift 28
+	OBJECT_TYPE  shift 30
+	TEXT  shift 29
+	.  error
+
+	Object  goto 28
+
+state 28
+	Assertion:  LABEL Assertion1 ACTION Assertion2 Object.Assertion3 Assertion4 
+	Assertion3: .    (6)
+
+	.  reduce 6 (src line 145)
+
+	Assertion3  goto 31
+
+state 29
+	Assertion2:  Assertion2 TEXT.    (5)
+
+	.  reduce 5 (src line 133)
+
+
+state 30
+	Object:  OBJECT_TYPE.TEXT 
+
+	TEXT  shift 32
 	.  error
 
 
-state 28
-	Number_param2:  '.' NUMBER.    (14)
+state 31
+	Assertion:  LABEL Assertion1 ACTION Assertion2 Object Assertion3.Assertion4 
+	Assertion3:  Assertion3.TEXT 
+	Assertion4: .    (8)
+	Number_param1: .    (17)
 
-	.  reduce 14 (src line 191)
+	NUMBER  reduce 17 (src line 252)
+	SIGN  shift 39
+	TEXT  shift 34
+	TEXT_PARAM  shift 36
+	.  reduce 8 (src line 163)
+
+	Assertion4  goto 33
+	Number_param  goto 37
+	Number_param1  goto 38
+	Param  goto 35
+
+state 32
+	Object:  OBJECT_TYPE TEXT.    (21)
+
+	.  reduce 21 (src line 279)
 
 
-12 terminals, 15 nonterminals
-24 grammar rules, 29/2000 states
+state 33
+	Assertion:  LABEL Assertion1 ACTION Assertion2 Object Assertion3 Assertion4.    (1)
+
+	.  reduce 1 (src line 86)
+
+
+state 34
+	Assertion3:  Assertion3 TEXT.    (7)
+
+	.  reduce 7 (src line 151)
+
+
+state 35
+	Assertion4:  Param.    (9)
+
+	.  reduce 9 (src line 169)
+
+
+state 36
+	Param:  TEXT_PARAM.    (22)
+
+	.  reduce 22 (src line 286)
+
+
+state 37
+	Param:  Number_param.    (23)
+
+	.  reduce 23 (src line 292)
+
+
+state 38
+	Number_param:  Number_param1.NUMBER Number_param2 
+
+	NUMBER  shift 40
+	.  error
+
+
+state 39
+	Number_param1:  SIGN.    (18)
+
+	.  reduce 18 (src line 258)
+
+
+state 40
+	Number_param:  Number_param1 NUMBER.Number_param2 
+	Number_param2: .    (19)
+
+	'.'  shift 42
+	.  reduce 19 (src line 264)
+
+	Number_param2  goto 41
+
+state 41
+	Number_param:  Number_param1 NUMBER Number_param2.    (16)
+
+	.  reduce 16 (src line 234)
+
+
+state 42
+	Number_param2:  '.'.NUMBER 
+
+	NUMBER  shift 43
+	.  error
+
+
+state 43
+	Number_param2:  '.' NUMBER.    (20)
+
+	.  reduce 20 (src line 270)
+
+
+14 terminals, 25 nonterminals
+38 grammar rules, 44/2000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
-64 working sets used
-memory: parser 16/30000
+74 working sets used
+memory: parser 35/30000
 0 extra closures
-15 shift entries, 2 exceptions
-15 goto entries
-1 entries saved by goto default
-Optimizer space used: output 28/30000
-28 table entries, 0 zero
-maximum spread: 12, maximum offset: 12
+18 shift entries, 4 exceptions
+26 goto entries
+2 entries saved by goto default
+Optimizer space used: output 43/30000
+43 table entries, 0 zero
+maximum spread: 14, maximum offset: 20

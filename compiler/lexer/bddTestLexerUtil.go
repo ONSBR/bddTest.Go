@@ -17,26 +17,26 @@ var _emptystruct struct{} = struct{}{}
 
 var logUtil = util.GetLogger("lexer.lexer") 
 
-func (this BddTestLex) OnBddTest(item interface{}) {
-//	fmt.Println("OnBddTest()")
-	res := &BddTestParseRes{Lines:item}
-//	switch t := item.(type) {
-//		default:
-//			fmt.Printf("OnBddTest() err, invalid type, %T", t)
-//			return
-//		case Assertion:
-//			res.Type = C_Assertion
+//func (this BddTestLex) OnBddTest(item interface{}) {
+////	fmt.Println("OnBddTest()")
+//	res := &BddTestParseRes{Feature:item.(Feature)}
+////	switch t := item.(type) {
+////		default:
+////			fmt.Printf("OnBddTest() err, invalid type, %T", t)
+////			return
+////		case Assertion:
+////			res.Type = C_Assertion
+////	}
+////	fmt.Println(this)
+//	
+//	if nil != this.OnBddTestParse {
+//		this.OnBddTestParse(res)
 //	}
-//	fmt.Println(this)
-	
-	if nil != this.OnBddTestParse {
-		this.OnBddTestParse(res)
-	}
-	
-	if nil != this.Itemchan {
-		this.Itemchan <- res
-	}
-}
+//	
+//	if nil != this.Itemchan {
+//		this.Itemchan <- res
+//	}
+//}
 
 func (this *BddTestLex) peek() (bret byte) {
 	bret = this.next()
@@ -44,7 +44,7 @@ func (this *BddTestLex) peek() (bret byte) {
 	this.linePos -= 1
 	if this.linePos < 0 {
 		this.linePos = 0
-		this.lineNum -= 1
+//		this.lineNum -= 1
 	}
 	return
 }
@@ -68,15 +68,17 @@ func (this *BddTestLex) back() {
 		this.linePos -= 1
 		if this.linePos < 0 {
 			this.linePos = 0
-			this.lineNum -= 1
+//			this.lineNum -= 1
 		}
 	}
 	return
 }
 
 func (this *BddTestLex) newLine() {
+//	logUtil.Errorf("line %d pos %d",this.lineNum, this.linePos)
 	this.lineNum += 1
 	this.linePos = 0
+//	logUtil.Errorf("line %d pos %d",this.lineNum, this.linePos)
 }
 
 func (this BddTestLex) data() (bb []byte) {
@@ -88,12 +90,14 @@ func (this BddTestLex) data() (bb []byte) {
 	return
 }
 
-func (this BddTestLex) Error(s string) {
+func (this *BddTestLex) Error(s string) {
+	logUtil.Errorf("Error: %s",s)
 	err := ParserError{Message:s,LineNum:this.lineNum+1,LinePos:this.linePos+1,Token:string(this.buf)}
-	res := &BddTestParseRes{Error:err, HasError:true}
-	if nil != this.OnBddTestParse {
-		this.OnBddTestParse(res)
-	}
+	this.ParseError = err
+//	res := &BddTestParseRes{Error:err, HasError:true}
+//	if nil != this.OnBddTestParse {
+//		this.OnBddTestParse(res)
+//	}
 }
 
 func (this BddTestLex) getInt() (n int, err error) {
@@ -106,6 +110,15 @@ func (this BddTestLex) getInt() (n int, err error) {
 
 func (this BddTestLex) getStr() (s string) {
 	s = strings.TrimSpace(string(this.data()))
+	return
+}
+
+func (this BddTestLex) getLabel() (s string) {
+	s = strings.TrimSpace(string(this.data()))
+	c := string(s[len(s)-1:])
+	if ":" == c {
+		s = s[:len(s)-1]
+	}
 	return
 }
 

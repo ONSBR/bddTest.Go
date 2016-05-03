@@ -41,20 +41,39 @@ func main() {
 	var token string
 //	var ok bool
 	
-	token = "quando eu clico no botao teste com o valor \"clovis1\"\nquando eu preencho o campo teste1 com o valor \"clovis2\"\nquando eu seleciono a lista teste2 com a opcao \"clovis3\""
+	tokenArr := []string{"Aspecto: Este é um aspecto",
+			"Com uma segunda linha",
+			"Cenario: setimo cenário",
+			"Dad que existe a sessao abc",
+			"Quando eu clico no botao teste com o valor \"clovis1\"",
+			"E eu preencho o campo teste1 com o valor \"clovis2\"",
+			"Entao eu seleciono a lista teste2 com a opcao \"clovis3\"",
+			"Cenario: sexto cenário",
+			"Dado que existe a sessao xpto",
+			"Quando eu clico no botao teste.2 com o valor \"eu1\"",
+			"E eu preencho o campo teste1.2 com o valor \"eu2\"",
+			"Entao eu seleciono a lista teste2.2 com a opcao \"eu3\""}
 	
-	log.Infof("Line %s",token)
-	ret := compiler.ParseBddTest(strings.TrimSpace(token),func(res compiler.ParsedTest) {
-			log.Infof("Lines: %d", res.NumLines)
-			log.Errorf("Error: %s",res.Error)
-			for idx, line := range res.Lines {
-				_ = idx
-				log.Infof("Line: %d", line.LineNum)
-				log.Infof("%s Object: %s<%s>.%s(%s)\n",line.Label, line.ObjectId, line.ObjectType, line.Action, line.Param)
+	token = strings.Join(tokenArr,"\n")
+//	token = "aspecto: Este é um aspecto\ncenario: primeiro cenário\nquando eu clico no botao teste com o valor \"clovis1\"\nquando eu preencho o campo teste1 com o valor \"clovis2\"\nquando eu seleciono a lista teste2 com a opcao \"clovis3\""
+	
+	log.Infof("Lines %s",token)
+	res := compiler.ParseBddTest(token)
+	if res.HasError {
+		log.Errorf("Error: %s\n",res.Error.Message)
+		log.Errorf("Line: %d, Pos: %d, Token: %s",res.Error.LineNum, res.Error.LinePos, res.Error.Token)
+	} else {
+		log.Infof("Scenarios: %d", res.NumScenarios)
+		log.Infof("Line: %d Feature: %s",res.Feature.LineNum, res.Feature.Name)
+		for idx, scn := range res.Feature.Scenarios {
+			_ = idx
+			log.Infof("Line: %d Scenario: %s",scn.LineNum, scn.Name)
+			for idx2, line := range scn.Assertions {
+				_ = idx2
+				log.Infof("Line %d %s Object: %s<%s>.%s(%s)\n",line.LineNum, line.Label, line.ObjectId, line.ObjectType, line.Action, line.Param)	
 			}
-		})
-	
-	log.Infof("ParseBddTest(): %d", ret)
+		}
+	}
 //	for {
 //		fmt.Printf(": ")
 //		if token, ok = readline(fi); ok {
