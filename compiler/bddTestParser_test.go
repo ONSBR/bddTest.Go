@@ -19,6 +19,7 @@ var _ = Describe("BddTestParser", func() {
 		goodSpec4 []string
 		goodSpec5 []string
 		goodSpec6 []string
+		goodSpec7 []string
 		badSpec1 []string
 		badSpec2 []string
 		badSpec3 []string
@@ -73,6 +74,12 @@ var _ = Describe("BddTestParser", func() {
 		goodSpec6 = []string{"Aspecto: Este é um aspecto",
 			"Com uma segunda linha",
 			"Cenario: quinto cenário",
+			""}
+		
+		goodSpec7 = []string{"Aspecto: Este é um aspecto",
+			"Com uma segunda linha",
+			"Cenario: quinto cenário",
+			"Cenario: sexto cenário",
 			""}
 		
 		badSpec1 = []string{"Aspecto: Este é um aspecto",
@@ -143,6 +150,9 @@ var _ = Describe("BddTestParser", func() {
 				Expect(line.ObjectType).To(Equal("botao"))
 				Expect(line.Action).To(Equal("clico"))
 				Expect(line.Param).To(Equal("clovis1"))
+				Expect(res.Feature.LineNum).To(Equal(1))
+				Expect(res.Feature.Scenarios[0].LineNum).To(Equal(2))
+				Expect(line.LineNum).To(Equal(4))
 				close(done)
 			})
 			It("should parse and a feature block name with a single scenario",func(done Done){
@@ -161,6 +171,9 @@ var _ = Describe("BddTestParser", func() {
 				Expect(line.ObjectType).To(Equal("botao"))
 				Expect(line.Action).To(Equal("clico"))
 				Expect(line.Param).To(Equal("clovis1"))
+				Expect(res.Feature.LineNum).To(Equal(1))
+				Expect(res.Feature.Scenarios[0].LineNum).To(Equal(3))
+				Expect(line.LineNum).To(Equal(5))
 				close(done)
 			})
 			It("should parse and a feature line with a two scenario",func(done Done){
@@ -180,6 +193,11 @@ var _ = Describe("BddTestParser", func() {
 				Expect(line.ObjectType).To(Equal("botao"))
 				Expect(line.Action).To(Equal("clico"))
 				Expect(line.Param).To(Equal("clovis1"))
+				Expect(res.Feature.LineNum).To(Equal(1))
+				Expect(res.Feature.Scenarios[0].LineNum).To(Equal(2))
+				Expect(line.LineNum).To(Equal(4))
+				Expect(res.Feature.Scenarios[1].LineNum).To(Equal(7))
+				Expect(res.Feature.Scenarios[1].Assertions[1].LineNum).To(Equal(9))
 				close(done)
 			})
 			It("should parse and a feature block with a two scenario",func(done Done){
@@ -199,6 +217,11 @@ var _ = Describe("BddTestParser", func() {
 				Expect(line.ObjectType).To(Equal("botao"))
 				Expect(line.Action).To(Equal("clico"))
 				Expect(line.Param).To(Equal("clovis1"))
+				Expect(res.Feature.LineNum).To(Equal(1))
+				Expect(res.Feature.Scenarios[0].LineNum).To(Equal(3))
+				Expect(line.LineNum).To(Equal(5))
+				Expect(res.Feature.Scenarios[1].LineNum).To(Equal(8))
+				Expect(res.Feature.Scenarios[1].Assertions[1].LineNum).To(Equal(10))
 				close(done)
 			})
 			It("should parse and a feature block without a scenario",func(done Done){
@@ -207,6 +230,7 @@ var _ = Describe("BddTestParser", func() {
 				Expect(res.HasError).To(Equal(false))
 				Expect(res.Feature.Name).To(Equal("Este é um aspecto\nCom uma segunda linha"))
 				Expect(res.NumScenarios).To(Equal(0))
+				Expect(res.Feature.LineNum).To(Equal(1))
 				close(done)
 			})
 			It("should parse and a feature block with a scenario with out assertions",func(done Done){
@@ -218,6 +242,25 @@ var _ = Describe("BddTestParser", func() {
 				Expect(len(res.Feature.Scenarios)).To(Equal(1))
 				Expect(res.Feature.Scenarios[0].Name).To(Equal("quinto cenário"))
 				Expect(len(res.Feature.Scenarios[0].Assertions)).To(Equal(0))
+				Expect(res.Feature.LineNum).To(Equal(1))
+				Expect(res.Feature.Scenarios[0].LineNum).To(Equal(3))
+				close(done)
+			})
+			It("should parse and a feature block with two scenarios with out assertions",func(done Done){
+				token := strings.Join(goodSpec7,"\n")
+				logT.Errorf("%s",token)
+				res := compiler.ParseBddTest(token)
+				Expect(res.HasError).To(Equal(false))
+				Expect(res.Feature.Name).To(Equal("Este é um aspecto\nCom uma segunda linha"))
+				Expect(res.NumScenarios).To(Equal(2))
+				Expect(len(res.Feature.Scenarios)).To(Equal(2))
+				Expect(res.Feature.Scenarios[0].Name).To(Equal("quinto cenário"))
+				Expect(res.Feature.Scenarios[1].Name).To(Equal("sexto cenário"))
+				Expect(len(res.Feature.Scenarios[0].Assertions)).To(Equal(0))
+				Expect(len(res.Feature.Scenarios[1].Assertions)).To(Equal(0))
+				Expect(res.Feature.LineNum).To(Equal(1))
+				Expect(res.Feature.Scenarios[0].LineNum).To(Equal(3))
+				Expect(res.Feature.Scenarios[1].LineNum).To(Equal(4))
 				close(done)
 			})
 		})

@@ -201,16 +201,11 @@ Feature_block:
 	{
 		log.Infof("Feature_block found!")
 		
-		lineNum := 0
-		if v,ok := Featurelex.(*BddTestLex); ok {
-			lineNum = v.lineNum
-		}
-		
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
 		buffer.WriteString(" ")
 		buffer.WriteString($2.(string))
-		featureBlock := Feature_block{LineNum:lineNum, FullText:buffer.String(), Label:$1.(string), Name: $2.(string)}
+		featureBlock := Feature_block{LineNum:1, FullText:buffer.String(), Label:$1.(string), Name: $2.(string)}
 		$$ = featureBlock
 	}
 
@@ -299,12 +294,8 @@ Scenario:
 	Scenario_line Scenario1
 	{
 		log.Infof("Scenario found!")
-		lineNum := 0
-		if v,ok := Featurelex.(*BddTestLex); ok {
-			lineNum = v.lineNum
-		}
 		line := $1.(Scenario_line)
-		scenario := Scenario{LineNum:lineNum,FullText:line.FullText,Label:line.Label,Name:line.Name,Assertions:$2.([]Assertion)}
+		scenario := Scenario{LineNum:line.LineNum,FullText:line.FullText,Label:line.Label,Name:line.Name,Assertions:$2.([]Assertion)}
 		$$ = scenario
 	}
 
@@ -327,7 +318,11 @@ Scenario_line:
 		buffer.WriteString($1.(string))
 		buffer.WriteString(" ")
 		buffer.WriteString($2.(string))
-		line := Scenario_line{FullText:buffer.String(),Label:$1.(string),Name:$2.(string)}
+		lineNum := 0
+		if v,ok := Featurelex.(*BddTestLex); ok {
+			lineNum = v.lineNum
+		}
+		line := Scenario_line{LineNum:lineNum,FullText:buffer.String(),Label:$1.(string),Name:$2.(string)}
 		$$ = line
 	}
 
@@ -475,6 +470,7 @@ type (
 		FullText string
 		Label string
 		Name string
+		LineNum int
 	}
 	Start interface{}
 	Test_block []Assertion

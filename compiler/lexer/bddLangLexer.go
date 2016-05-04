@@ -65,7 +65,7 @@ const FeatureEofCode = 1
 const FeatureErrCode = 2
 const FeatureInitialStackSize = 16
 
-//line bddLangLexer.y:427
+//line bddLangLexer.y:422
 
 type (
 	Assertion struct {
@@ -116,6 +116,7 @@ type (
 		FullText string
 		Label    string
 		Name     string
+		LineNum  int
 	}
 	Start       interface{}
 	Test_block  []Assertion
@@ -689,27 +690,22 @@ Featuredefault:
 		{
 			log.Infof("Feature_block found!")
 
-			lineNum := 0
-			if v, ok := Featurelex.(*BddTestLex); ok {
-				lineNum = v.lineNum
-			}
-
 			var buffer bytes.Buffer
 			buffer.WriteString(FeatureDollar[1].item.(string))
 			buffer.WriteString(" ")
 			buffer.WriteString(FeatureDollar[2].item.(string))
-			featureBlock := Feature_block{LineNum: lineNum, FullText: buffer.String(), Label: FeatureDollar[1].item.(string), Name: FeatureDollar[2].item.(string)}
+			featureBlock := Feature_block{LineNum: 1, FullText: buffer.String(), Label: FeatureDollar[1].item.(string), Name: FeatureDollar[2].item.(string)}
 			FeatureVAL.item = featureBlock
 		}
 	case 14:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:219
+		//line bddLangLexer.y:214
 		{
 			FeatureVAL.item = ""
 		}
 	case 15:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:223
+		//line bddLangLexer.y:218
 		{
 			log.Infof("Feature_block1 found!")
 			var buffer bytes.Buffer
@@ -722,7 +718,7 @@ Featuredefault:
 		}
 	case 16:
 		FeatureDollar = FeatureS[Featurept-3 : Featurept+1]
-		//line bddLangLexer.y:236
+		//line bddLangLexer.y:231
 		{
 			log.Infof("Number_param found!")
 			var buffer bytes.Buffer
@@ -740,28 +736,28 @@ Featuredefault:
 		}
 	case 17:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:254
+		//line bddLangLexer.y:249
 		{
 			log.Infof("Number_param1 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 18:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:259
+		//line bddLangLexer.y:254
 		{
 			log.Infof("Number_param1 found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 19:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:266
+		//line bddLangLexer.y:261
 		{
 			log.Infof("Number_param2 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 20:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:271
+		//line bddLangLexer.y:266
 		{
 			log.Infof("Number_param2 found!")
 			var buffer bytes.Buffer
@@ -771,66 +767,66 @@ Featuredefault:
 		}
 	case 21:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:281
+		//line bddLangLexer.y:276
 		{
 			log.Infof("Object found!")
 			FeatureVAL.item = Object{ObjectType: FeatureDollar[1].item.(string), ObjectId: FeatureDollar[2].item.(string)}
 		}
 	case 22:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:288
+		//line bddLangLexer.y:283
 		{
 			log.Infof("Text param found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 23:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:293
+		//line bddLangLexer.y:288
 		{
 			log.Infof("Number Param found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 24:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:300
+		//line bddLangLexer.y:295
 		{
 			log.Infof("Scenario found!")
-			lineNum := 0
-			if v, ok := Featurelex.(*BddTestLex); ok {
-				lineNum = v.lineNum
-			}
 			line := FeatureDollar[1].item.(Scenario_line)
-			scenario := Scenario{LineNum: lineNum, FullText: line.FullText, Label: line.Label, Name: line.Name, Assertions: FeatureDollar[2].item.([]Assertion)}
+			scenario := Scenario{LineNum: line.LineNum, FullText: line.FullText, Label: line.Label, Name: line.Name, Assertions: FeatureDollar[2].item.([]Assertion)}
 			FeatureVAL.item = scenario
 		}
 	case 25:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:313
+		//line bddLangLexer.y:304
 		{
 			FeatureVAL.item = []Assertion(nil)
 		}
 	case 26:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:317
+		//line bddLangLexer.y:308
 		{
 			log.Infof("Scenario1 found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 27:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:324
+		//line bddLangLexer.y:315
 		{
 			log.Infof("Scenario_line found!")
 			var buffer bytes.Buffer
 			buffer.WriteString(FeatureDollar[1].item.(string))
 			buffer.WriteString(" ")
 			buffer.WriteString(FeatureDollar[2].item.(string))
-			line := Scenario_line{FullText: buffer.String(), Label: FeatureDollar[1].item.(string), Name: FeatureDollar[2].item.(string)}
+			lineNum := 0
+			if v, ok := Featurelex.(*BddTestLex); ok {
+				lineNum = v.lineNum
+			}
+			line := Scenario_line{LineNum: lineNum, FullText: buffer.String(), Label: FeatureDollar[1].item.(string), Name: FeatureDollar[2].item.(string)}
 			FeatureVAL.item = line
 		}
 	case 28:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:336
+		//line bddLangLexer.y:331
 		{
 			log.Infof("Start")
 			//if v,ok := Featurelex.(*BddTestLex); ok {
@@ -840,7 +836,7 @@ Featuredefault:
 		}
 	case 29:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:346
+		//line bddLangLexer.y:341
 		{
 			log.Infof("Test_block")
 			lineNum := 0
@@ -854,13 +850,13 @@ Featuredefault:
 		}
 	case 30:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:360
+		//line bddLangLexer.y:355
 		{
 			FeatureVAL.item = []Assertion(nil)
 		}
 	case 31:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:364
+		//line bddLangLexer.y:359
 		{
 			log.Infof("Test_block1")
 			if nil != FeatureDollar[2].item {
@@ -878,27 +874,27 @@ Featuredefault:
 		}
 	case 32:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:382
+		//line bddLangLexer.y:377
 		{
 			log.Infof("Test_line")
 			FeatureVAL.item = FeatureDollar[1].item.(Assertion)
 		}
 	case 33:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:389
+		//line bddLangLexer.y:384
 		{
 			FeatureVAL.item = nil
 		}
 	case 34:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:393
+		//line bddLangLexer.y:388
 		{
 			log.Infof("New line")
 			FeatureVAL.item = nil
 		}
 	case 35:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:400
+		//line bddLangLexer.y:395
 		{
 			log.Infof("Text_line found")
 			var buffer bytes.Buffer
@@ -908,13 +904,13 @@ Featuredefault:
 		}
 	case 36:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:410
+		//line bddLangLexer.y:405
 		{
 			FeatureVAL.item = ""
 		}
 	case 37:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:414
+		//line bddLangLexer.y:409
 		{
 			log.Infof("Text_line1 found")
 
