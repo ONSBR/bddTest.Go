@@ -8,7 +8,7 @@ var (
 	ActionTokens = map[string]string{
 		"clico":"click",
 		"seleciono":"select",
-		"prencho":"set",
+		"preencho":"set",
 		"existe":"exists",
 		"espero":"expect",
 	}

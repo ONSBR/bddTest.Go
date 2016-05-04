@@ -1,4 +1,4 @@
-package testProcessor
+package pageObject
 
 import (
 	"fmt"

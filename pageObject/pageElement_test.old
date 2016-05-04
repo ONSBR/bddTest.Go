@@ -1,7 +1,8 @@
-package testProcessor
+package pageObject
 
 import (
 	"github.com/stretchr/testify/assert"
+	
 	"testing"
 )
 

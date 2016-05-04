@@ -17,27 +17,6 @@ var _emptystruct struct{} = struct{}{}
 
 var logUtil = util.GetLogger("lexer.lexer") 
 
-//func (this BddTestLex) OnBddTest(item interface{}) {
-////	fmt.Println("OnBddTest()")
-//	res := &BddTestParseRes{Feature:item.(Feature)}
-////	switch t := item.(type) {
-////		default:
-////			fmt.Printf("OnBddTest() err, invalid type, %T", t)
-////			return
-////		case Assertion:
-////			res.Type = C_Assertion
-////	}
-////	fmt.Println(this)
-//	
-//	if nil != this.OnBddTestParse {
-//		this.OnBddTestParse(res)
-//	}
-//	
-//	if nil != this.Itemchan {
-//		this.Itemchan <- res
-//	}
-//}
-
 func (this *BddTestLex) peek() (bret byte) {
 	bret = this.next()
 	this.pos -= 1
