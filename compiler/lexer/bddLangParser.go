@@ -34,7 +34,7 @@ yystate1:
 yystart1:
 	switch {
 	default:
-		goto yystate3 // c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c == '!' || c >= '#' && c <= ',' || c == '.' || c == '/' || c >= ':' && c <= '@' || c == 'B' || c >= 'F' && c <= 'P' || c >= 'R' && c <= 'a' || c == 'd' || c >= 'f' && c <= 'k' || c >= 'm' && c <= 'o' || c == 'q' || c == 'r' || c >= 't' && c <= 'ÿ'
+		goto yystate3 // c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c == '!' || c >= '#' && c <= ',' || c == '.' || c == '/' || c >= ':' && c <= '@' || c == 'B' || c >= 'F' && c <= 'O' || c >= 'R' && c <= 'a' || c == 'd' || c >= 'f' && c <= 'k' || c >= 'm' && c <= 'o' || c == 'q' || c == 'r' || c == 't' || c >= 'v' && c <= 'ÿ'
 	case c == '"':
 		goto yystate6
 	case c == '-':
@@ -47,8 +47,10 @@ yystart1:
 		goto yystate29
 	case c == 'E':
 		goto yystate33
+	case c == 'P':
+		goto yystate38
 	case c == 'Q':
-		goto yystate36
+		goto yystate45
 	case c == '\n':
 		goto yystate5
 	case c == '\t' || c == ' ':
@@ -56,30 +58,32 @@ yystart1:
 	case c == '\x00':
 		goto yystate2
 	case c == 'b':
-		goto yystate39
-	case c == 'c':
-		goto yystate44
-	case c == 'e':
 		goto yystate51
-	case c == 'l':
+	case c == 'c':
 		goto yystate56
+	case c == 'e':
+		goto yystate63
+	case c == 'l':
+		goto yystate73
 	case c == 'p':
-		goto yystate60
+		goto yystate77
 	case c == 's':
-		goto yystate66
+		goto yystate83
+	case c == 'u':
+		goto yystate91
 	case c >= '0' && c <= '9':
 		goto yystate12
 	}
 
 yystate2:
 	c = this.next()
-	goto yyrule10
+	goto yyrule15
 
 yystate3:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
@@ -88,7 +92,7 @@ yystate4:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule12
+		goto yyrule17
 	case c == '\t' || c == ' ':
 		goto yystate4
 	}
@@ -106,7 +110,7 @@ yystate6:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == '\t' || c == ' ':
 		goto yystate8
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
@@ -117,7 +121,7 @@ yystate7:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == '"':
 		goto yystate10
 	case c == '\t' || c == ' ':
@@ -141,7 +145,7 @@ yystate9:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule9
+		goto yyrule14
 	case c == '"':
 		goto yystate9
 	case c >= '\x01' && c <= '\t' || c >= '\v' && c <= '!' || c >= '#' && c <= 'ÿ':
@@ -152,7 +156,7 @@ yystate10:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule9
+		goto yyrule14
 	case c == '"':
 		goto yystate10
 	case c == '\t' || c == ' ':
@@ -165,7 +169,7 @@ yystate11:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule8
+		goto yyrule13
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
@@ -185,7 +189,7 @@ yystate13:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 's':
 		goto yystate14
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'ÿ':
@@ -196,7 +200,7 @@ yystate14:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'p':
 		goto yystate15
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'o' || c >= 'q' && c <= 'ÿ':
@@ -207,7 +211,7 @@ yystate15:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'e':
 		goto yystate16
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
@@ -218,7 +222,7 @@ yystate16:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'c':
 		goto yystate17
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'b' || c >= 'd' && c <= 'ÿ':
@@ -229,7 +233,7 @@ yystate17:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 't':
 		goto yystate18
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
@@ -240,7 +244,7 @@ yystate18:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'o':
 		goto yystate19
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
@@ -251,7 +255,7 @@ yystate19:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == ':':
 		goto yystate20
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '9' || c >= ';' && c <= 'ÿ':
@@ -262,7 +266,7 @@ yystate20:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule4
+		goto yyrule9
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
@@ -271,7 +275,7 @@ yystate21:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'e':
 		goto yystate22
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
@@ -282,7 +286,7 @@ yystate22:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'n':
 		goto yystate23
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
@@ -293,7 +297,7 @@ yystate23:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'a':
 		goto yystate24
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
@@ -304,7 +308,7 @@ yystate24:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'r':
 		goto yystate25
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'q' || c >= 's' && c <= 'ÿ':
@@ -315,7 +319,7 @@ yystate25:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'i':
 		goto yystate26
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
@@ -326,7 +330,7 @@ yystate26:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'o':
 		goto yystate27
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
@@ -337,7 +341,7 @@ yystate27:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == ':':
 		goto yystate28
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '9' || c >= ';' && c <= 'ÿ':
@@ -348,7 +352,7 @@ yystate28:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule3
+		goto yyrule8
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
@@ -357,7 +361,7 @@ yystate29:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'a':
 		goto yystate30
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
@@ -368,7 +372,7 @@ yystate30:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'd':
 		goto yystate31
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'c' || c >= 'e' && c <= 'ÿ':
@@ -379,7 +383,7 @@ yystate31:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'o':
 		goto yystate32
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
@@ -390,7 +394,7 @@ yystate32:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule5
+		goto yyrule3
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
@@ -399,7 +403,7 @@ yystate33:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule5
+		goto yyrule10
 	case c == 'n':
 		goto yystate34
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
@@ -410,7 +414,7 @@ yystate34:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 't':
 		goto yystate35
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
@@ -421,9 +425,9 @@ yystate35:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'a':
-		goto yystate31
+		goto yystate36
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
 		goto yystate3
 	}
@@ -432,10 +436,10 @@ yystate36:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'u':
+		goto yyrule16
+	case c == 'o':
 		goto yystate37
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 't' || c >= 'v' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -443,10 +447,8 @@ yystate37:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'a':
-		goto yystate38
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
+		goto yyrule6
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -454,10 +456,10 @@ yystate38:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'n':
-		goto yystate30
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
+		goto yyrule16
+	case c == 'a':
+		goto yystate39
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -465,10 +467,10 @@ yystate39:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'o':
+		goto yyrule16
+	case c == 'g':
 		goto yystate40
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'f' || c >= 'h' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -476,10 +478,10 @@ yystate40:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 't':
+		goto yyrule16
+	case c == 'i':
 		goto yystate41
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -487,10 +489,10 @@ yystate41:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'a':
+		goto yyrule16
+	case c == 'n':
 		goto yystate42
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -498,10 +500,10 @@ yystate42:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'o':
+		goto yyrule16
+	case c == 'a':
 		goto yystate43
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -509,8 +511,10 @@ yystate43:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule7
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
+		goto yyrule16
+	case c == ':':
+		goto yystate44
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '9' || c >= ';' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -518,12 +522,8 @@ yystate44:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'a':
-		goto yystate45
-	case c == 'l':
-		goto yystate47
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'k' || c >= 'm' && c <= 'ÿ':
+		goto yyrule4
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -531,10 +531,10 @@ yystate45:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'm':
+		goto yyrule16
+	case c == 'u':
 		goto yystate46
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'l' || c >= 'n' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 't' || c >= 'v' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -542,10 +542,10 @@ yystate46:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'p':
-		goto yystate42
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'o' || c >= 'q' && c <= 'ÿ':
+		goto yyrule16
+	case c == 'a':
+		goto yystate47
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -553,10 +553,10 @@ yystate47:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'i':
+		goto yyrule16
+	case c == 'n':
 		goto yystate48
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -564,10 +564,10 @@ yystate48:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'c':
+		goto yyrule16
+	case c == 'd':
 		goto yystate49
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'b' || c >= 'd' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'c' || c >= 'e' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -575,7 +575,7 @@ yystate49:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
 	case c == 'o':
 		goto yystate50
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
@@ -586,7 +586,7 @@ yystate50:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule6
+		goto yyrule10
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
@@ -595,10 +595,10 @@ yystate51:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'x':
+		goto yyrule16
+	case c == 'o':
 		goto yystate52
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'w' || c >= 'y' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -606,10 +606,10 @@ yystate52:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'i':
+		goto yyrule16
+	case c == 't':
 		goto yystate53
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -617,10 +617,10 @@ yystate53:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 's':
+		goto yyrule16
+	case c == 'a':
 		goto yystate54
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -628,10 +628,10 @@ yystate54:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 't':
+		goto yyrule16
+	case c == 'o':
 		goto yystate55
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -639,10 +639,8 @@ yystate55:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'e':
-		goto yystate50
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+		goto yyrule12
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -650,10 +648,12 @@ yystate56:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'i':
+		goto yyrule16
+	case c == 'a':
 		goto yystate57
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
+	case c == 'l':
+		goto yystate59
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'k' || c >= 'm' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -661,10 +661,10 @@ yystate57:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 's':
+		goto yyrule16
+	case c == 'm':
 		goto yystate58
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'l' || c >= 'n' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -672,10 +672,10 @@ yystate58:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 't':
-		goto yystate59
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
+		goto yyrule16
+	case c == 'p':
+		goto yystate54
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'o' || c >= 'q' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -683,10 +683,10 @@ yystate59:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'a':
-		goto yystate43
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
+		goto yyrule16
+	case c == 'i':
+		goto yystate60
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -694,10 +694,10 @@ yystate60:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'r':
+		goto yyrule16
+	case c == 'c':
 		goto yystate61
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'q' || c >= 's' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'b' || c >= 'd' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -705,10 +705,10 @@ yystate61:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'e':
+		goto yyrule16
+	case c == 'o':
 		goto yystate62
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -717,9 +717,7 @@ yystate62:
 	switch {
 	default:
 		goto yyrule11
-	case c == 'e':
-		goto yystate63
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -727,10 +725,12 @@ yystate63:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'n':
+		goto yyrule16
+	case c == 's':
 		goto yystate64
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
+	case c == 'x':
+		goto yystate69
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'w' || c >= 'y' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -738,10 +738,10 @@ yystate64:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'c':
+		goto yyrule16
+	case c == 'p':
 		goto yystate65
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'b' || c >= 'd' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'o' || c >= 'q' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -749,10 +749,10 @@ yystate65:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'h':
-		goto yystate49
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'g' || c >= 'i' && c <= 'ÿ':
+		goto yyrule16
+	case c == 'e':
+		goto yystate66
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -760,10 +760,10 @@ yystate66:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'e':
+		goto yyrule16
+	case c == 'r':
 		goto yystate67
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'q' || c >= 's' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -771,12 +771,10 @@ yystate67:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'l':
+		goto yyrule16
+	case c == 'o':
 		goto yystate68
-	case c == 's':
-		goto yystate73
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'k' || c >= 'm' && c <= 'r' || c >= 't' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -784,10 +782,8 @@ yystate68:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'e':
-		goto yystate69
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+		goto yyrule7
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -795,10 +791,10 @@ yystate69:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'c':
+		goto yyrule16
+	case c == 'i':
 		goto yystate70
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'b' || c >= 'd' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -806,10 +802,10 @@ yystate70:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'i':
+		goto yyrule16
+	case c == 's':
 		goto yystate71
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -817,10 +813,10 @@ yystate71:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'o':
+		goto yyrule16
+	case c == 't':
 		goto yystate72
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -828,10 +824,10 @@ yystate72:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
-	case c == 'n':
-		goto yystate49
-	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
+		goto yyrule16
+	case c == 'e':
+		goto yystate62
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -839,10 +835,274 @@ yystate73:
 	c = this.next()
 	switch {
 	default:
-		goto yyrule11
+		goto yyrule16
+	case c == 'i':
+		goto yystate74
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate74:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
 	case c == 's':
-		goto yystate41
+		goto yystate75
 	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate75:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 't':
+		goto yystate76
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 's' || c >= 'u' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate76:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'a':
+		goto yystate55
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate77:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'r':
+		goto yystate78
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'q' || c >= 's' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate78:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'e':
+		goto yystate79
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate79:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'e':
+		goto yystate80
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate80:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'n':
+		goto yystate81
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate81:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'c':
+		goto yystate82
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'b' || c >= 'd' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate82:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'h':
+		goto yystate61
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'g' || c >= 'i' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate83:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'e':
+		goto yystate84
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate84:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'l':
+		goto yystate85
+	case c == 's':
+		goto yystate90
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'k' || c >= 'm' && c <= 'r' || c >= 't' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate85:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'e':
+		goto yystate86
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'd' || c >= 'f' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate86:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'c':
+		goto yystate87
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'b' || c >= 'd' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate87:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'i':
+		goto yystate88
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate88:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'o':
+		goto yystate89
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate89:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'n':
+		goto yystate61
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'm' || c >= 'o' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate90:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 's':
+		goto yystate53
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate91:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 's':
+		goto yystate92
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'r' || c >= 't' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate92:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'u':
+		goto yystate93
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 't' || c >= 'v' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate93:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'a':
+		goto yystate94
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= '`' || c >= 'b' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate94:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'r':
+		goto yystate95
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'q' || c >= 's' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate95:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'i':
+		goto yystate96
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'h' || c >= 'j' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate96:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule16
+	case c == 'o':
+		goto yystate97
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'n' || c >= 'p' && c <= 'ÿ':
+		goto yystate3
+	}
+
+yystate97:
+	c = this.next()
+	switch {
+	default:
+		goto yyrule5
+	case c >= '\x01' && c <= '\b' || c >= '\v' && c <= '\x1f' || c >= '!' && c <= 'ÿ':
 		goto yystate3
 	}
 
@@ -863,65 +1123,101 @@ yyrule2: // {D}+
 
 		goto yystate0
 	}
-yyrule3: // {SCNLAB}
+yyrule3: // {INITLAB}
+	{
+		lval.item = this.getLabel()
+		logP.Infof("Init assertion Label found")
+		return INIT_SCENARIO_LABEL
+		goto yystate0
+	}
+yyrule4: // {PAGELAB}
+	{
+		lval.item = this.getLabel()
+		logP.Infof("Page Label found")
+		return PAGE_LABEL
+		goto yystate0
+	}
+yyrule5: // {USERLAB}
+	{
+		lval.item = this.getLabel()
+		logP.Infof("User Label found")
+		return USER_SCENARIO_LABEL
+		goto yystate0
+	}
+yyrule6: // {EXPTLAB}
+	{
+		lval.item = this.getLabel()
+		logP.Infof("Expect assertion Label found")
+		return EXPECT_ACTION_LABEL
+		goto yystate0
+	}
+yyrule7: // {EXPTACT}
+	{
+		lval.item = this.getStr()
+		logP.Infof("Expect Action found")
+		return EXPECT_ACTION_ACTION
+
+		goto yystate0
+	}
+yyrule8: // {SCNLAB}
 	{
 		lval.item = this.getLabel()
 		logP.Infof("Scenario Label found")
 		return SCENARIO_LABEL
 		goto yystate0
 	}
-yyrule4: // {FEATLAB}
+yyrule9: // {FEATLAB}
 	{
 		lval.item = this.getLabel()
 		logP.Infof("Feature Label found")
 		return FEATURE_LABEL
 		goto yystate0
 	}
-yyrule5: // {LAB}
+yyrule10: // {LAB}
 	{
 		lval.item = this.getLabel()
 		logP.Infof("Label found")
 		return LABEL
 		goto yystate0
 	}
-yyrule6: // {ACT}
+yyrule11: // {ACT}
 	{
 		lval.item = this.getStr()
 		logP.Infof("Action found")
 		return ACTION
 		goto yystate0
 	}
-yyrule7: // {OBJTY}
+yyrule12: // {OBJTY}
 	{
 		lval.item = this.getStr()
 		logP.Infof("Object Type found")
 		return OBJECT_TYPE
 		goto yystate0
 	}
-yyrule8: // {SIGN}
+yyrule13: // {SIGN}
 	{
 		lval.item = this.getStr()
 		return SIGN
 		goto yystate0
 	}
-yyrule9: // {TXTPA}
+yyrule14: // {TXTPA}
 	{
 		lval.item = this.getParam()
 		return TEXT_PARAM
 		goto yystate0
 	}
-yyrule10: // \0
+yyrule15: // \0
 	{
 		return -1
 	}
-yyrule11: // {TXT}
+yyrule16: // {TXT}
 	{
 		lval.item = this.getStr()
 		logP.Infof("Text found: %s", lval.item)
 		return TEXT
 		goto yystate0
 	}
-yyrule12: // [ \t]+
+yyrule17: // [ \t]+
 
 	goto yystate0
 	panic("unreachable")

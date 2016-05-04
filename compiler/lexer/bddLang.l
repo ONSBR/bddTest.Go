@@ -22,7 +22,12 @@ func (this *BddTestLex) Lex(lval *FeatureSymType) (ret int) { // begin main()
 
 D			[0-9]
 L			[A-Za-z]
-LAB			"Dado"|"Quando"|"Entao"|"E"
+LAB			"Quando"|"E"
+INITLAB		"Dado"
+PAGELAB		"Pagina:"
+USERLAB		"usuario"
+EXPTLAB		"Entao"
+EXPTACT		"espero"
 ACT			"clico"|"seleciono"|"preencho"|"existe"
 OBJTY		"botao"|"campo"|"lista"|"sessao"
 SIGN		"-"
@@ -47,7 +52,17 @@ FEATLAB		"Aspecto:"
 					} else {
 						return NUMBER
 					}
-					
+		
+{INITLAB}			lval.item = this.getLabel(); logP.Infof("Init assertion Label found"); return INIT_SCENARIO_LABEL
+
+{PAGELAB}			lval.item = this.getLabel(); logP.Infof("Page Label found"); return PAGE_LABEL
+
+{USERLAB}			lval.item = this.getLabel(); logP.Infof("User Label found"); return USER_SCENARIO_LABEL
+
+{EXPTLAB}			lval.item = this.getLabel(); logP.Infof("Expect assertion Label found"); return EXPECT_ACTION_LABEL
+
+{EXPTACT}			lval.item = this.getStr(); logP.Infof("Expect Action found"); return EXPECT_ACTION_ACTION
+			
 {SCNLAB}			lval.item = this.getLabel(); logP.Infof("Scenario Label found"); return SCENARIO_LABEL
 
 {FEATLAB}			lval.item = this.getLabel(); logP.Infof("Feature Label found"); return FEATURE_LABEL
