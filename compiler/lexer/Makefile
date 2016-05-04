@@ -3,11 +3,11 @@ all: bddLangParser.go bddLangLexer.y bddLangLexer.go
 bddLangParser.go: bddLang.l
 	golex -t -o bddLangParser.go bddLang.l | gofmt > bddLangParser.go
 	
-bddLangLexer.go: param-yacc bddLangLexer.y
-	param-yacc -p Test_Scenario -o bddLangLexer.go -d 0 -e=true bddLangLexer.y
+bddLangLexer.go: bddLangLexer.y
+	param-yacc -p Feature -o bddLangLexer.go -d 0 -e=true bddLangLexer.y
 	
 bddLangLexer.y: bddLang.ebnf
-	ebnf2y -pkg lexer -start Test_Scenario bddLang.ebnf > bddLangLexer.y
+	ebnf2y -pkg lexer -start Feature bddLang.ebnf > bddLangLexer.y
 	
 	
 param-yacc:

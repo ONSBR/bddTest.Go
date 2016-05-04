@@ -10,8 +10,9 @@ type ParserError struct {
 type BddTestParseRes struct {
 	Error ParserError
 	HasError bool
-	Lines interface{}
+	Feature Feature
 }
+
 
 type OnBddTestParseCb func(*BddTestParseRes)
 
@@ -23,4 +24,5 @@ type BddTestLex struct {
 	OnBddTestParse OnBddTestParseCb
 	Itemchan chan *BddTestParseRes
 	buf []byte
+	ParseError ParserError
 }

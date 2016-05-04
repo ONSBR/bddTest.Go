@@ -8,7 +8,7 @@ import (
 )
 var logP = util.GetLogger("lexer.parser")
 
-func (this *BddTestLex) Lex(lval *Test_ScenarioSymType) (ret int) { // begin main()
+func (this *BddTestLex) Lex(lval *FeatureSymType) (ret int) { // begin main()
 
 	var err error
 	var c byte = ' '
@@ -22,12 +22,19 @@ func (this *BddTestLex) Lex(lval *Test_ScenarioSymType) (ret int) { // begin mai
 
 D			[0-9]
 L			[A-Za-z]
-LAB			"dado"|"Dado"|"quando"|"Quando"|"entao"|"Entao"|"e"|"E"
-ACT			"clico"|"seleciono"|"preencho"
-OBJTY		"botao"|"campo"|"lista"
+LAB			"Quando"|"E"
+INITLAB		"Dado"
+PAGELAB		"Pagina:"
+USERLAB		"usuario"
+EXPTLAB		"Entao"
+EXPTACT		"espero"
+ACT			"clico"|"seleciono"|"preencho"|"existe"
+OBJTY		"botao"|"campo"|"lista"|"sessao"
 SIGN		"-"
 TXTPA		\".+\"
-TXT		[A-Za-z0-9]+
+TXT		[^ \t\n]+
+SCNLAB		"Cenario:"
+FEATLAB		"Aspecto:"
 
 %yyc c
 %yyn c = this.next()
@@ -45,8 +52,22 @@ TXT		[A-Za-z0-9]+
 					} else {
 						return NUMBER
 					}
+		
+{INITLAB}			lval.item = this.getLabel(); logP.Infof("Init assertion Label found"); return INIT_SCENARIO_LABEL
 
-{LAB}				lval.item = this.getStr(); logP.Infof("Label found"); return LABEL
+{PAGELAB}			lval.item = this.getLabel(); logP.Infof("Page Label found"); return PAGE_LABEL
+
+{USERLAB}			lval.item = this.getLabel(); logP.Infof("User Label found"); return USER_SCENARIO_LABEL
+
+{EXPTLAB}			lval.item = this.getLabel(); logP.Infof("Expect assertion Label found"); return EXPECT_ACTION_LABEL
+
+{EXPTACT}			lval.item = this.getStr(); logP.Infof("Expect Action found"); return EXPECT_ACTION_ACTION
+			
+{SCNLAB}			lval.item = this.getLabel(); logP.Infof("Scenario Label found"); return SCENARIO_LABEL
+
+{FEATLAB}			lval.item = this.getLabel(); logP.Infof("Feature Label found"); return FEATURE_LABEL
+
+{LAB}				lval.item = this.getLabel(); logP.Infof("Label found"); return LABEL
 
 {ACT}				lval.item = this.getStr(); logP.Infof("Action found"); return ACTION
 
@@ -58,7 +79,7 @@ TXT		[A-Za-z0-9]+
 
 \0					return -1
 
-{TXT}				lval.item = this.getStr(); logP.Infof("Text found"); return TEXT
+{TXT}				lval.item = this.getStr(); logP.Infof("Text found: %s",lval.item); return TEXT
 
 [ \t]+			
 
