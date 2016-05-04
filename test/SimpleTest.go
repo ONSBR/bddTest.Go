@@ -59,15 +59,14 @@ func main() {
 //	token = "aspecto: Este é um aspecto\ncenario: primeiro cenário\nquando eu clico no botao teste com o valor \"clovis1\"\nquando eu preencho o campo teste1 com o valor \"clovis2\"\nquando eu seleciono a lista teste2 com a opcao \"clovis3\""
 	
 	log.Infof("Lines %s",token)
-	res := compiler.ParseBddTest(token)
-	if res.HasError {
-		log.Errorf("Error: %s\n",res.Error.Message)
-		log.Errorf("Line: %d, Pos: %d, Token: %s",res.Error.LineNum, res.Error.LinePos, res.Error.Token)
+	Feature, retCode, err := compiler.ParseCode(token)
+	if retCode > 0 {
+		log.Errorf("Error: %s\n",err.Message)
+		log.Errorf("Line: %d, Pos: %d, Token: %s",err.LineNum, err.LinePos, err.Token)
 	} else {
-		log.Infof("Page Name: %s", res.Feature.PageName)
-		log.Infof("Scenarios: %d", res.NumScenarios)
-		log.Infof("Line: %d Feature: %s",res.Feature.LineNum, res.Feature.Name)
-		for idx, scn := range res.Feature.Scenarios {
+		log.Infof("Page Name: %s", Feature.PageName)
+		log.Infof("Line: %d Feature: %s",Feature.LineNum, Feature.Name)
+		for idx, scn := range Feature.Scenarios {
 			_ = idx
 			log.Infof("Line: %d Scenario: %s",scn.LineNum, scn.Name)
 			log.Infof("Scenario user: %s", scn.Username)
