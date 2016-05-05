@@ -5,7 +5,7 @@ import (
 )
 
 func InitLog() {
-	config := "<root>=INFO; compiler.parser=ERROR; lexer.lexer=ERROR; lexer.parser=ERROR; test.compiler=INFO"
+	config := "<root>=INFO; compiler.parser=ERROR; lexer.lexer=ERROR; lexer.parser=ERROR; test.compiler=INFO; pageObject.defParser=INFO"
 	loggo.ConfigureLoggers(config)
 }
 
