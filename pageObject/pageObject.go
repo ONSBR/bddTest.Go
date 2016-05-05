@@ -9,6 +9,7 @@ import (
 
  */
 type PageObject struct {
+	Page	 string
 	driver   selenium.WebDriver
 	Uri      string
 	Elements []PageElement
@@ -17,8 +18,8 @@ type PageObject struct {
 /*
 NewPageObject creates a new instance of PageObject
 */
-func NewPageObject(uri string) *PageObject {
-	p := &PageObject{Uri: uri}
+func NewPageObject(page string, uri string) *PageObject {
+	p := &PageObject{Page: page, Uri: uri}
 	caps := selenium.Capabilities(map[string]interface{}{"browserName": "phantomjs"})
 
 	var err error

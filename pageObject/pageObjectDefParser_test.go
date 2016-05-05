@@ -426,10 +426,10 @@ var _ = Describe("PageObjectDefParser", func() {
 			definition6 = "page: HomeExpect\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n"
 			definition7 = "page: HomeExpect2\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
 			definition8 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste3\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
-			definition1Compl = "page: Home\nuri: http://www\nelements: []\n"
-			definition2Compl = "page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n"
-			definition3Compl = "page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n- element: teste1\n  locator: By.Id()\n  type: textbox\n"
-			definition8Compl = "page: Home\nuri: http://www\nelements:\n- element: teste1\n  locator: By.Id()\n  type: button\n- element: teste2\n  locator: By.Id()\n  type: textbox\n- element: teste3\n  locator: By.Id()\n  type: button\n- element: teste4\n  locator: By.Id()\n  type: textbox\n"
+			definition1Compl = "page: Home\nuri: teste1/home.html\nelements: []\n"
+			definition2Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n"
+			definition3Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n- element: teste1\n  locator: By.Id()\n  type: textbox\n"
+			definition8Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste1\n  locator: By.Id()\n  type: button\n- element: teste2\n  locator: By.Id()\n  type: textbox\n- element: teste3\n  locator: By.Id()\n  type: button\n- element: teste4\n  locator: By.Id()\n  type: textbox\n"
 		})
 	Describe("Generating Page Object Definitions", func(){
 		Context("When valid incomplete trees", func(){
@@ -498,7 +498,9 @@ var _ = Describe("PageObjectDefParser", func() {
 	Describe("Parsing Page Object Definition",func(){
 		Context("When valid definition",func(){
 			It("Should return a Page without elements",func(done Done){
-				yamlPage,err := GetYamlPage(definition1Compl)
+				//"page: Home\nuri: http://www\nelements: []\n"
+				parser = &PageObjectDefParser{}
+				yamlPage,err := parser.GetYamlPage(definition1Compl)
 				Expect(err).To(BeNil())
 				Expect(yamlPage.Page).To(Equal("Home"))
 				Expect(len(yamlPage.Elements)).To(Equal(0))
@@ -506,7 +508,8 @@ var _ = Describe("PageObjectDefParser", func() {
 			})
 			It("Should return a Page with one element",func(done Done){
 				//"page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n"
-				yamlPage,err := GetYamlPage(definition2Compl)
+				parser = &PageObjectDefParser{}
+				yamlPage,err := parser.GetYamlPage(definition2Compl)
 				Expect(err).To(BeNil())
 				Expect(yamlPage.Page).To(Equal("Home"))
 				Expect(len(yamlPage.Elements)).To(Equal(1))
@@ -517,7 +520,8 @@ var _ = Describe("PageObjectDefParser", func() {
 			})
 			It("Should return a Page with two elements",func(done Done){
 				//"page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
-				yamlPage,err := GetYamlPage(definition3Compl)
+				parser = &PageObjectDefParser{}
+				yamlPage,err := parser.GetYamlPage(definition3Compl)
 				Expect(err).To(BeNil())
 				Expect(yamlPage.Page).To(Equal("Home"))
 				Expect(len(yamlPage.Elements)).To(Equal(2))
@@ -531,7 +535,8 @@ var _ = Describe("PageObjectDefParser", func() {
 			})
 			It("Should return a Page with four elements",func(done Done){
 				//"page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste3\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
-				yamlPage,err := GetYamlPage(definition8Compl)
+				parser = &PageObjectDefParser{}
+				yamlPage,err := parser.GetYamlPage(definition8Compl)
 				Expect(err).To(BeNil())
 				Expect(yamlPage.Page).To(Equal("Home"))
 				Expect(len(yamlPage.Elements)).To(Equal(4))
@@ -552,60 +557,126 @@ var _ = Describe("PageObjectDefParser", func() {
 		})
 		Context("When invalid definition",func(){
 			It("Should return a err with wrong definition",func(done Done){
-				_,err := GetYamlPage("pag: home\nuri:<ENTER PAGE URI>\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("pag: home\nuri:<ENTER PAGE URI>\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("yaml: line 2: could not find expected ':'"))
 				close(done)
 			})
 			It("Should return a err with missing page name field",func(done Done){
-				_,err := GetYamlPage("pag: home\nuri: <ENTER PAGE URI>\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("pag: home\nuri: <ENTER PAGE URI>\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Missing page name"))
 				close(done)
 			})
 			It("Should return a err with unset page uri field",func(done Done){
-				_,err := GetYamlPage("page: home\nuri: <ENTER PAGE URI>\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("page: home\nuri: <ENTER PAGE URI>\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Missing page uri"))
 				close(done)
 			})
 			It("Should return a err with missing page uri field",func(done Done){
-				_,err := GetYamlPage("page: home\nur: <ENTER PAGE URI>\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("page: home\nur: <ENTER PAGE URI>\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Missing page uri"))
 				close(done)
 			})
 			It("Should return a err with missing element name field",func(done Done){
-				_,err := GetYamlPage("page: Home\nuri: http://www\nelements:\n- elemen: teste\n  locator: By.Id()\n  type: button\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- elemen: teste\n  locator: By.Id()\n  type: button\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Missing element name for locator By.Id() and type button"))
 				close(done)
 			})
 			It("Should return a err with unset element locator field",func(done Done){
-				_,err := GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Missing element locator for name teste and type button"))
 				close(done)
 			})
 			It("Should return a err with missing element locator field",func(done Done){
-				_,err := GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locatr: <ENTER ELEMENT LOCATOR>\n  type: button\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locatr: <ENTER ELEMENT LOCATOR>\n  type: button\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Missing element locator for name teste and type button"))
 				close(done)
 			})
 			It("Should return a err with missing element type field",func(done Done){
-				_,err := GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  tye: button\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  tye: button\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Missing element type for locator By.Id() and name teste"))
 				close(done)
 			})
 			It("Should return a err with duplicated element name",func(done Done){
-				_,err := GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n- element: teste1\n  locator: By.Id()\n  type: textbox\n- element: teste\n  locator: By.Id()\n  type: textbox\n")
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n- element: teste1\n  locator: By.Id()\n  type: textbox\n- element: teste\n  locator: By.Id()\n  type: textbox\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Duplicated element teste with different types textbox || button"))
 				close(done)
 			})
 		})
 	})
-	Describe("",func(){})
+	Describe("Getting PageObjects types",func(){
+		Context("When valid definitions",func(){
+			It("Should return a valid PageObject without elements",func(done Done){
+				//"page: Home\nuri: http://www\nelements: []\n"
+				parser = &PageObjectDefParser{}
+				pageObj,err := parser.GetPageObject(definition1Compl, "http://localhost:433/site/test")
+				Expect(err).To(BeNil())
+				Expect(pageObj.Page).To(Equal("Home"))
+				Expect(pageObj.Uri).To(Equal("http://localhost:433/site/test/teste1/home.html"))
+				Expect(len(pageObj.Elements)).To(Equal(0))
+				close(done)
+			})
+			It("Should return a valid PageObject one element",func(done Done){
+				//"page: Home\nuri: teste1/home.html\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n"
+				parser = &PageObjectDefParser{}
+				pageObj,err := parser.GetPageObject(definition2Compl, "http://localhost:433/site/test")
+				Expect(err).To(BeNil())
+				Expect(pageObj.Page).To(Equal("Home"))
+				Expect(pageObj.Uri).To(Equal("http://localhost:433/site/test/teste1/home.html"))
+				Expect(len(pageObj.Elements)).To(Equal(1))
+				Expect(pageObj.Elements[0].ElementId).To(Equal("teste"))
+				Expect(pageObj.Elements[0].ElementType).To(Equal("button"))
+				Expect(pageObj.Elements[0].Locator).To(Equal("By.Id()"))
+				close(done)
+			})
+			It("Should return a valid PageObject four elements",func(done Done){
+				//"page: Home\nuri: teste1/home.html\nelements:\n- element: teste1\n  locator: By.Id()\n  type: button\n- element: teste2\n  locator: By.Id()\n  type: textbox\n- element: teste3\n  locator: By.Id()\n  type: button\n- element: teste4\n  locator: By.Id()\n  type: textbox\n"
+				parser = &PageObjectDefParser{}
+				pageObj,err := parser.GetPageObject(definition8Compl, "http://localhost:433/site/test")
+				Expect(err).To(BeNil())
+				Expect(pageObj.Page).To(Equal("Home"))
+				Expect(pageObj.Uri).To(Equal("http://localhost:433/site/test/teste1/home.html"))
+				Expect(len(pageObj.Elements)).To(Equal(4))
+				Expect(pageObj.Elements[0].ElementId).To(Equal("teste1"))
+				Expect(pageObj.Elements[0].ElementType).To(Equal("button"))
+				Expect(pageObj.Elements[0].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[1].ElementId).To(Equal("teste2"))
+				Expect(pageObj.Elements[1].ElementType).To(Equal("textbox"))
+				Expect(pageObj.Elements[1].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[2].ElementId).To(Equal("teste3"))
+				Expect(pageObj.Elements[2].ElementType).To(Equal("button"))
+				Expect(pageObj.Elements[2].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[3].ElementId).To(Equal("teste4"))
+				Expect(pageObj.Elements[3].ElementType).To(Equal("textbox"))
+				Expect(pageObj.Elements[3].Locator).To(Equal("By.Id()"))
+				close(done)
+			})
+		})
+		Context("When invalid definition",func(){
+			It("Should return an error with invalid definition",func(done Done){
+				parser = &PageObjectDefParser{}
+				_,err := parser.GetPageObject("pag: home\nuri:<ENTER PAGE URI>\n", "http://localhost:433/site/test")
+				Expect(err).To(Not(BeNil()))
+				Expect(err.Error()).To(Equal("yaml: line 2: could not find expected ':'"))
+				close(done)
+			})
+		})
+	})
 })

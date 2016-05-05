@@ -118,7 +118,7 @@ func defineExpectationElement(page *YamlPage, feature lexer.Feature) error{
 	return nil
 }
 
-func GetYamlPage(definition string) (page YamlPage,err error) {
+func (this *PageObjectDefParser) GetYamlPage(definition string) (page YamlPage,err error) {
 	elements = map[string]string{}
 	page = YamlPage{}
 	err = yaml.Unmarshal([]byte(definition),&page)
@@ -151,6 +151,31 @@ func GetYamlPage(definition string) (page YamlPage,err error) {
 			return
 		}
 		elements[element.Element] = element.Type
+	}
+	return
+}
+
+func (this *PageObjectDefParser) GetPageObject(definition string, baseUri string) (page *PageObject, err error) {
+	yamlPage, yamlErr := this.GetYamlPage(definition)
+	if yamlErr != nil {
+		err = yamlErr
+		return
+	} 
+	
+	uri := baseUri
+	
+	if baseUri[len(baseUri)-1:] != "/" {
+		uri += "/"
+	}
+	if yamlPage.Uri[0:1] == "/" {
+		uri += yamlPage.Uri[1:]
+	} else {
+		uri += yamlPage.Uri
+	}
+	
+	page = NewPageObject(yamlPage.Page,uri)
+	for _,element := range yamlPage.Elements {
+		_ = NewPageElement(page, element.Locator, element.Type, element.Element)
 	}
 	return
 }
