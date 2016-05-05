@@ -218,6 +218,10 @@
 			"Rev": "b5fd2f0bef1ebe832e628cfad18ab1cc707f65a1"
 		},
 		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "a83829b6f1293c91addabc89d0571c246397bbf4"
+		},
+		{
 			"ImportPath": "sourcegraph.com/sourcegraph/go-selenium",
 			"Comment": "0.2.2-83-g08a1eb5",
 			"Rev": "08a1eb52f34f466c772265dba97454303c5f4b7e"
