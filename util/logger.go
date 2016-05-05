@@ -1,11 +1,17 @@
 package util
 
 import (
+	"fmt"
 	loggo "github.com/juju/loggo"
 )
 
 func InitLog() {
-	config := "<root>=INFO; compiler.parser=ERROR; lexer.lexer=ERROR; lexer.parser=ERROR; test.compiler=INFO; pageObject.defParser=INFO"
+	configuration, err := GetConfig("/Users/coichedid/Projetos/Golang/src/github.com/ONSBR/bddTest.Go/util/conf.json")
+	if err != nil {
+		fmt.Println("Error reading config")
+		return
+	}
+	config := SerializeConfig(configuration.Logging)
 	loggo.ConfigureLoggers(config)
 }
 

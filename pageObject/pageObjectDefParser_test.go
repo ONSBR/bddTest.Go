@@ -10,7 +10,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var logCC = util.GetLogger("test.compiler")
+var logCC = util.GetLogger("test")
 
 var _ = Describe("PageObjectDefParser", func() {
 	var (

@@ -34,7 +34,9 @@ type (
 	}
 
 	PageObjectDefInterface interface {
-		getDefinitionFromTree(tree compiler.ExecutionTestTree) string
+		GetDefinitionFromTree(tree compiler.ExecutionTestTree) string
+		GetYamlPage(definition string) (page YamlPage, err error)
+		GetPageObject(definition string, baseUri string) (page *PageObject, err error)
 	}
 	PageObjectDefParser struct{}
 )
