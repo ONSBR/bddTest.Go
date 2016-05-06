@@ -1,8 +1,8 @@
-package pageObject
+package compiler
 
 import (
-	"github.com/ONSBR/bddTest.Go/compiler"
 	"github.com/ONSBR/bddTest.Go/compiler/lexer"
+	"github.com/ONSBR/bddTest.Go/pageObject"
 	"github.com/ONSBR/bddTest.Go/util"
 
 	yaml "gopkg.in/yaml.v2"
@@ -34,9 +34,9 @@ type (
 	}
 
 	PageObjectDefInterface interface {
-		GetDefinitionFromTree(tree compiler.ExecutionTestTree) string
+		GetDefinitionFromTree(tree ExecutionTestTree) string
 		GetYamlPage(definition string) (page YamlPage, err error)
-		GetPageObject(definition string, baseUri string) (page *PageObject, err error)
+		GetPageObject(definition string, baseUri string) (page *pageObject.PageObject, err error)
 	}
 	PageObjectDefParser struct{}
 )
@@ -45,7 +45,7 @@ func (e ParseError) Error() string {
 	return strings.Join(e.Errors, "\n")
 }
 
-func (this *PageObjectDefParser) GetDefinitionFromTree(tree compiler.ExecutionTestTree) (string, error) {
+func (this *PageObjectDefParser) GetDefinitionFromTree(tree ExecutionTestTree) (string, error) {
 	elements = map[string]string{}
 	page := YamlPage{}
 	err := definePage(&page, tree.Feature)
@@ -157,7 +157,7 @@ func (this *PageObjectDefParser) GetYamlPage(definition string) (page YamlPage, 
 	return
 }
 
-func (this *PageObjectDefParser) GetPageObject(definition string, baseUri string) (page *PageObject, err error) {
+func (this *PageObjectDefParser) GetPageObject(definition string, baseUri string) (page *pageObject.PageObject, err error) {
 	yamlPage, yamlErr := this.GetYamlPage(definition)
 	if yamlErr != nil {
 		err = yamlErr
@@ -175,9 +175,9 @@ func (this *PageObjectDefParser) GetPageObject(definition string, baseUri string
 		uri += yamlPage.Uri
 	}
 
-	page = NewPageObject(yamlPage.Page, uri)
+	page = pageObject.NewPageObject(yamlPage.Page, uri)
 	for _, element := range yamlPage.Elements {
-		_ = NewPageElement(page, element.Locator, element.Type, element.Element)
+		_ = pageObject.NewPageElement(page, element.Locator, element.Type, element.Element)
 	}
 	return
 }

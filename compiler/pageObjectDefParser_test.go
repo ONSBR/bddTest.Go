@@ -1,28 +1,27 @@
-package pageObject_test
+package compiler_test
 
 import (
-	"github.com/ONSBR/bddTest.Go/compiler"
+	. "github.com/ONSBR/bddTest.Go/compiler"
 	"github.com/ONSBR/bddTest.Go/compiler/lexer"
-	. "github.com/ONSBR/bddTest.Go/pageObject"
 	"github.com/ONSBR/bddTest.Go/util"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var logCC = util.GetLogger("test")
+var logObjDef = util.GetLogger("test")
 
 var _ = Describe("PageObjectDefParser", func() {
 	var (
 		parser = &PageObjectDefParser{}
 
-		goodTree1 compiler.ExecutionTestTree //Complete tree two actions two expects
-		goodTree2 compiler.ExecutionTestTree //Just Feature tree
-		goodTree3 compiler.ExecutionTestTree //Tree with only empty scenario
-		goodTree4 compiler.ExecutionTestTree //Tree with one action
-		goodTree5 compiler.ExecutionTestTree //Tree with two actions
-		goodTree6 compiler.ExecutionTestTree //Tree with one expect
-		goodTree7 compiler.ExecutionTestTree //Tree with two expects
+		goodTree1 ExecutionTestTree //Complete tree two actions two expects
+		goodTree2 ExecutionTestTree //Just Feature tree
+		goodTree3 ExecutionTestTree //Tree with only empty scenario
+		goodTree4 ExecutionTestTree //Tree with one action
+		goodTree5 ExecutionTestTree //Tree with two actions
+		goodTree6 ExecutionTestTree //Tree with one expect
+		goodTree7 ExecutionTestTree //Tree with two expects
 
 		definition1 string //Just Feature tree
 		definition2 string //Tree with one action
@@ -38,12 +37,12 @@ var _ = Describe("PageObjectDefParser", func() {
 		definition3Compl string
 		definition8Compl string
 
-		badTree1 compiler.ExecutionTestTree //Tree with duplicate element action
-		badTree2 compiler.ExecutionTestTree //Tree with duplicate element expectation
-		badTree3 compiler.ExecutionTestTree //Tree with duplicate element action and expectation
+		badTree1 ExecutionTestTree //Tree with duplicate element action
+		badTree2 ExecutionTestTree //Tree with duplicate element expectation
+		badTree3 ExecutionTestTree //Tree with duplicate element action and expectation
 	)
 	BeforeEach(func() {
-		goodTree1 = compiler.ExecutionTestTree{
+		goodTree1 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -103,7 +102,7 @@ var _ = Describe("PageObjectDefParser", func() {
 			},
 		}
 
-		goodTree2 = compiler.ExecutionTestTree{
+		goodTree2 = ExecutionTestTree{
 			NumScenarios: 0,
 			Feature: lexer.Feature{
 				LineNum:   0,
@@ -114,7 +113,7 @@ var _ = Describe("PageObjectDefParser", func() {
 				Scenarios: []lexer.Scenario{},
 			},
 		}
-		goodTree3 = compiler.ExecutionTestTree{
+		goodTree3 = ExecutionTestTree{
 			NumScenarios: 0,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -135,7 +134,7 @@ var _ = Describe("PageObjectDefParser", func() {
 				},
 			},
 		}
-		goodTree4 = compiler.ExecutionTestTree{
+		goodTree4 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -166,7 +165,7 @@ var _ = Describe("PageObjectDefParser", func() {
 				},
 			},
 		}
-		goodTree5 = compiler.ExecutionTestTree{
+		goodTree5 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -206,7 +205,7 @@ var _ = Describe("PageObjectDefParser", func() {
 				},
 			},
 		}
-		goodTree6 = compiler.ExecutionTestTree{
+		goodTree6 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -237,7 +236,7 @@ var _ = Describe("PageObjectDefParser", func() {
 				},
 			},
 		}
-		goodTree7 = compiler.ExecutionTestTree{
+		goodTree7 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -278,7 +277,7 @@ var _ = Describe("PageObjectDefParser", func() {
 			},
 		}
 
-		badTree1 = compiler.ExecutionTestTree{
+		badTree1 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -318,7 +317,7 @@ var _ = Describe("PageObjectDefParser", func() {
 			},
 		}
 
-		badTree2 = compiler.ExecutionTestTree{
+		badTree2 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,
@@ -359,7 +358,7 @@ var _ = Describe("PageObjectDefParser", func() {
 			},
 		}
 
-		badTree3 = compiler.ExecutionTestTree{
+		badTree3 = ExecutionTestTree{
 			NumScenarios: 1,
 			Feature: lexer.Feature{
 				LineNum:  0,

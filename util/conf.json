@@ -1,9 +1,10 @@
 {
 	"Logging":{
 		"<root>":"INFO",
-		"compiler.parser":"ERROR",
-		"lexer.lexer":"ERROR",
-		"lexer.parser":"ERROR",
+		"compiler.parser":"INFO",
+		"compiler.builder":"ERROR",
+		"lexer.lexer":"INFO",
+		"lexer.parser":"INFO",
 		"test":"INFO",
 		"pageObject.defParser":"INFO",
 		"util.fileHandler":"INFO"

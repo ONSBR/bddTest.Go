@@ -11,12 +11,21 @@ var (
 	log = util.GetLogger("compiler.parser")
 )
 
-type TranslatorError struct {
-	Message string
-	Token string
-}
+type (
+	TranslatorError struct {
+		Message string
+		Token   string
+	}
 
-var ParseCode = func(token string) (feature lexer.Feature, retCode int, err lexer.ParserError) {
+	CodeParser struct{}
+
+	CodeParserInterface interface {
+		ParseCode(token string) (feature lexer.Feature, retCode int, err lexer.ParserError)
+		TranslateTokens(feat lexer.Feature) (feature lexer.Feature, retCode int, err TranslatorError)
+	}
+)
+
+func (this *CodeParser) ParseCode(token string) (feature lexer.Feature, retCode int, err lexer.ParserError) {
 	log.Infof("Parsing token: %s", token)
 	bddTestLex := lexer.BddTestLex{S: token, OnBddTestParse: nil}
 	retCode = lexer.FeatureParse(&bddTestLex)
@@ -30,77 +39,72 @@ var ParseCode = func(token string) (feature lexer.Feature, retCode int, err lexe
 	return
 }
 
-var TranslateTokens = func(feat lexer.Feature) (feature lexer.Feature, retCode int, err TranslatorError) {
+func (this *CodeParser) TranslateTokens(feat lexer.Feature) (feature lexer.Feature, retCode int, err TranslatorError) {
 	feature = feat
-	fLab,ok := FeatureTokens[feature.Label]
+	fLab, ok := FeatureTokens[feature.Label]
 	if !ok {
 		retCode = 1
-		err = TranslatorError{Message:"Invalid feature token translation",Token:feature.Label}
+		err = TranslatorError{Message: "Invalid feature token translation", Token: feature.Label}
 		return
 	}
 	feature.Label = fLab
-	for idx,scenario := range feature.Scenarios {
-		_ = idx
-		sLab,ok := ScenarioTokens[scenario.Label]
+	for idx, scenario := range feature.Scenarios {
+		sLab, ok := ScenarioTokens[scenario.Label]
+
 		if !ok {
 			retCode = 1
-			err = TranslatorError{Message:"Invalid scenario token translation",Token:scenario.Label}
+			err = TranslatorError{Message: "Invalid scenario token translation", Token: scenario.Label}
 			return
 		}
-		scenario.Label = sLab
+		feature.Scenarios[idx].Label = sLab
 		for idx1, action := range scenario.Actions {
-			_ = idx1
 			aLab, ok := ExpectActionTokens[action.Label]
 			if !ok {
 				retCode = 1
-				err = TranslatorError{Message:"Invalid action label token translation",Token:action.Label}
+				err = TranslatorError{Message: "Invalid action label token translation", Token: action.Label}
 				return
 			}
-			action.Label = aLab
+			feature.Scenarios[idx].Actions[idx1].Label = aLab
 			aAct, ok := ActionTokens[action.Action]
 			if !ok {
 				retCode = 1
-				err = TranslatorError{Message:"Invalid action token translation",Token:action.Action}
+				err = TranslatorError{Message: "Invalid action token translation", Token: action.Action}
 				return
 			}
-			action.Action = aAct
+			feature.Scenarios[idx].Actions[idx1].Action = aAct
 			aObjT, ok := ObjectTokens[action.ObjectType]
 			if !ok {
 				retCode = 1
-				err = TranslatorError{Message:"Invalid action object type token translation",Token:action.ObjectType}
+				err = TranslatorError{Message: "Invalid action object type token translation", Token: action.ObjectType}
 				return
 			}
-			action.ObjectType = aObjT
+			feature.Scenarios[idx].Actions[idx1].ObjectType = aObjT
 		}
-		
+
 		for idx2, expect := range scenario.Expectations {
-			_ = idx2
 			aLab, ok := ExpectExpressionTokens[expect.Label]
 			if !ok {
 				retCode = 1
-				err = TranslatorError{Message:"Invalid expectation label token translation",Token:expect.Label}
+				err = TranslatorError{Message: "Invalid expectation label token translation", Token: expect.Label}
 				return
 			}
-			expect.Label = aLab
+			feature.Scenarios[idx].Expectations[idx2].Label = aLab
 			aAct, ok := ActionTokens[expect.Action]
 			if !ok {
 				retCode = 1
-				err = TranslatorError{Message:"Invalid expectation token translation",Token:expect.Action}
+				err = TranslatorError{Message: "Invalid expectation token translation", Token: expect.Action}
 				return
 			}
-			expect.Action = aAct
+			feature.Scenarios[idx].Expectations[idx2].Action = aAct
 			aObjT, ok := ObjectTokens[expect.ObjectType]
 			if !ok {
 				retCode = 1
-				err = TranslatorError{Message:"Invalid expectation object type token translation",Token:expect.ObjectType}
+				err = TranslatorError{Message: "Invalid expectation object type token translation", Token: expect.ObjectType}
 				return
 			}
-			expect.ObjectType = aObjT
+			feature.Scenarios[idx].Expectations[idx2].ObjectType = aObjT
 		}
 	}
 	retCode = 0
 	return
 }
-
-
-

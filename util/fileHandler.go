@@ -2,9 +2,12 @@ package util
 
 import (
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 )
+
+const sep = string(os.PathSeparator)
 
 var log = GetLogger("util.fileHandler")
 
@@ -24,8 +27,8 @@ type (
 
 func (this *FileHandler) FindFiles(pattern string) (files []string, err error) {
 	path := pattern
-	if path[len(path)-1:] != "/" {
-		path += "/"
+	if path[len(path)-1:] != sep {
+		path += sep
 	}
 	path += "*.spec"
 	return filepath.Glob(path)
@@ -54,10 +57,8 @@ func (this *FileHandler) ReadFiles(pattern string) (files map[string]FileContent
 			err = errRead
 			return
 		}
-		idx := strings.LastIndex(filename, "/")
-		if idx == -1 {
-			idx = strings.LastIndex(filename, "\\")
-		}
+		idx := strings.LastIndex(filename, sep)
+
 		path := filename[:idx]
 		name := filename[idx+1:]
 		files[filename] = FileContent{Filename: name, Path: path, Content: content}
