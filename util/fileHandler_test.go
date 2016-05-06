@@ -38,6 +38,17 @@ var _ = Describe("FileHandler", func() {
 		})
 	})
 	Describe("reading files", func() {
+		It("should return file exists", func(done Done) {
+			fileExist := "../test/specs/teste1.spec"
+			fileNotExist := "../test/specs/teste1.spec1"
+
+			fileHandler := &FileHandler{}
+			exists := fileHandler.DoesFileExists(fileExist)
+			Expect(exists).To(BeTrue())
+			exists = fileHandler.DoesFileExists(fileNotExist)
+			Expect(exists).To(BeFalse())
+			close(done)
+		})
 		It("should read a single file", func(done Done) {
 			ret := `Aspecto: Este é um aspecto
 Pagina: Cadastro de Clientes

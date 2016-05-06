@@ -123,8 +123,9 @@ func defineExpectationElement(page *YamlPage, feature lexer.Feature) error {
 func (this *PageObjectDefParser) GetYamlPage(definition string) (page YamlPage, err error) {
 	elements = map[string]string{}
 	page = YamlPage{}
-	err = yaml.Unmarshal([]byte(definition), &page)
-	if err != nil {
+	errYaml := yaml.Unmarshal([]byte(definition), &page)
+	if errYaml != nil {
+		err = ParseError{Errors: []string{errYaml.Error()}}
 		return
 	}
 	if page.Page == "" {
