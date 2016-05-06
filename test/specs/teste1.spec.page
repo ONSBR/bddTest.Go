@@ -1,0 +1,12 @@
+page: Home
+uri: test/teste1.html
+elements:
+- element: teste
+  locator: By.Id("teste")
+  type: button
+- element: teste1
+  locator: By.Id("teste1")
+  type: textbox
+- element: teste2
+  locator: By.Id("teste2")
+  type: selectbox
