@@ -1,0 +1,12 @@
+page: Cadastro de Clientes
+uri: <ENTER PAGE URI>
+elements:
+- element: teste
+  locator: <ENTER ELEMENT LOCATOR>
+  type: button
+- element: teste1
+  locator: <ENTER ELEMENT LOCATOR>
+  type: textbox
+- element: teste2
+  locator: <ENTER ELEMENT LOCATOR>
+  type: selectbox

@@ -25,14 +25,14 @@ var (
 var _ = Describe("Builder", func() {
 	Describe("building specs", func() {
 		It("should build a single spec file", func(done Done) {
-			builder := &Builder{}
+			builder := NewBuilder()
 			parsedTree := builder.BuildFile("../test/specs/teste1.spec")
 			Expect(parsedTree.HasError).To(BeFalse())
 			Expect(parsedTree.NumScenarios).To(Equal(1))
 			close(done)
 		})
 		It("should build a multiple spec files", func(done Done) {
-			builder := &Builder{}
+			builder := NewBuilder()
 			parsedTrees, err := builder.BuildFiles("../test/**/")
 			Expect(err).To(BeNil())
 			Expect(len(parsedTrees)).To(Equal(5))
@@ -156,14 +156,14 @@ var _ = Describe("Builder", func() {
 			definition2 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste5\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: salvar\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste6\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
 		})
 		It("should generate a single YAML string", func(done Done) {
-			builder := &Builder{}
+			builder := NewBuilder()
 			yaml, err := builder.GenerateYamlPageObject(tree1)
 			Expect(err).To(BeNil())
 			Expect(yaml).To(Equal(definition1))
 			close(done)
 		})
 		It("should generate multiple YAML strings", func(done Done) {
-			builder := &Builder{}
+			builder := NewBuilder()
 			yamls, err := builder.GenerateYamlPageObjects([]ExecutionTestTree{tree1, tree2})
 			Expect(err).To(BeNil())
 			Expect(len(yamls)).To(Equal(2))
@@ -186,7 +186,7 @@ var _ = Describe("Builder", func() {
 			_ = pageObject.NewPageElement(page2, "By.Id(\"teste6\")", "textbox", "teste6")
 		})
 		It("should generate a single Page Object based on page file", func(done Done) {
-			builder := &Builder{}
+			builder := NewBuilder()
 			pageObject, err := builder.GeneratePageObject("../test/specs/teste1.spec.page", "http://localhost:3000")
 			Expect(err).To(BeNil())
 			Expect(len(pageObject.Elements)).To(Equal(3))
@@ -347,7 +347,7 @@ var _ = Describe("Builder", func() {
 			_ = pageObject.NewPageElement(page2, "By.Id(\"teste6\")", "textbox", "teste6")
 		})
 		It("should generate a execution object based on a single spec file", func(done Done) {
-			builder := &Builder{}
+			builder := NewBuilder()
 			filename := "../test/specs/teste1.spec"
 			baseUri := "http://localhost:3000"
 			execution := builder.BuildExecution(filename, baseUri)
@@ -359,7 +359,7 @@ var _ = Describe("Builder", func() {
 			close(done)
 		})
 		It("should generate a collection of execution objects based on a spec folder pattern", func(done Done) {
-			builder := &Builder{}
+			builder := NewBuilder()
 			folderPattern := "../test/**/"
 			baseUri := "http://localhost:3000"
 			filename1 := "../test/specs/teste1.spec"
@@ -399,23 +399,42 @@ var _ = Describe("Builder", func() {
 			os.Rename("../test/specs/teste2.spec.page.bkp", "../test/specs/teste2.spec.page")
 		})
 		It("should write a spec.page file based on a filename", func(done Done) {
-			builder := &Builder{}
-			fileHandler := &util.FileHandler{}
+			builder := NewBuilder()
+			fileHandler := util.NewFileHandler()
 
 			filename1 := "../test/specs/teste3.spec"
 
-			err := builder.BuildYamlPageObjectFile(filename1)
+			err := builder.BuildYamlPageObjectFile(filename1,false)
 			Expect(err).To(BeNil())
 			Expect(fileHandler.DoesFileExists(filename1 + ".page")).To(BeTrue())
 			close(done)
 		})
+		
+		It("should write a spec.page file based on a filename and backup existing one", func(done Done) {
+			builder := NewBuilder()
+			fileHandler := util.NewFileHandler()
+
+			filename1 := "../test/specs/teste2.spec"
+			pageContent,_ := fileHandler.ReadFile(filename1 + ".page")
+
+			err := builder.BuildYamlPageObjectFile(filename1,true)
+			Expect(err).To(BeNil())
+			Expect(fileHandler.DoesFileExists(filename1 + ".page")).To(BeTrue())
+			Expect(fileHandler.DoesFileExists(filename1 + ".page.bkp")).To(BeTrue())
+			
+			_ = fileHandler.WriteFile(filename1 + ".page", pageContent)
+			_ = fileHandler.RemoveFile(filename1 + ".page.bkp")
+			
+			close(done)
+		})
+		
 		It("should write spec.page files based on a folder pattern", func(done Done) {
-			builder := &Builder{}
-			fileHandler := &util.FileHandler{}
+			builder := NewBuilder()
+			fileHandler := util.NewFileHandler()
 
 			folderPattern := "../test/**/"
 
-			err := builder.BuildYamlPageObjectFiles(folderPattern)
+			err := builder.BuildYamlPageObjectFiles(folderPattern,true)
 			Expect(len(err.(*BuilderError).Errors)).To(Equal(0))
 
 			files, _ := fileHandler.FindFiles(folderPattern + "*.spec.page")

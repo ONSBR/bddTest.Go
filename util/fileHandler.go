@@ -12,8 +12,10 @@ const sep = string(os.PathSeparator)
 var log = GetLogger("util.fileHandler")
 
 type (
+	//FileHandler structure representation for file handling operations
 	FileHandler struct{}
 
+	//FileContent represents a file
 	FileContent struct {
 		Filename string
 		Path     string
@@ -27,15 +29,18 @@ type (
 		WriteFile(string, string) error
 		DoesFileExists(string) bool
 		BackupFile(string) error
+		RemoveFile(string) error
 	}
 )
 
-func (this *FileHandler) FindFiles(pattern string) (files []string, err error) {
+//FindFiles list all files based on a folder pattern
+func (fileHandler *FileHandler) FindFiles(pattern string) (files []string, err error) {
 	path := pattern
 	return filepath.Glob(path)
 }
 
-func (this *FileHandler) ReadFile(filename string) (content string, err error) {
+//ReadFile read a single file and puts content on content ref parameter
+func (fileHandler *FileHandler) ReadFile(filename string) (content string, err error) {
 	bytes, errR := ioutil.ReadFile(filename)
 	if errR != nil {
 		err = errR
@@ -45,15 +50,16 @@ func (this *FileHandler) ReadFile(filename string) (content string, err error) {
 	return
 }
 
-func (this *FileHandler) ReadFiles(pattern string) (files map[string]FileContent, err error) {
-	filenames, errFind := this.FindFiles(pattern)
+//ReadFiles reads all files based on a folder pattern and return a list of file contents
+func (fileHandler *FileHandler) ReadFiles(pattern string) (files map[string]FileContent, err error) {
+	filenames, errFind := fileHandler.FindFiles(pattern)
 	if errFind != nil {
 		err = errFind
 		return
 	}
 	files = map[string]FileContent{}
 	for _, filename := range filenames {
-		content, errRead := this.ReadFile(filename)
+		content, errRead := fileHandler.ReadFile(filename)
 		if errRead != nil {
 			err = errRead
 			return
@@ -67,21 +73,42 @@ func (this *FileHandler) ReadFiles(pattern string) (files map[string]FileContent
 	return
 }
 
-func (this *FileHandler) WriteFile(filename string, content string) error {
+//WriteFile writes content to a single file
+func (fileHandler *FileHandler) WriteFile(filename string, content string) error {
 	data := []byte(content)
-	err := ioutil.WriteFile(filename, data, 0644)
+	_, err := os.Stat(filename)
+	if err == nil {
+		_ = os.Remove(filename)
+	}
+	err = ioutil.WriteFile(filename, data, 0644)
 	return err
 }
 
-func (this *FileHandler) DoesFileExists(filename string) bool {
+//DoesFileExists helper function to check if a file exists
+func (fileHandler *FileHandler) DoesFileExists(filename string) bool {
 	_, err := os.Stat(filename)
 	return err == nil
 }
 
-func (this *FileHandler) BackupFile(filename string) error {
+//BackupFile helper function to save a copy of a single file with .bkp extension
+func (fileHandler *FileHandler) BackupFile(filename string) error {
 	_, err := os.Stat(filename + ".bkp")
 	if err == nil {
 		_ = os.Remove(filename + ".bkp")
 	}
 	return os.Rename(filename, filename+".bkp")
+}
+
+//RemoveFile helper function exclude a single file
+func (fileHandler *FileHandler) RemoveFile(filename string) error {
+	_, err := os.Stat(filename)
+	if err == nil {
+		err = os.Remove(filename)
+	}
+	return err
+}
+
+//NewFileHandler basic constructor
+func NewFileHandler() *FileHandler {
+	return &FileHandler{}
 }

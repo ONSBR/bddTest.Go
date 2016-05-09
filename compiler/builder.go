@@ -60,8 +60,8 @@ type (
 		GeneratePageObject(string, string) (pageObject.PageObject, error)
 		BuildExecution(string) Execution
 		BuildExecutions(string) ([]Execution, error)
-		BuildYamlPageObjectFile(string) error
-		BuildYamlPageObjectFiles(string) error
+		BuildYamlPageObjectFile(string,bool) error
+		BuildYamlPageObjectFiles(string,bool) error
 	}
 
 	iBuilderError interface {
@@ -212,7 +212,7 @@ func (builder *Builder) BuildExecutions(folderPattern string, baseURI string) (e
 }
 
 //BuildYamlPageObjectFile get a single spec file and create stub of Yaml Page Object Definition file
-func (builder *Builder) BuildYamlPageObjectFile(filename string) error {
+func (builder *Builder) BuildYamlPageObjectFile(filename string, backup bool) error {
 	fileHandler := &util.FileHandler{}
 
 	executionTestTree := builder.BuildFile(filename)
@@ -227,9 +227,11 @@ func (builder *Builder) BuildYamlPageObjectFile(filename string) error {
 		return BuilderError{Errors: []BuilderFileError{BuilderFileError{Filename: filename, Error: errorMessage}}}
 	}
 	if fileHandler.DoesFileExists(filename + ".page") {
-		errBkp := fileHandler.BackupFile(filename + ".page")
-		if errBkp != nil {
-			return BuilderError{Errors: []BuilderFileError{BuilderFileError{Filename: filename + ".page", Error: errBkp.Error()}}}
+		if backup {
+			errBkp := fileHandler.BackupFile(filename + ".page")
+			if errBkp != nil {
+				return BuilderError{Errors: []BuilderFileError{BuilderFileError{Filename: filename + ".page", Error: errBkp.Error()}}}
+			}
 		}
 	}
 	errWrite := fileHandler.WriteFile(filename+".page", yaml)
@@ -240,7 +242,7 @@ func (builder *Builder) BuildYamlPageObjectFile(filename string) error {
 }
 
 //BuildYamlPageObjectFiles find spec files on folder pattern and create stub of Yaml Page Object Definition files
-func (builder *Builder) BuildYamlPageObjectFiles(folderPattern string) error {
+func (builder *Builder) BuildYamlPageObjectFiles(folderPattern string, backup bool) error {
 	builderError := &BuilderError{}
 	fileHandler := &util.FileHandler{}
 
@@ -258,17 +260,22 @@ func (builder *Builder) BuildYamlPageObjectFiles(folderPattern string) error {
 		if executionTestTree.HasError {
 			errorMessage := concatenateErrorMessage(filename, executionTestTree.Error)
 			builderError.Errors = append(builderError.Errors, BuilderFileError{Filename: filename, Error: errorMessage})
+			continue
 		}
 
 		yaml, err := builder.GenerateYamlPageObject(executionTestTree)
 		if err != nil {
 			errorMessage := err.Error()
 			builderError.Errors = append(builderError.Errors, BuilderFileError{Filename: filename, Error: errorMessage})
+			continue
 		}
 		if fileHandler.DoesFileExists(filename + ".page") {
-			errBkp := fileHandler.BackupFile(filename + ".page")
-			if errBkp != nil {
-				builderError.Errors = append(builderError.Errors, BuilderFileError{Filename: filename + ".page", Error: errBkp.Error()})
+			if backup {
+				errBkp := fileHandler.BackupFile(filename + ".page")
+				if errBkp != nil {
+					builderError.Errors = append(builderError.Errors, BuilderFileError{Filename: filename + ".page", Error: errBkp.Error()})
+					continue
+				}
 			}
 		}
 		errWrite := fileHandler.WriteFile(filename+".page", yaml)
@@ -299,4 +306,8 @@ func (this BuilderError) Error() string {
 		buffer.WriteString("\n")
 	}
 	return buffer.String()
+}
+
+func NewBuilder() *Builder {
+	return &Builder{}
 }

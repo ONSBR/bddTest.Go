@@ -3,6 +3,7 @@ package cli
 import (
     "github.com/ONSBR/bddTest.Go/compiler"
     "github.com/ONSBR/bddTest.Go/util"
+    
 )
 
 var logCli = util.GetLogger("cli.main")
@@ -28,7 +29,7 @@ func (cli *Cli) Run() int  {
             parseFlag.Usage()
             return -1
         case ValidadeCommand: //Run validation of files
-            builder := &compiler.Builder{}
+            builder := compiler.NewBuilder()
             if parseFlag.Options.SpecFile != "" {
                 tree := builder.BuildFile(parseFlag.Options.SpecFile)
                 result := compiler.ExecutionTestTreeResult{Filename: parseFlag.Options.SpecFile, ExecutionTree: tree}
@@ -45,8 +46,35 @@ func (cli *Cli) Run() int  {
             }
             break
         case YamlCommand: //Create .spec.page files
+            builder := compiler.NewBuilder()
+            if parseFlag.Options.SpecFile != "" {
+                err := builder.BuildYamlPageObjectFile(parseFlag.Options.SpecFile, parseFlag.Options.Yaml.Backup)
+                if err != nil {
+                    logCli.Errorf("%s", err.Error())
+                    retCode = -1
+                } else {
+                    retCode = 0
+                }
+            } else if parseFlag.Options.Multi != "" {
+                err := builder.BuildYamlPageObjectFiles(parseFlag.Options.Multi, parseFlag.Options.Yaml.Backup)
+                if err != nil {
+                    logCli.Errorf("%s", err.Error())
+                    retCode = -1
+                } else {
+                    retCode = 0
+                }
+            }
             break
         case RunCommand: //Execute known tests
+            builder := compiler.NewBuilder()
+            executions := []compiler.Execution{}
+            if parseFlag.Options.SpecFile != "" {
+                execution := builder.BuildExecution(parseFlag.Options.SpecFile, parseFlag.Options.BaseURI)
+                executions = append(executions, execution)
+            } else if parseFlag.Options.Multi != "" {
+                executions, _ = builder.BuildExecutions(parseFlag.Options.Multi, parseFlag.Options.BaseURI)
+            }
+            retCode = 0
             break
     }
     return retCode 
