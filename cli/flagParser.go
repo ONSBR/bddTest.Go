@@ -76,29 +76,31 @@ func (flagParser *FlagParser) Usage() string  {
 //Parse try to validade all flags and verbs from command line and return parsed code
 func (flagParser *FlagParser) Parse() int {
     retCode := ErrCommand
-    errParse := goptions.Parse(&flagParser.Options)
-    if errParse != nil {
-        retCode = ErrCommand
-    } else {
-        switch flagParser.Options.Verb {
-        case "validate":
-            // flagParser.Validade.Parse(os.Args[2:])
-            retCode = ValidadeCommand
-            break
-        case "yaml":
-            // flagParser.Yaml.Parse(os.Args[2:])
-            retCode = YamlCommand
-            break
-        case "run":   
-            // flagParser.Run.Parse(os.Args[2:])
-            retCode = RunCommand
-            break
+    if len(os.Args) >= 2 {
+        errParse := goptions.Parse(&flagParser.Options)
+        if errParse != nil {
+            retCode = ErrCommand
+        } else {
+            switch flagParser.Options.Verb {
+            case "validate":
+                // flagParser.Validade.Parse(os.Args[2:])
+                retCode = ValidadeCommand
+                break
+            case "yaml":
+                // flagParser.Yaml.Parse(os.Args[2:])
+                retCode = YamlCommand
+                break
+            case "run":   
+                // flagParser.Run.Parse(os.Args[2:])
+                retCode = RunCommand
+                break
+            }
+            if retCode != ErrCommand {
+                
+            }
         }
-        if retCode != ErrCommand {
-            
-        }
+    
     }
-  
     return retCode
 }
 

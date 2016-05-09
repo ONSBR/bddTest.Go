@@ -2,7 +2,7 @@ package util
 
 import (
 	"encoding/json"
-	"fmt"
+	// "fmt"
 	"os"
 	// "path/filepath"
 )
@@ -17,7 +17,6 @@ func GetConfig(path string) (config Configuration, er error) {
 		er = err
 		return
 	}
-	fmt.Println(err)
 	decoder := json.NewDecoder(file)
 	configuration := Configuration{}
 	err = decoder.Decode(&configuration)

@@ -11,8 +11,9 @@ type (
 	CustomFormatter struct{}
 )
 
-func InitLog() {
-	configuration, err := GetConfig("/Users/coichedid/Projetos/Golang/src/github.com/ONSBR/bddTest.Go/util/conf.json")
+func InitLog(path string) {
+	if path == "" {path = "/Users/coichedid/Projetos/Golang/src/github.com/ONSBR/bddTest.Go/util/conf.json"}
+	configuration, err := GetConfig(path)
 	if err != nil {
 		fmt.Println("Error reading config")
 		return

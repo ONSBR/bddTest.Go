@@ -20,14 +20,16 @@ type(
 
 //Run is the main execution function of bddTest.Go
 func (cli *Cli) Run() int  {
-    util.ReplaceLoggerDefaultFormatter()
     retCode := -1
     parseFlag := NewFlagParser()
     parseCode := parseFlag.Parse()
+    util.InitLog(parseFlag.Options.Config)
+    util.ReplaceLoggerDefaultFormatter()
     switch parseCode {
         case ErrCommand:
-            parseFlag.Usage()
-            return -1
+            usage := parseFlag.Usage()
+            logCli.Infof("%s", usage)
+            break
         case ValidadeCommand: //Run validation of files
             builder := compiler.NewBuilder()
             if parseFlag.Options.SpecFile != "" {

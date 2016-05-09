@@ -8,7 +8,7 @@
 		"test":"INFO",
 		"pageObject.defParser":"CRITICAL",
 		"util.fileHandler":"CRITICAL",
-		"cli.flagparser":"CRITICAL",
+		"cli.flagparser":"ERROR",
 		"cli.main":"INFO"
 	}
 }
