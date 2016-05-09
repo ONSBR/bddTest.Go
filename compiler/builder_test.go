@@ -24,16 +24,24 @@ var (
 
 var _ = Describe("Builder", func() {
 	Describe("building specs", func() {
+		BeforeEach(func ()  {
+			prepareFiles()
+		})
+		
+		AfterEach(func ()  {
+			removeFiles()
+		})
+		
 		It("should build a single spec file", func(done Done) {
 			builder := NewBuilder()
-			parsedTree := builder.BuildFile("../test/specs/teste1.spec")
+			parsedTree := builder.BuildFile("../test/BuilderSpecs/specs1/teste1.spec")
 			Expect(parsedTree.HasError).To(BeFalse())
 			Expect(parsedTree.NumScenarios).To(Equal(1))
 			close(done)
 		})
 		It("should build a multiple spec files", func(done Done) {
 			builder := NewBuilder()
-			parsedTrees, err := builder.BuildFiles("../test/**/")
+			parsedTrees, err := builder.BuildFiles("../test/BuilderSpecs/**/")
 			Expect(err).To(BeNil())
 			Expect(len(parsedTrees)).To(Equal(5))
 			close(done)
@@ -154,7 +162,12 @@ var _ = Describe("Builder", func() {
 
 			definition1 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  type: selectbox\n"
 			definition2 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste5\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: salvar\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste6\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
+			prepareFiles()
 		})
+		AfterEach(func ()  {
+			removeFiles()
+		})
+		
 		It("should generate a single YAML string", func(done Done) {
 			builder := NewBuilder()
 			yaml, err := builder.GenerateYamlPageObject(tree1)
@@ -184,10 +197,15 @@ var _ = Describe("Builder", func() {
 			_ = pageObject.NewPageElement(page2, "By.Id(\"teste5\")", "textbox", "teste5")
 			_ = pageObject.NewPageElement(page2, "By.Id(\"salvar\")", "button", "salvar")
 			_ = pageObject.NewPageElement(page2, "By.Id(\"teste6\")", "textbox", "teste6")
+			prepareFiles()
 		})
+		AfterEach(func ()  {
+			removeFiles()
+		})
+		
 		It("should generate a single Page Object based on page file", func(done Done) {
 			builder := NewBuilder()
-			pageObject, err := builder.GeneratePageObject("../test/specs/teste1.spec.page", "http://localhost:3000")
+			pageObject, err := builder.GeneratePageObject("../test/BuilderSpecs/specs1/teste1.spec.page", "http://localhost:3000")
 			Expect(err).To(BeNil())
 			Expect(len(pageObject.Elements)).To(Equal(3))
 			Expect(pageObject).To(Equal(*page1))
@@ -345,10 +363,15 @@ var _ = Describe("Builder", func() {
 			_ = pageObject.NewPageElement(page2, "By.Id(\"teste5\")", "textbox", "teste5")
 			_ = pageObject.NewPageElement(page2, "By.Id(\"salvar\")", "button", "salvar")
 			_ = pageObject.NewPageElement(page2, "By.Id(\"teste6\")", "textbox", "teste6")
+			prepareFiles()
 		})
+		AfterEach(func ()  {
+			removeFiles()
+		})
+		
 		It("should generate a execution object based on a single spec file", func(done Done) {
 			builder := NewBuilder()
-			filename := "../test/specs/teste1.spec"
+			filename := "../test/BuilderSpecs/specs1/teste1.spec"
 			baseUri := "http://localhost:3000"
 			execution := builder.BuildExecution(filename, baseUri)
 			Expect(execution.HasError).To(BeFalse())
@@ -360,10 +383,10 @@ var _ = Describe("Builder", func() {
 		})
 		It("should generate a collection of execution objects based on a spec folder pattern", func(done Done) {
 			builder := NewBuilder()
-			folderPattern := "../test/**/"
+			folderPattern := "../test/BuilderSpecs/**/"
 			baseUri := "http://localhost:3000"
-			filename1 := "../test/specs/teste1.spec"
-			filename2 := "../test/specs/teste2.spec"
+			filename1 := "../test/BuilderSpecs/specs1/teste1.spec"
+			filename2 := "../test/BuilderSpecs/specs1/teste2.spec"
 			executions, err := builder.BuildExecutions(folderPattern, baseUri)
 			Expect(err).To(BeNil())
 			Expect(len(executions)).To(Equal(5))
@@ -392,17 +415,20 @@ var _ = Describe("Builder", func() {
 	})
 	Describe("generating page files", func() {
 		BeforeEach(func() {
-			os.Remove("../test/specs/teste3.spec.page")
-			os.Remove("../test/specifications/1.spec.page")
-			os.Remove("../test/specifications/2.spec.page")
-			os.Rename("../test/specs/teste1.spec.page.bkp", "../test/specs/teste1.spec.page")
-			os.Rename("../test/specs/teste2.spec.page.bkp", "../test/specs/teste2.spec.page")
+			prepareFiles()
+			os.Remove("../test/BuilderSpecs/specs1/teste3.spec.page")
+			os.Remove("../test/BuilderSpecs/specs2/1.spec.page")
+			os.Remove("../test/BuilderSpecs/specs2/2.spec.page")
+			os.Rename("../test/BuilderSpecs/specs1/teste1.spec.page.bkp", "../test/BuilderSpecs/specs1/teste1.spec.page")
+			os.Rename("../test/BuilderSpecs/specs1/teste2.spec.page.bkp", "../test/BuilderSpecs/specs1/teste2.spec.page")
+			
 		})
+		
 		It("should write a spec.page file based on a filename", func(done Done) {
 			builder := NewBuilder()
 			fileHandler := util.NewFileHandler()
 
-			filename1 := "../test/specs/teste3.spec"
+			filename1 := "../test/BuilderSpecs/specs1/teste3.spec"
 
 			err := builder.BuildYamlPageObjectFile(filename1,false)
 			Expect(err).To(BeNil())
@@ -414,7 +440,7 @@ var _ = Describe("Builder", func() {
 			builder := NewBuilder()
 			fileHandler := util.NewFileHandler()
 
-			filename1 := "../test/specs/teste2.spec"
+			filename1 := "../test/BuilderSpecs/specs1/teste2.spec"
 			pageContent,_ := fileHandler.ReadFile(filename1 + ".page")
 
 			err := builder.BuildYamlPageObjectFile(filename1,true)
@@ -432,7 +458,7 @@ var _ = Describe("Builder", func() {
 			builder := NewBuilder()
 			fileHandler := util.NewFileHandler()
 
-			folderPattern := "../test/**/"
+			folderPattern := "../test/BuilderSpecs/**/"
 
 			err := builder.BuildYamlPageObjectFiles(folderPattern,true)
 			Expect(len(err.(*BuilderError).Errors)).To(Equal(0))
@@ -445,11 +471,12 @@ var _ = Describe("Builder", func() {
 			close(done)
 		})
 		AfterEach(func() {
-			os.Remove("../test/specs/teste3.spec.page")
-			os.Remove("../test/specifications/1.spec.page")
-			os.Remove("../test/specifications/2.spec.page")
-			os.Rename("../test/specs/teste1.spec.page.bkp", "../test/specs/teste1.spec.page")
-			os.Rename("../test/specs/teste2.spec.page.bkp", "../test/specs/teste2.spec.page")
+			os.Remove("../test/BuilderSpecs/specs1/teste3.spec.page")
+			os.Remove("../test/BuilderSpecs/specs2/1.spec.page")
+			os.Remove("../test/BuilderSpecs/specs2/2.spec.page")
+			os.Rename("../test/BuilderSpecs/specs1/teste1.spec.page.bkp", "../test/BuilderSpecs/specs1/teste1.spec.page")
+			os.Rename("../test/BuilderSpecs/specs1/teste2.spec.page.bkp", "../test/BuilderSpecs/specs1/teste2.spec.page")
+			removeFiles()
 		})
 	})
 })

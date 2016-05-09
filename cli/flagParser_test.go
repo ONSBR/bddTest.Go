@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	// usageArr []string
+	// usageArr []string 
 	// usageStr string
 	logFP = util.GetLogger("test")
 )
@@ -21,7 +21,11 @@ var (
 var _ = Describe("FlagParser", func() {
 	Describe("base construction", func(){
 		BeforeEach(func ()  {
-
+			prepareFiles()
+		})
+		
+		AfterEach(func ()  {
+			removeFiles()
 		})
 		It("should return usage string", func (done Done)  {
 			var flagParser *FlagParser = NewFlagParser()

@@ -30,6 +30,8 @@ type (
 		DoesFileExists(string) bool
 		BackupFile(string) error
 		RemoveFile(string) error
+		CreateFolder(string) error
+		RemoveFolder(string) error
 	}
 )
 
@@ -106,6 +108,16 @@ func (fileHandler *FileHandler) RemoveFile(filename string) error {
 		err = os.Remove(filename)
 	}
 	return err
+}
+
+//CreateFolder helper function to folder creation
+func (fileHandler *FileHandler) CreateFolder(folder string) error {
+	return os.Mkdir(folder, 0755)
+}
+
+//RemoveFolder helper function wrapper for RemoveFile
+func (fileHandler *FileHandler) RemoveFolder(folder string) error {
+	return fileHandler.RemoveFile(folder)
 }
 
 //NewFileHandler basic constructor
