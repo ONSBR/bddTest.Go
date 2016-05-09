@@ -27,7 +27,7 @@ var _ = Describe("FlagParser", func() {
 			var flagParser *FlagParser = NewFlagParser()
 			usage := flagParser.Usage()
 			usageSplit := strings.Split(usage, "\n")
-			Expect(len(usageSplit)).To(Equal(15))
+			Expect(len(usageSplit)).To(Equal(16))
 			close(done)
 		})
 		It("should parse and return invalid command", func (done Done)  {
