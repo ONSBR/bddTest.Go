@@ -2,7 +2,13 @@ package util
 
 import (
 	"fmt"
+	"os"
+	"time"
 	loggo "github.com/juju/loggo"
+)
+
+type (
+	CustomFormatter struct{}
 )
 
 func InitLog() {
@@ -16,5 +22,15 @@ func InitLog() {
 }
 
 func GetLogger(module string) loggo.Logger {
-	return loggo.GetLogger(module)
+	log := loggo.GetLogger(module)
+	return log
+}
+
+func (formatter *CustomFormatter) Format(level loggo.Level, module, filename string, line int, timestamp time.Time, message string) string {
+	return fmt.Sprintf("%s", message)
+}
+
+func ReplaceLoggerDefaultFormatter() {
+    writer := loggo.NewSimpleWriter(os.Stderr, &CustomFormatter{})
+	loggo.ReplaceDefaultWriter(writer)
 }

@@ -19,7 +19,7 @@ type (
 
 	CodeParser struct{}
 
-	CodeParserInterface interface {
+	iCodeParser interface {
 		ParseCode(token string) (feature lexer.Feature, retCode int, err lexer.ParserError)
 		TranslateTokens(feat lexer.Feature) (feature lexer.Feature, retCode int, err TranslatorError)
 	}

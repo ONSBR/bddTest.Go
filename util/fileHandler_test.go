@@ -16,7 +16,7 @@ var _ = Describe("FileHandler", func() {
 	Describe("handling directory patterns", func() {
 		It("should list files of a path", func(done Done) {
 			fileHandler := &FileHandler{}
-			files, err := fileHandler.FindFiles("../test/specs/")
+			files, err := fileHandler.FindFiles("../test/specs/*.spec")
 			Expect(err).To(BeNil())
 			Expect(len(files)).To(Equal(3))
 			Expect(files[0]).To(Equal("../test/specs/teste1.spec"))
@@ -26,7 +26,7 @@ var _ = Describe("FileHandler", func() {
 		})
 		It("should list files of a path pattern", func(done Done) {
 			fileHandler := &FileHandler{}
-			files, err := fileHandler.FindFiles("../test/**/")
+			files, err := fileHandler.FindFiles("../test/**/*.spec")
 			Expect(err).To(BeNil())
 			Expect(len(files)).To(Equal(5))
 			Expect(files[0]).To(Equal("../test/specifications/1.spec"))
@@ -56,7 +56,8 @@ Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"`
+Entao eu espero a lista teste2 com a opcao "clovis3"
+`
 			fileHandler := &FileHandler{}
 			content, err := fileHandler.ReadFile("../test/specs/teste1.spec")
 			Expect(err).To(BeNil())
@@ -70,9 +71,10 @@ Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"`
+Entao eu espero a lista teste2 com a opcao "clovis3"
+`
 			fileHandler := &FileHandler{}
-			files, err := fileHandler.ReadFiles("../test/**/")
+			files, err := fileHandler.ReadFiles("../test/**/*.spec")
 			Expect(err).To(BeNil())
 			Expect(len(files)).To(Equal(5))
 			file := files["../test/specs/teste1.spec"]

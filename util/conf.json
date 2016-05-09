@@ -1,12 +1,14 @@
 {
 	"Logging":{
 		"<root>":"INFO",
-		"compiler.parser":"INFO",
-		"compiler.builder":"ERROR",
-		"lexer.lexer":"INFO",
-		"lexer.parser":"INFO",
-		"test":"INFO",
-		"pageObject.defParser":"INFO",
-		"util.fileHandler":"INFO"
+		"compiler.parser":"CRITICAL",
+		"compiler.builder":"CRITICAL",
+		"lexer.lexer":"CRITICAL",
+		"lexer.parser":"CRITICAL",
+		"test":"CRITICAL",
+		"pageObject.defParser":"CRITICAL",
+		"util.fileHandler":"CRITICAL",
+		"cli.flagparser":"CRITICAL",
+		"cli.main":"INFO"
 	}
 }

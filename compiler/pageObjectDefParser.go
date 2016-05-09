@@ -33,7 +33,7 @@ type (
 		Elements []YamlElement
 	}
 
-	PageObjectDefInterface interface {
+	iPageObjectDef interface {
 		GetDefinitionFromTree(tree ExecutionTestTree) string
 		GetYamlPage(definition string) (page YamlPage, err error)
 		GetPageObject(definition string, baseUri string) (page *pageObject.PageObject, err error)

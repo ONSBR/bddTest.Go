@@ -70,7 +70,6 @@ func (this BddTestLex) data() (bb []byte) {
 }
 
 func (this *BddTestLex) Error(s string) {
-	logUtil.Errorf("Error: %s",s)
 	err := ParserError{Message:s,LineNum:this.lineNum+1,LinePos:this.linePos+1,Token:string(this.buf)}
 	this.ParseError = err
 //	res := &BddTestParseRes{Error:err, HasError:true}

@@ -20,7 +20,7 @@ type (
 		Content  string
 	}
 
-	FileHandlerInterface interface {
+	iFileHandler interface {
 		FindFiles(string) ([]string, error)
 		ReadFile(string) (string, error)
 		ReadFiles(string) (map[string]FileContent, error)

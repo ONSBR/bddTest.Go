@@ -14,7 +14,7 @@ type (
 
 	CodeCompiler struct{}
 
-	CodeCompilerInterface interface {
+	iCodeCompiler interface {
 		BuildExecutionTestTree(token string) ExecutionTestTree
 	}
 )

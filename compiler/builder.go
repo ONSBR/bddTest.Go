@@ -16,24 +16,31 @@ const sep = string(os.PathSeparator)
 var logBuilder = util.GetLogger("compiler.builder")
 
 type (
+	
+	//BuilderFileError support type for error handler
 	BuilderFileError struct {
 		Filename string
 		Error    string
 	}
+	
+	//BuilderError support type for error handler
 	BuilderError struct {
 		Errors []BuilderFileError
 	}
 
+	//ExecutionTestTreeResult is the parsed execution test tree based on .spec file
 	ExecutionTestTreeResult struct {
 		Filename      string
 		ExecutionTree ExecutionTestTree
 	}
 
+	//PageObjectResult is the parsed page object instance based on .spec.page file
 	PageObjectResult struct {
 		Filename   string
 		PageObject pageObject.PageObject
 	}
 
+	//Execution defines a single execution element based on a spec file with execution tree and page object
 	Execution struct {
 		Filename      string
 		PageObject    pageObject.PageObject
@@ -42,9 +49,10 @@ type (
 		Error         string
 	}
 
+	//Builder is the base structure of bddTest.Go builder
 	Builder struct{}
 
-	BuilderInterface interface {
+	iBuilder interface {
 		BuildFile(string) (ExecutionTestTree, error)
 		BuildFiles(string) ([]ExecutionTestTreeResult, error)
 		GenerateYamlPageObject(ExecutionTestTree) (string, error)
@@ -56,12 +64,13 @@ type (
 		BuildYamlPageObjectFiles(string) error
 	}
 
-	BuilderErrorInterface interface {
+	iBuilderError interface {
 		Error() string
 	}
 )
 
-func (this *Builder) BuildFile(filename string) (tree ExecutionTestTree) {
+//BuildFile get a single spec file and try to validate 
+func (builder *Builder) BuildFile(filename string) (tree ExecutionTestTree) {
 	codeCompiler := &CodeCompiler{}
 	fileHandler := &util.FileHandler{}
 
@@ -76,8 +85,9 @@ func (this *Builder) BuildFile(filename string) (tree ExecutionTestTree) {
 	return
 }
 
-func (this *Builder) BuildFiles(folderPattern string) (trees []ExecutionTestTreeResult, err error) {
-	var builderError = &BuilderError{}
+//BuildFiles find all spec files based on folder pattern and try to validate 
+func (builder *Builder) BuildFiles(folderPattern string) (trees []ExecutionTestTreeResult, err error) {
+	// var builderError = &BuilderError{}
 	var path = folderPattern
 	fileHandler := &util.FileHandler{}
 
@@ -95,28 +105,30 @@ func (this *Builder) BuildFiles(folderPattern string) (trees []ExecutionTestTree
 	}
 	for _, filename := range filenames {
 		logBuilder.Infof("PATH %s", filename)
-		tree := this.BuildFile(filename)
-		if tree.HasError {
-			message := concatenateErrorMessage(filename, tree.Error)
-			builderFileError := BuilderFileError{Filename: filename, Error: message}
-			builderError.Errors = append(builderError.Errors, builderFileError)
-			err = builderError
-		}
+		tree := builder.BuildFile(filename)
+		// if tree.HasError {
+		// 	message := concatenateErrorMessage(filename, tree.Error)
+		// 	builderFileError := BuilderFileError{Filename: filename, Error: message}
+		// 	builderError.Errors = append(builderError.Errors, builderFileError)
+		// 	err = builderError
+		// }
 		result := ExecutionTestTreeResult{Filename: filename, ExecutionTree: tree}
 		trees = append(trees, result)
 	}
 	return
 }
 
-func (this *Builder) GenerateYamlPageObject(tree ExecutionTestTree) (yaml string, err error) {
+//GenerateYamlPageObject generate yaml stub definition of page object based on parsed execution test tree
+func (builder *Builder) GenerateYamlPageObject(tree ExecutionTestTree) (yaml string, err error) {
 	pageObjectDefParser := &PageObjectDefParser{}
 	yaml, err = pageObjectDefParser.GetDefinitionFromTree(tree)
 	return
 }
 
-func (this *Builder) GenerateYamlPageObjects(trees []ExecutionTestTree) (yamls []string, err error) {
+//GenerateYamlPageObjects generate yaml stub definitions of page objects based on parsed execution test trees
+func (builder *Builder) GenerateYamlPageObjects(trees []ExecutionTestTree) (yamls []string, err error) {
 	for _, tree := range trees {
-		yaml, errYaml := this.GenerateYamlPageObject(tree)
+		yaml, errYaml := builder.GenerateYamlPageObject(tree)
 		if errYaml != nil {
 			err = errYaml
 			return
@@ -126,7 +138,8 @@ func (this *Builder) GenerateYamlPageObjects(trees []ExecutionTestTree) (yamls [
 	return
 }
 
-func (this *Builder) GeneratePageObject(filename string, baseUri string) (page pageObject.PageObject, err error) {
+//GeneratePageObject instantiate a page object based on page Object Definition file
+func (builder *Builder) GeneratePageObject(filename string, baseURI string) (page pageObject.PageObject, err error) {
 	pageObjectDefParser := &PageObjectDefParser{}
 	fileHandler := &util.FileHandler{}
 
@@ -136,7 +149,7 @@ func (this *Builder) GeneratePageObject(filename string, baseUri string) (page p
 		err = BuilderError{Errors: []BuilderFileError{BuilderFileError{Filename: filename, Error: errRead.Error()}}}
 		return
 	}
-	pageObj, errParser := pageObjectDefParser.GetPageObject(content, baseUri)
+	pageObj, errParser := pageObjectDefParser.GetPageObject(content, baseURI)
 	if errParser != nil {
 		err = BuilderError{Errors: []BuilderFileError{BuilderFileError{Filename: filename, Error: errParser.Error()}}}
 		return
@@ -145,11 +158,12 @@ func (this *Builder) GeneratePageObject(filename string, baseUri string) (page p
 	return
 }
 
-func (this *Builder) BuildExecution(filename string, baseUri string) Execution {
+//BuildExecution get single spec and page object definition and create execution tree of test
+func (builder *Builder) BuildExecution(filename string, baseURI string) Execution {
 	fileHandler := &util.FileHandler{}
 	var exec Execution
 
-	executionTestTreeResult := this.BuildFile(filename)
+	executionTestTreeResult := builder.BuildFile(filename)
 
 	if executionTestTreeResult.HasError {
 		exec = Execution{Filename: filename, HasError: true, Error: concatenateErrorMessage(filename, executionTestTreeResult.Error)}
@@ -158,7 +172,7 @@ func (this *Builder) BuildExecution(filename string, baseUri string) Execution {
 		if !fileHandler.DoesFileExists(pageFilename) {
 			exec = Execution{Filename: filename, HasError: true, Error: fmt.Sprintf("Page Object file missing: %s", pageFilename)}
 		} else {
-			if page, errPage := this.GeneratePageObject(pageFilename, baseUri); errPage == nil {
+			if page, errPage := builder.GeneratePageObject(pageFilename, baseURI); errPage == nil {
 				exec = Execution{Filename: filename, ExecutionTree: executionTestTreeResult, PageObject: page}
 			} else {
 				exec = Execution{Filename: filename, HasError: true, Error: errPage.Error()}
@@ -170,10 +184,11 @@ func (this *Builder) BuildExecution(filename string, baseUri string) Execution {
 	return exec
 }
 
-func (this *Builder) BuildExecutions(folderPattern string, baseUri string) (exec []Execution, err error) {
+//BuildExecutions find specs and page object definitions on folder pattern and create execution tree of tests
+func (builder *Builder) BuildExecutions(folderPattern string, baseURI string) (exec []Execution, err error) {
 	fileHandler := &util.FileHandler{}
 
-	executionTestTreeResults, errBuild := this.BuildFiles(folderPattern)
+	executionTestTreeResults, errBuild := builder.BuildFiles(folderPattern)
 
 	logBuilder.Errorf("COUNT %d", len(executionTestTreeResults))
 
@@ -186,7 +201,7 @@ func (this *Builder) BuildExecutions(folderPattern string, baseUri string) (exec
 		if !fileHandler.DoesFileExists(pageFilename) {
 			exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, HasError: true, Error: fmt.Sprintf("Page Object file missing: %s", pageFilename)})
 		} else {
-			if page, errPage := this.GeneratePageObject(pageFilename, baseUri); errPage == nil {
+			if page, errPage := builder.GeneratePageObject(pageFilename, baseURI); errPage == nil {
 				exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, ExecutionTree: executionTestTreeResult.ExecutionTree, PageObject: page})
 			} else {
 				exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, HasError: true, Error: errPage.Error()})
@@ -196,16 +211,17 @@ func (this *Builder) BuildExecutions(folderPattern string, baseUri string) (exec
 	return
 }
 
-func (this *Builder) BuildYamlPageObjectFile(filename string) error {
+//BuildYamlPageObjectFile get a single spec file and create stub of Yaml Page Object Definition file
+func (builder *Builder) BuildYamlPageObjectFile(filename string) error {
 	fileHandler := &util.FileHandler{}
 
-	executionTestTree := this.BuildFile(filename)
+	executionTestTree := builder.BuildFile(filename)
 	if executionTestTree.HasError {
 		errorMessage := concatenateErrorMessage(filename, executionTestTree.Error)
 		return BuilderError{Errors: []BuilderFileError{BuilderFileError{Filename: filename, Error: errorMessage}}}
 	}
 
-	yaml, err := this.GenerateYamlPageObject(executionTestTree)
+	yaml, err := builder.GenerateYamlPageObject(executionTestTree)
 	if err != nil {
 		errorMessage := err.Error()
 		return BuilderError{Errors: []BuilderFileError{BuilderFileError{Filename: filename, Error: errorMessage}}}
@@ -223,11 +239,12 @@ func (this *Builder) BuildYamlPageObjectFile(filename string) error {
 	return nil
 }
 
-func (this *Builder) BuildYamlPageObjectFiles(folderPattern string) error {
+//BuildYamlPageObjectFiles find spec files on folder pattern and create stub of Yaml Page Object Definition files
+func (builder *Builder) BuildYamlPageObjectFiles(folderPattern string) error {
 	builderError := &BuilderError{}
 	fileHandler := &util.FileHandler{}
 
-	executionTestTreeResults, errBuild := this.BuildFiles(folderPattern)
+	executionTestTreeResults, errBuild := builder.BuildFiles(folderPattern)
 
 	logBuilder.Errorf("COUNT %d", len(executionTestTreeResults))
 
@@ -243,7 +260,7 @@ func (this *Builder) BuildYamlPageObjectFiles(folderPattern string) error {
 			builderError.Errors = append(builderError.Errors, BuilderFileError{Filename: filename, Error: errorMessage})
 		}
 
-		yaml, err := this.GenerateYamlPageObject(executionTestTree)
+		yaml, err := builder.GenerateYamlPageObject(executionTestTree)
 		if err != nil {
 			errorMessage := err.Error()
 			builderError.Errors = append(builderError.Errors, BuilderFileError{Filename: filename, Error: errorMessage})
