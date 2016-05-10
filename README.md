@@ -17,20 +17,23 @@ Features
 
 Command Line
 ---------------------
-> Usage: bddTest.Go [global options] <verb> [verb options]</b>
-> Global options:</br>
->&nbsp;&nbsp;&nbsp;  -f, --specfile       Single spec file to be used</b>
->&nbsp;&nbsp;&nbsp; -m, --multi          Spec file path pattern</b>
->&nbsp;&nbsp;&nbsp;-u, --uri            Base URI concatenated to page URI on test execution (default: http://127.0.0.1)</b>
->&nbsp;&nbsp;&nbsp;-s, --seleniumserver URI of selenium server (default: http://127.0.0.1:4444/wd/hub)</b>
-> &nbsp;&nbsp;&nbsp;-c, --configfile     Configuration file</b>
->&nbsp;&nbsp;&nbsp; -h, --help           Show this help</b>
-></b>
->Verbs:</b>
->&nbsp;&nbsp;&nbsp;run:</b>
-> &nbsp;&nbsp;&nbsp;validate:</b>
->&nbsp;&nbsp;&nbsp;yaml:</b>
->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-b, --backup         If set and page object file exists, it will be renamed to .bkp sufix</b>
+
+```
+Usage: bddTest.Go [global options] <verb> [verb options]
+Global options:
+    -f, --specfile       Single spec file to be used
+    -m, --multi          Spec file path pattern
+    -u, --uri            Base URI concatenated to page URI on test execution (default: http://127.0.0.1)
+    -s, --seleniumserver URI of selenium server (default: http://127.0.0.1:4444/wd/hub)
+    -c, --configfile     Configuration file
+    -h, --help           Show this help
+
+Verbs:
+    run:
+    validate:
+    yaml:
+        -b, --backup         If set and page object file exists, it will be renamed to .bkp sufix
+```
 
 Build and Install
 -----------------------
