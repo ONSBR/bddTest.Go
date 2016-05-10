@@ -54,7 +54,7 @@ Or you can build from source:
 Usage
 --------
 bddTest.Go is based on a DSL for write tests and a YAML file format to define Page Objects.
-First, write some tests using [bddTest.Go DSL](https://github.com/ONSBR/bddTest.Go/blob/master/README.md) and then use bddTest.Go command line to generate Page Objects definitions:
+First, write some tests using [bddTest.Go DSL](https://github.com/ONSBR/bddTest.Go/blob/master/bddTest.Go.DSL.md) and then use bddTest.Go command line to generate Page Objects definitions:
  
 1. Create a folder for your spec files
 2. Write a .spec file for each page you want to test. This .spec file can have several scenarios
