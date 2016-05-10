@@ -50,6 +50,18 @@ Or you can build from source:
  3. Clone repository 
  4. Get dependencies `godep restore`
  5. Build and install bddTest.Go package `go build;go install`
+ 
+Usage
+--------
+bddTest.Go is based on a DSL for write tests and a YAML file format to define Page Objects.
+First, write some tests using [bddTest.Go DSL](https://github.com/ONSBR/bddTest.Go/blob/master/README.md) and then use bddTest.Go command line to generate Page Objects definitions:
+ 
+1. Create a folder for your spec files
+2. Write a .spec file for each page you want to test. This .spec file can have several scenarios
+3. Run `bddTest.Go -m [your folder pattern: ./tests*/**/] validate` to build spec files
+4. Run `bddTest.Go -m [your folder pattern: ./tests*/**/] yaml` to generate .spec.page files
+5. Complete each .spec.page generated file with page relative URI and element locators
+6. Run `bddTest.Go -m [your folder pattern: ./tests*/**/] -u [your base URI: http://localhost/] -s [your selenium server: http://localhost:4444/wd/hub] -c [your log configuration file] run`
 
 
 Contribution
