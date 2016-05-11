@@ -1,5 +1,13 @@
 all: bddLangParser.go bddLangLexer.y bddLangLexer.go
 
+SRC=$(patsubst %.l, %.go, $(wildcard ./locales/*.l))
+
+lexParsers: $(SRC)
+	@(echo "Done")
+
+%.go: %.l
+	golex -t -o $@ $^ | gofmt > $@
+	
 bddLangParser.go: bddLang.l
 	golex -t -o bddLangParser.go bddLang.l | gofmt > bddLangParser.go
 	
@@ -19,7 +27,7 @@ definitions-backup:
 	mkdir old
 	cp bddLang.ebnf old/bddLang.ebnf.old
 	cp bddLangLexer.y old/bddLangLexer.y.old
-	cp bddLang.l old/bddLang.l.old
+	# cp bddLang.l old/bddLang.l.old
 clean:
-	rm -f bddLangParser.go bddLangLexer.y bddLangLexer.go y.output
+	rm -f bddLangLexer.y bddLangLexer.go y.output
 	#rm -f lexer.yy.go

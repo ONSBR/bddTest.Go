@@ -54,10 +54,8 @@ func (this *BddTestLex) back() {
 }
 
 func (this *BddTestLex) newLine() {
-//	logUtil.Errorf("line %d pos %d",this.lineNum, this.linePos)
 	this.lineNum += 1
 	this.linePos = 0
-//	logUtil.Errorf("line %d pos %d",this.lineNum, this.linePos)
 }
 
 func (this BddTestLex) data() (bb []byte) {
@@ -104,5 +102,73 @@ func (this BddTestLex) getParam() (s string) {
 	str := strings.TrimSpace(string(this.data()))
 	s = str[1:len(str)-1]
 	return
+}
+
+func (this *BddTestLex) SetLexStrategy(strategy ILexerLocalized) {
+	this.lexStrategy = strategy
+}
+
+//Lex is the wrapper to localized strategy Lex
+func (this *BddTestLex) Lex(lval *FeatureSymType) (ret int) {
+	var err error
+	
+	retLex := this.lexStrategy.LexLocalized(this.next, this.back, this.resetBuffer)
+	switch retLex {
+		case NEW_LINE:
+			this.newLine()
+			break
+		case NUMBER:
+			if lval.item, err = this.getInt(); nil!=err {
+				retLex = -1
+			}
+			break
+		case INIT_SCENARIO_LABEL:
+			lval.item = this.getLabel()
+			break
+		case PAGE_LABEL:
+			lval.item = this.getLabel()
+			break
+		case USER_SCENARIO_LABEL:
+			lval.item = this.getLabel()
+			break
+		case EXPECT_ACTION_LABEL:
+			lval.item = this.getLabel()
+			break
+		case EXPECT_ACTION_ACTION:
+			lval.item = this.getStr()
+			break
+		case SCENARIO_LABEL:
+			lval.item = this.getLabel()
+			break
+		case FEATURE_LABEL:
+			lval.item = this.getLabel()
+			break
+		case LABEL:
+			lval.item = this.getLabel()
+			break
+		case ACTION:
+			lval.item = this.getStr()
+			break
+		case OBJECT_TYPE:
+			lval.item = this.getStr()
+			break
+		case SIGN:
+			lval.item = this.getStr()
+			break
+		case TEXT_PARAM:
+			lval.item = this.getParam()
+			break
+		case TEXT:
+			lval.item = this.getStr()
+			break
+	}
+	ret = retLex
+	return
+}
+
+func (this *BddTestLex) resetBuffer()  {
+	if nil!=this.buf {
+		this.buf = this.buf[len(this.buf)-1:]
+	}
 }
 

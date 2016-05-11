@@ -4,6 +4,10 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"github.com/ONSBR/bddTest.Go/util"
+	
+	
+	_ "github.com/ONSBR/bddTest.Go/compiler/lexer/locales"
+	_ "github.com/ONSBR/bddTest.Go/compiler/langMaps"
 
 	"testing"
 )
@@ -31,7 +35,8 @@ func prepareFiles() {
 			destinations["teste2.spec"] = []string{"../test/CliSpecs/specs3"}
 			destinations["teste2.spec.page"] = []string{"../test/CliSpecs/specs3"}
 			
-			files["error1.spec"] = `Aspect: Este é um aspecto
+			files["error1.spec"] = `#pt_BR
+Aspect: Este é um aspecto
 Pagina: Cadastro de Clientes
 Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
@@ -39,22 +44,25 @@ Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
 Entao eu espero a lista teste2 com a opcao "clovis3"`
 
-			files["good1.spec"] = `Aspecto: Este é um aspecto
+			files["good1.spec"] = `#pt_BR
+Aspecto: Este é um aspecto
 Pagina: Cadastro de Clientes
 Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
 Entao eu espero a lista teste2 com a opcao "clovis3"`
-			files["teste1.spec"] = `Aspecto: Este é um aspecto
-Pagina: Cadastro de Clientes
-Cenario: primeiro cenário
-Dado que estou usando o usuario clovis.chedid
-Quando eu clico no botao teste com o valor "clovis1"
-E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"
+			files["teste1.spec"] = `#en
+Feature: Este é um aspecto
+Page: Cadastro de Clientes
+Scenario: primeiro cenário
+Given que estou usando o user clovis.chedid
+When eu click no button teste com o valor "clovis1"
+And eu set o textbox teste1 com o valor "clovis2"
+Then eu expect a selectbox teste2 com a opcao "clovis3"
 `
-			files["teste2.spec"] = `Aspecto: Este é um aspecto
+			files["teste2.spec"] = `#pt_BR
+Aspecto: Este é um aspecto
 Pagina: Cadastro de Clientes
 Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid

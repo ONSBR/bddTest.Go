@@ -166,6 +166,7 @@ type (
 var parsedCode Feature
 
 func GetParsedCode() interface{} {
+	log.Infof("GetParsedCode |%s|", parsedCode.Label)
 	return parsedCode
 }
 
@@ -620,7 +621,7 @@ Featuredefault:
 		FeatureDollar = FeatureS[Featurept-7 : Featurept+1]
 		//line bddLangLexer.y:108
 		{
-			log.Infof("Expect_action found!")
+			log.Infof("Expect_action found! |%s|", FeatureDollar[1].item.(string))
 			var buffer bytes.Buffer
 			buffer.WriteString(FeatureDollar[1].item.(string))
 			buffer.WriteString(" ")
@@ -814,7 +815,7 @@ Featuredefault:
 		FeatureDollar = FeatureS[Featurept-3 : Featurept+1]
 		//line bddLangLexer.y:286
 		{
-			log.Infof("Feature found!")
+			log.Infof("Feature found! |%s|", FeatureDollar[1].item.(Feature_block).Label)
 			featureBlock := FeatureDollar[1].item.(Feature_block)
 			page := FeatureDollar[2].item.(string)
 			feature := Feature{LineNum: featureBlock.LineNum, FullText: featureBlock.FullText, Name: featureBlock.Name, Label: featureBlock.Label, Scenarios: FeatureDollar[3].item.([]Scenario), PageName: page}
@@ -841,7 +842,7 @@ Featuredefault:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
 		//line bddLangLexer.y:311
 		{
-			log.Infof("Feature_block found!")
+			log.Infof("Feature_block found! %s", FeatureDollar[1].item.(string))
 
 			var buffer bytes.Buffer
 			buffer.WriteString(FeatureDollar[1].item.(string))
@@ -1023,7 +1024,7 @@ Featuredefault:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
 		//line bddLangLexer.y:481
 		{
-			log.Infof("Start")
+			log.Infof("Start,|%s|", FeatureDollar[1].item.(Feature).Label)
 			//if v,ok := Featurelex.(*BddTestLex); ok {
 			//	v.OnBddTest($1)
 			//}
