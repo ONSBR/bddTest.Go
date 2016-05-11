@@ -50,7 +50,7 @@ type (
 	}
 
 	//Builder is the base structure of bddTest.Go builder
-	Builder struct{}
+	Builder struct{} 
 
 	iBuilder interface {
 		BuildFile(string) (ExecutionTestTree, error)
@@ -82,7 +82,7 @@ func (builder *Builder) BuildFile(filename string) (tree ExecutionTestTree) {
 	}
 	tree = codeCompiler.BuildExecutionTestTree(content)
 	logBuilder.Infof("%s", tree.Error)
-	return
+	return 
 }
 
 //BuildFiles find all spec files based on folder pattern and try to validate 
@@ -168,7 +168,7 @@ func (builder *Builder) BuildExecution(filename string, baseURI string) Executio
 	if executionTestTreeResult.HasError {
 		exec = Execution{Filename: filename, HasError: true, Error: concatenateErrorMessage(filename, executionTestTreeResult.Error)}
 	} else {
-		pageFilename := fmt.Sprintf("%s.page", filename)
+		pageFilename := fmt.Sprintf("%s.page", filename) 
 		if !fileHandler.DoesFileExists(pageFilename) {
 			exec = Execution{Filename: filename, HasError: true, Error: fmt.Sprintf("Page Object file missing: %s", pageFilename)}
 		} else {

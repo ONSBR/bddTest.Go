@@ -1,36 +1,38 @@
 // CAUTION: Generated file - DO NOT EDIT.
 
 //
-package lexer
+package locales
 
 import (
 	//"fmt"
-	"github.com/ONSBR/bddTest.Go/util"
+	. "github.com/ONSBR/bddTest.Go/compiler/lexer"
 )
 
-var logP = util.GetLogger("lexer.parser")
+//LexerLocalized_pt_BR strategy implementation of lex pt_BR
+type LexerLocalized_pt_BR struct{}
 
-func (this *BddTestLex) Lex(lval *FeatureSymType) (ret int) { // begin main()
+func init() {
+	RegisterLexLocalization("pt_BR", (*LexerLocalized_pt_BR)(nil))
+}
 
-	var err error
+func (this *LexerLocalized_pt_BR) LexLocalized(next NextFunc, back BackFunc, resetBuffer ResetBuffFunc) (ret int) { // begin main()
+
 	var c byte = ' '
 
 	defer func() {
-		this.back()
+		back()
 	}()
 
 yystate0:
 
-	if nil != this.buf {
-		this.buf = this.buf[len(this.buf)-1:]
-	}
+	resetBuffer()
 
 	goto yystart1
 
 	goto yystate0 // silence unused label error
 	goto yystate1 // silence unused label error
 yystate1:
-	c = this.next()
+	c = next()
 yystart1:
 	switch {
 	default:
@@ -76,11 +78,11 @@ yystart1:
 	}
 
 yystate2:
-	c = this.next()
+	c = next()
 	goto yyrule15
 
 yystate3:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -89,7 +91,7 @@ yystate3:
 	}
 
 yystate4:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule17
@@ -98,7 +100,7 @@ yystate4:
 	}
 
 yystate5:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule1
@@ -107,7 +109,7 @@ yystate5:
 	}
 
 yystate6:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -118,7 +120,7 @@ yystate6:
 	}
 
 yystate7:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -131,7 +133,7 @@ yystate7:
 	}
 
 yystate8:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyabort
@@ -142,7 +144,7 @@ yystate8:
 	}
 
 yystate9:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule14
@@ -153,7 +155,7 @@ yystate9:
 	}
 
 yystate10:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule14
@@ -166,7 +168,7 @@ yystate10:
 	}
 
 yystate11:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule13
@@ -175,7 +177,7 @@ yystate11:
 	}
 
 yystate12:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule2
@@ -186,7 +188,7 @@ yystate12:
 	}
 
 yystate13:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -197,7 +199,7 @@ yystate13:
 	}
 
 yystate14:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -208,7 +210,7 @@ yystate14:
 	}
 
 yystate15:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -219,7 +221,7 @@ yystate15:
 	}
 
 yystate16:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -230,7 +232,7 @@ yystate16:
 	}
 
 yystate17:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -241,7 +243,7 @@ yystate17:
 	}
 
 yystate18:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -252,7 +254,7 @@ yystate18:
 	}
 
 yystate19:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -263,7 +265,7 @@ yystate19:
 	}
 
 yystate20:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule9
@@ -272,7 +274,7 @@ yystate20:
 	}
 
 yystate21:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -283,7 +285,7 @@ yystate21:
 	}
 
 yystate22:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -294,7 +296,7 @@ yystate22:
 	}
 
 yystate23:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -305,7 +307,7 @@ yystate23:
 	}
 
 yystate24:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -316,7 +318,7 @@ yystate24:
 	}
 
 yystate25:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -327,7 +329,7 @@ yystate25:
 	}
 
 yystate26:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -338,7 +340,7 @@ yystate26:
 	}
 
 yystate27:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -349,7 +351,7 @@ yystate27:
 	}
 
 yystate28:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule8
@@ -358,7 +360,7 @@ yystate28:
 	}
 
 yystate29:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -369,7 +371,7 @@ yystate29:
 	}
 
 yystate30:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -380,7 +382,7 @@ yystate30:
 	}
 
 yystate31:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -391,7 +393,7 @@ yystate31:
 	}
 
 yystate32:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule3
@@ -400,7 +402,7 @@ yystate32:
 	}
 
 yystate33:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule10
@@ -411,7 +413,7 @@ yystate33:
 	}
 
 yystate34:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -422,7 +424,7 @@ yystate34:
 	}
 
 yystate35:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -433,7 +435,7 @@ yystate35:
 	}
 
 yystate36:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -444,7 +446,7 @@ yystate36:
 	}
 
 yystate37:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule6
@@ -453,7 +455,7 @@ yystate37:
 	}
 
 yystate38:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -464,7 +466,7 @@ yystate38:
 	}
 
 yystate39:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -475,7 +477,7 @@ yystate39:
 	}
 
 yystate40:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -486,7 +488,7 @@ yystate40:
 	}
 
 yystate41:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -497,7 +499,7 @@ yystate41:
 	}
 
 yystate42:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -508,7 +510,7 @@ yystate42:
 	}
 
 yystate43:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -519,7 +521,7 @@ yystate43:
 	}
 
 yystate44:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule4
@@ -528,7 +530,7 @@ yystate44:
 	}
 
 yystate45:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -539,7 +541,7 @@ yystate45:
 	}
 
 yystate46:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -550,7 +552,7 @@ yystate46:
 	}
 
 yystate47:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -561,7 +563,7 @@ yystate47:
 	}
 
 yystate48:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -572,7 +574,7 @@ yystate48:
 	}
 
 yystate49:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -583,7 +585,7 @@ yystate49:
 	}
 
 yystate50:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule10
@@ -592,7 +594,7 @@ yystate50:
 	}
 
 yystate51:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -603,7 +605,7 @@ yystate51:
 	}
 
 yystate52:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -614,7 +616,7 @@ yystate52:
 	}
 
 yystate53:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -625,7 +627,7 @@ yystate53:
 	}
 
 yystate54:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -636,7 +638,7 @@ yystate54:
 	}
 
 yystate55:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule12
@@ -645,7 +647,7 @@ yystate55:
 	}
 
 yystate56:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -658,7 +660,7 @@ yystate56:
 	}
 
 yystate57:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -669,7 +671,7 @@ yystate57:
 	}
 
 yystate58:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -680,7 +682,7 @@ yystate58:
 	}
 
 yystate59:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -691,7 +693,7 @@ yystate59:
 	}
 
 yystate60:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -702,7 +704,7 @@ yystate60:
 	}
 
 yystate61:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -713,7 +715,7 @@ yystate61:
 	}
 
 yystate62:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule11
@@ -722,7 +724,7 @@ yystate62:
 	}
 
 yystate63:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -735,7 +737,7 @@ yystate63:
 	}
 
 yystate64:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -746,7 +748,7 @@ yystate64:
 	}
 
 yystate65:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -757,7 +759,7 @@ yystate65:
 	}
 
 yystate66:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -768,7 +770,7 @@ yystate66:
 	}
 
 yystate67:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -779,7 +781,7 @@ yystate67:
 	}
 
 yystate68:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule7
@@ -788,7 +790,7 @@ yystate68:
 	}
 
 yystate69:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -799,7 +801,7 @@ yystate69:
 	}
 
 yystate70:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -810,7 +812,7 @@ yystate70:
 	}
 
 yystate71:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -821,7 +823,7 @@ yystate71:
 	}
 
 yystate72:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -832,7 +834,7 @@ yystate72:
 	}
 
 yystate73:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -843,7 +845,7 @@ yystate73:
 	}
 
 yystate74:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -854,7 +856,7 @@ yystate74:
 	}
 
 yystate75:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -865,7 +867,7 @@ yystate75:
 	}
 
 yystate76:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -876,7 +878,7 @@ yystate76:
 	}
 
 yystate77:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -887,7 +889,7 @@ yystate77:
 	}
 
 yystate78:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -898,7 +900,7 @@ yystate78:
 	}
 
 yystate79:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -909,7 +911,7 @@ yystate79:
 	}
 
 yystate80:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -920,7 +922,7 @@ yystate80:
 	}
 
 yystate81:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -931,7 +933,7 @@ yystate81:
 	}
 
 yystate82:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -942,7 +944,7 @@ yystate82:
 	}
 
 yystate83:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -953,7 +955,7 @@ yystate83:
 	}
 
 yystate84:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -966,7 +968,7 @@ yystate84:
 	}
 
 yystate85:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -977,7 +979,7 @@ yystate85:
 	}
 
 yystate86:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -988,7 +990,7 @@ yystate86:
 	}
 
 yystate87:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -999,7 +1001,7 @@ yystate87:
 	}
 
 yystate88:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1010,7 +1012,7 @@ yystate88:
 	}
 
 yystate89:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1021,7 +1023,7 @@ yystate89:
 	}
 
 yystate90:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1032,7 +1034,7 @@ yystate90:
 	}
 
 yystate91:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1043,7 +1045,7 @@ yystate91:
 	}
 
 yystate92:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1054,7 +1056,7 @@ yystate92:
 	}
 
 yystate93:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1065,7 +1067,7 @@ yystate93:
 	}
 
 yystate94:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1076,7 +1078,7 @@ yystate94:
 	}
 
 yystate95:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1087,7 +1089,7 @@ yystate95:
 	}
 
 yystate96:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule16
@@ -1098,7 +1100,7 @@ yystate96:
 	}
 
 yystate97:
-	c = this.next()
+	c = next()
 	switch {
 	default:
 		goto yyrule5
@@ -1109,51 +1111,42 @@ yystate97:
 yyrule1: // [\n]+
 	{
 		logP.Infof("returning newline")
-		this.newLine()
 		return NEW_LINE
 		goto yystate0
 	}
 yyrule2: // {D}+
 	{
-		if lval.item, err = this.getInt(); nil != err {
-			return -1
-		} else {
-			return NUMBER
-		}
+		logP.Infof("Number found")
+		return NUMBER
 
 		goto yystate0
 	}
 yyrule3: // {INITLAB}
 	{
-		lval.item = this.getLabel()
 		logP.Infof("Init assertion Label found")
 		return INIT_SCENARIO_LABEL
 		goto yystate0
 	}
 yyrule4: // {PAGELAB}
 	{
-		lval.item = this.getLabel()
 		logP.Infof("Page Label found")
 		return PAGE_LABEL
 		goto yystate0
 	}
 yyrule5: // {USERLAB}
 	{
-		lval.item = this.getLabel()
 		logP.Infof("User Label found")
 		return USER_SCENARIO_LABEL
 		goto yystate0
 	}
 yyrule6: // {EXPTLAB}
 	{
-		lval.item = this.getLabel()
 		logP.Infof("Expect assertion Label found")
 		return EXPECT_ACTION_LABEL
 		goto yystate0
 	}
 yyrule7: // {EXPTACT}
 	{
-		lval.item = this.getStr()
 		logP.Infof("Expect Action found")
 		return EXPECT_ACTION_ACTION
 
@@ -1161,48 +1154,43 @@ yyrule7: // {EXPTACT}
 	}
 yyrule8: // {SCNLAB}
 	{
-		lval.item = this.getLabel()
 		logP.Infof("Scenario Label found")
 		return SCENARIO_LABEL
 		goto yystate0
 	}
 yyrule9: // {FEATLAB}
 	{
-		lval.item = this.getLabel()
 		logP.Infof("Feature Label found")
 		return FEATURE_LABEL
 		goto yystate0
 	}
 yyrule10: // {LAB}
 	{
-		lval.item = this.getLabel()
 		logP.Infof("Label found")
 		return LABEL
 		goto yystate0
 	}
 yyrule11: // {ACT}
 	{
-		lval.item = this.getStr()
 		logP.Infof("Action found")
 		return ACTION
 		goto yystate0
 	}
 yyrule12: // {OBJTY}
 	{
-		lval.item = this.getStr()
 		logP.Infof("Object Type found")
 		return OBJECT_TYPE
 		goto yystate0
 	}
 yyrule13: // {SIGN}
 	{
-		lval.item = this.getStr()
+		logP.Infof("Sign found")
 		return SIGN
 		goto yystate0
 	}
 yyrule14: // {TXTPA}
 	{
-		lval.item = this.getParam()
+		logP.Infof("Text param found")
 		return TEXT_PARAM
 		goto yystate0
 	}
@@ -1212,8 +1200,7 @@ yyrule15: // \0
 	}
 yyrule16: // {TXT}
 	{
-		lval.item = this.getStr()
-		logP.Infof("Text found: %s", lval.item)
+		logP.Infof("Text found")
 		return TEXT
 		goto yystate0
 	}

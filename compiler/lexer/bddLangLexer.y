@@ -106,7 +106,7 @@ var log = util.GetLogger("lexer.lexer")
 Expect_action:
 	LABEL Expect_action1 ACTION Expect_action2 Object Expect_action3 Expect_action4
 	{
-		log.Infof("Expect_action found!")
+		log.Infof("Expect_action found! |%s|",$1.(string))
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
 		buffer.WriteString(" ")
@@ -284,7 +284,7 @@ Expect_expression4:
 Feature:
 	Feature_block Page_line Feature1
 	{
-		log.Infof("Feature found!")
+		log.Infof("Feature found! |%s|", $1.(Feature_block).Label)
 		featureBlock := $1.(Feature_block)
 		page := $2.(string)
 		feature := Feature{LineNum:featureBlock.LineNum, FullText:featureBlock.FullText, Name:featureBlock.Name, Label:featureBlock.Label, Scenarios:$3.([]Scenario), PageName: page}
@@ -309,7 +309,7 @@ Feature1:
 Feature_block:
 	FEATURE_LABEL Feature_block1
 	{
-		log.Infof("Feature_block found!")
+		log.Infof("Feature_block found! %s",$1.(string))
 		
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
@@ -479,7 +479,7 @@ Scenario_line:
 Start:
 	Feature
 	{
-		log.Infof("Start")
+		log.Infof("Start,|%s|",$1.(Feature).Label)
 		//if v,ok := Featurelex.(*BddTestLex); ok {
 		//	v.OnBddTest($1)
 		//}
@@ -709,5 +709,6 @@ type (
 var parsedCode Feature
 
 func GetParsedCode() interface{} {
+	log.Infof("GetParsedCode |%s|",parsedCode.Label)
 	return parsedCode
 }

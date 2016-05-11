@@ -25,4 +25,5 @@ type BddTestLex struct {
 	Itemchan chan *BddTestParseRes
 	buf []byte
 	ParseError ParserError
-}
+	lexStrategy ILexerLocalized
+} 

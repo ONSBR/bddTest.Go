@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"github.com/ONSBR/bddTest.Go/compiler"
 	"github.com/ONSBR/bddTest.Go/util"
+	_ "github.com/ONSBR/bddTest.Go/compiler/lexer/locales"
 	//	"fmt"
 	//	"os"
 	//	"flag"
@@ -33,7 +34,7 @@ func readline(fi *bufio.Reader) (string, bool) {
 
 func main() {
 
-	util.InitLog()
+	util.InitLog("")
 	log := util.GetLogger("test.compiler")
 
 	//	fi := bufio.NewReader(os.Stdin)
@@ -67,13 +68,14 @@ Entao eu espero a lista teste2 com a opcao "clovis3"`
 	//	token = "aspecto: Este é um aspecto\ncenario: primeiro cenário\nquando eu clico no botao teste com o valor \"clovis1\"\nquando eu preencho o campo teste1 com o valor \"clovis2\"\nquando eu seleciono a lista teste2 com a opcao \"clovis3\""
 
 	log.Infof("Lines %s", token)
-	Feature, retCode, err := compiler.ParseCode(token)
+	codeParser := &compiler.CodeParser{}
+	Feature, retCode, err := codeParser.ParseCode(token)
 	if retCode > 0 {
 		log.Errorf("Error: %s\n", err.Message)
 		log.Errorf("Line: %d, Pos: %d, Token: %s", err.LineNum, err.LinePos, err.Token)
 	} else {
 		log.Infof("Page Name: %s", Feature.PageName)
-		log.Infof("Line: %d Feature: %s", Feature.LineNum, Feature.Name)
+		log.Infof("Line: %d |%s|: %s", Feature.LineNum, Feature.Label,Feature.Name)
 		for idx, scn := range Feature.Scenarios {
 			_ = idx
 			log.Infof("Line: %d Scenario: %s", scn.LineNum, scn.Name)
