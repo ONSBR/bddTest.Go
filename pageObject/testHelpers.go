@@ -1,4 +1,4 @@
-package testProcessor
+package pageObject
 
 import (
 	"fmt"
@@ -17,6 +17,7 @@ func (h *MockedHTTPHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) 
 	fmt.Fprint(w, "<input type='button' id='elementId'/>HTML Content")
 }
 
+// initTestServer inits a test HTTP Server
 func initTestServer() {
 	server := manners.NewWithServer(&http.Server{
 		Addr:           fmt.Sprintf("172.17.0.1:8080"),

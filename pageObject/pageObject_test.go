@@ -12,7 +12,7 @@ import (
 func TestShouldCreateNewPageObject(t *testing.T) {
 	// mock
 	uri := "http://172.17.0.1:8080"
-	pageObject := NewPageObject(uri)
+	pageObject := NewPageObject("pageName", uri)
 
 	// assert
 	assert.NotNil(t, pageObject)
@@ -30,7 +30,7 @@ func TestShouldOpenWebPage(t *testing.T) {
 	// mock
 	initTestServer()
 
-	pageObject := NewPageObject("http://172.17.0.1:8080")
+	pageObject := NewPageObject("pageName", "http://172.17.0.1:8080")
 
 	// act
 	pageObject.Open()

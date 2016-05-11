@@ -9,7 +9,7 @@ import (
 
  */
 type PageObject struct {
-	Page	 string
+	Page     string
 	driver   selenium.WebDriver
 	Uri      string
 	Elements []PageElement
