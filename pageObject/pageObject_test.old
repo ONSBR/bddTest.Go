@@ -2,6 +2,7 @@ package pageObject
 
 import (
 	"github.com/stretchr/testify/assert"
+	"strings"
 	"testing"
 )
 
@@ -27,16 +28,15 @@ func TestShouldCreateNewPageObject(t *testing.T) {
  */
 func TestShouldOpenWebPage(t *testing.T) {
 	// mock
-	uri := "http://172.17.0.1:8080"
-	pageObject := NewPageObject(uri)
+	initTestServer()
+
+	pageObject := NewPageObject("http://172.17.0.1:8080")
 
 	// act
 	pageObject.Open()
+	defer pageObject.driver.Quit()
 	pageSource, _ := pageObject.driver.PageSource()
 
 	// assert
-	assert.Contains(t, pageSource, "Hello")
-
-	// cleanup
-	pageObject.driver.Quit()
+	assert.True(t, strings.Contains(pageSource, "HTML Content"))
 }

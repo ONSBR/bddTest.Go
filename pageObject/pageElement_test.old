@@ -41,9 +41,9 @@ func TestShouldAppendElementToPageObject(t *testing.T) {
 
  */
 func TestShouldFindPageElement(t *testing.T) {
-	// mock
-	uri := "http://172.17.0.1:8080"
-	pageObject := NewPageObject(uri)
+	initTestServer()
+
+	pageObject := NewPageObject("http://172.17.0.1:8080")
 	pageElement := NewPageElement(pageObject, "css", "button", "elementId")
 
 	// act
