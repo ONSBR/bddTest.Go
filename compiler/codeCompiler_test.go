@@ -48,14 +48,14 @@ var _ = Describe("codeCompiler", func() {
 		BeforeEach(func() {
 			goodFeat = lexer.Feature{
 				LineNum:  1,
-				FullText: "Aspecto Primeiro aspecto",
+				FullText: "Aspecto: Primeiro aspecto",
 				Label:    "Aspecto",
 				Name:     "Primeiro aspecto",
 				PageName: "Home",
 				Scenarios: []lexer.Scenario{
 					lexer.Scenario{
 						LineNum:  3,
-						FullText: "Cenario Cenario1",
+						FullText: "Cenario: Cenario1",
 						Label:    "Cenario",
 						Name:     "Cenario1",
 						Username: "clovis.chedid",

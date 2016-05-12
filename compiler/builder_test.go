@@ -53,14 +53,14 @@ var _ = Describe("Builder", func() {
 				HasError: false,
 				Feature: lexer.Feature{
 					LineNum:  1,
-					FullText: "Aspecto Primeiro aspecto",
+					FullText: "Aspecto: Primeiro aspecto",
 					Label:    "Feature",
 					Name:     "Primeiro aspecto",
 					PageName: "Home",
 					Scenarios: []lexer.Scenario{
 						lexer.Scenario{
 							LineNum:  3,
-							FullText: "Cenario Cenario1",
+							FullText: "Cenario: Cenario1",
 							Label:    "Scenario",
 							Name:     "Cenario1",
 							Username: "clovis.chedid",
@@ -104,14 +104,14 @@ var _ = Describe("Builder", func() {
 				HasError: false,
 				Feature: lexer.Feature{
 					LineNum:  1,
-					FullText: "Aspecto Primeiro aspecto",
+					FullText: "Aspecto: Primeiro aspecto",
 					Label:    "Feature",
 					Name:     "Primeiro aspecto",
 					PageName: "Home",
 					Scenarios: []lexer.Scenario{
 						lexer.Scenario{
 							LineNum:  3,
-							FullText: "Cenario Cenario1",
+							FullText: "Cenario: Cenario1",
 							Label:    "Scenario",
 							Name:     "Cenario1",
 							Username: "clovis.chedid",
@@ -218,14 +218,14 @@ var _ = Describe("Builder", func() {
 				HasError: false,
 				Feature: lexer.Feature{
 					LineNum:  1,
-					FullText: "Aspecto Este é um aspecto",
+					FullText: "Aspecto: Este é um aspecto",
 					Label:    "Feature",
 					Name:     "Este é um aspecto",
 					PageName: "Cadastro de Clientes",
 					Scenarios: []lexer.Scenario{
 						lexer.Scenario{
 							LineNum:  3,
-							FullText: "Cenario primeiro cenário",
+							FullText: "Cenario: primeiro cenário",
 							Label:    "Scenario",
 							Name:     "primeiro cenário",
 							Username: "clovis.chedid",
@@ -269,14 +269,14 @@ var _ = Describe("Builder", func() {
 				HasError: false,
 				Feature: lexer.Feature{
 					LineNum:  1,
-					FullText: "Aspecto Este é um aspecto",
+					FullText: "Aspecto: Este é um aspecto",
 					Label:    "Feature",
 					Name:     "Este é um aspecto",
 					PageName: "Cadastro de Clientes",
 					Scenarios: []lexer.Scenario{
 						lexer.Scenario{
 							LineNum:  3,
-							FullText: "Cenario primeiro cenário",
+							FullText: "Cenario: primeiro cenário",
 							Label:    "Scenario",
 							Name:     "primeiro cenário",
 							Username: "clovis.chedid",
@@ -314,7 +314,7 @@ var _ = Describe("Builder", func() {
 						},
 						lexer.Scenario{
 							LineNum:  8,
-							FullText: "Cenario segundo cenário",
+							FullText: "Cenario: segundo cenário",
 							Label:    "Scenario",
 							Name:     "segundo cenário",
 							Username: "clovis.chedid",

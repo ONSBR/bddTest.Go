@@ -846,7 +846,7 @@ Featuredefault:
 
 			var buffer bytes.Buffer
 			buffer.WriteString(FeatureDollar[1].item.(string))
-			buffer.WriteString(" ")
+			buffer.WriteString(": ")
 			buffer.WriteString(FeatureDollar[2].item.(string))
 			featureBlock := Feature_block{LineNum: 1, FullText: buffer.String(), Label: FeatureDollar[1].item.(string), Name: FeatureDollar[2].item.(string)}
 			FeatureVAL.item = featureBlock
@@ -1011,7 +1011,7 @@ Featuredefault:
 			log.Infof("Scenario_line found!")
 			var buffer bytes.Buffer
 			buffer.WriteString(FeatureDollar[1].item.(string))
-			buffer.WriteString(" ")
+			buffer.WriteString(": ")
 			buffer.WriteString(FeatureDollar[2].item.(string))
 			lineNum := 0
 			if v, ok := Featurelex.(*BddTestLex); ok {

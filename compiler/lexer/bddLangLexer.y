@@ -313,7 +313,7 @@ Feature_block:
 		
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(": ")
 		buffer.WriteString($2.(string))
 		featureBlock := Feature_block{LineNum:1, FullText:buffer.String(), Label:$1.(string), Name: $2.(string)}
 		$$ = featureBlock
@@ -466,7 +466,7 @@ Scenario_line:
 		log.Infof("Scenario_line found!")
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(": ")
 		buffer.WriteString($2.(string))
 		lineNum := 0
 		if v,ok := Featurelex.(*BddTestLex); ok {
