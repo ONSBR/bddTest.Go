@@ -45,7 +45,7 @@ func main() {
 	tokenArr := []string{"Aspecto: Este é um aspecto",
 		"Com uma segunda linha",
 		"Pagina: Cadastro de Usuários",
-		"Cenario: setimo cenário",
+		"Cenario: setimo 7 cenário",
 		"Dado que estou usando o usuario clovis.chedid",
 		"Quando eu clico no botao teste com o valor \"clovis1\"",
 		"E eu preencho o campo teste1 com o valor \"clovis2\"",
@@ -58,9 +58,9 @@ func main() {
 
 	token = strings.Join(tokenArr, "\n")
 
-	token = `Aspecto: Este é um aspecto
+	token = `Aspecto: Este é um aspecto 9
 Pagina: Cadastro de Clientes
-Cenario: primeiro cenário
+Cenario: primeiro 1 cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"

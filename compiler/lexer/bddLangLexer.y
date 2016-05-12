@@ -98,6 +98,7 @@ var log = util.GetLogger("lexer.lexer")
 	Test_line
 	Text_line
 	Text_line1
+	Text_line11
 
 %start Start
 
@@ -121,8 +122,9 @@ Expect_action:
 		buffer.WriteString($5.(Object).ObjectId)
 		buffer.WriteString(" ")
 		buffer.WriteString($6.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(" \"")
 		buffer.WriteString($7.(string))
+		buffer.WriteString("\"")		
 		$$ = Expect_action{FullText:buffer.String(),Label:$1.(string),Action:$3.(string),ObjectType:$5.(Object).ObjectType,ObjectId:$5.(Object).ObjectId,Param:$7.(string)}
 	}
 
@@ -210,8 +212,9 @@ Expect_expression:
 		buffer.WriteString($5.(Object).ObjectId)
 		buffer.WriteString(" ")
 		buffer.WriteString($6.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(" \"")
 		buffer.WriteString($7.(string))
+		buffer.WriteString("\"")
 		$$ = Expect_expression{FullText:buffer.String(),Label:$1.(string),Action:$3.(string),ObjectType:$5.(Object).ObjectType,ObjectId:$5.(Object).ObjectId,Param:$7.(string)}
 	}
 
@@ -402,7 +405,7 @@ Number_param2:
 		log.Infof("Number_param2 found!")
 		var buffer bytes.Buffer
 		buffer.WriteString(".")
-		buffer.WriteString($2.(string))
+		buffer.WriteString(strconv.Itoa($2.(int)))
 		$$ = buffer.String()
 	}
 
@@ -590,23 +593,23 @@ Test_line:
 	}
 
 Text_line:
-	Text_line1 NEW_LINE
-	{
-		log.Infof("Text_line found")
+    Text_line1 NEW_LINE
+    {
+        log.Infof("Text_line found")
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
 		//buffer.WriteString("\n")
 		$$ = buffer.String()
-	}
+    }
 
 Text_line1:
-	/* EMPTY */
-	{
-		$$ = ""
-	}
-|	Text_line1 TEXT
-	{
-		log.Infof("Text_line1 found")
+    /* EMPTY */
+    {
+        $$ = ""
+    }
+|   Text_line1 Text_line11
+    {
+        log.Infof("Text_line1 found")
 		
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
@@ -616,7 +619,17 @@ Text_line1:
 		buffer.WriteString($2.(string))
 		
 		$$ = buffer.String()
-	}
+    }
+
+Text_line11:
+    TEXT
+    {
+        $$ = $1
+    }
+|   NUMBER
+    {
+        $$ = strconv.Itoa($1.(int))
+    }
 
 %%
 
@@ -704,6 +717,7 @@ type (
 	Test_line Expect_action
 	Text_line string
 	Text_line1 string
+	Text_line11 string
 )
 	
 var parsedCode Feature

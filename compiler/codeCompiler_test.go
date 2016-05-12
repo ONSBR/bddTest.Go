@@ -62,7 +62,7 @@ var _ = Describe("codeCompiler", func() {
 						Actions: []lexer.Expect_action{
 							lexer.Expect_action{
 								LineNum:    5,
-								FullText:   "Quando eu clico no botao teste com o valor clovis1",
+								FullText:   "Quando eu clico no botao teste com o valor \"clovis1\"",
 								Label:      "Quando",
 								Action:     "clico",
 								ObjectType: "botao",
@@ -71,7 +71,7 @@ var _ = Describe("codeCompiler", func() {
 							},
 							lexer.Expect_action{
 								LineNum:    6,
-								FullText:   "E eu preencho o campo teste1 com o valor clovis2",
+								FullText:   "E eu preencho o campo teste1 com o valor \"clovis2\"",
 								Label:      "E",
 								Action:     "preencho",
 								ObjectType: "campo",
@@ -82,7 +82,7 @@ var _ = Describe("codeCompiler", func() {
 						Expectations: []lexer.Expect_expression{
 							lexer.Expect_expression{
 								LineNum:    7,
-								FullText:   "Entao eu espero a lista teste2 com a opcao clovis3",
+								FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
 								Label:      "Entao",
 								Action:     "espero",
 								ObjectType: "lista",

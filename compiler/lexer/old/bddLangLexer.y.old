@@ -106,7 +106,7 @@ var log = util.GetLogger("lexer.lexer")
 Expect_action:
 	LABEL Expect_action1 ACTION Expect_action2 Object Expect_action3 Expect_action4
 	{
-		log.Infof("Expect_action found!")
+		log.Infof("Expect_action found! |%s|",$1.(string))
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
 		buffer.WriteString(" ")
@@ -121,8 +121,9 @@ Expect_action:
 		buffer.WriteString($5.(Object).ObjectId)
 		buffer.WriteString(" ")
 		buffer.WriteString($6.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(" \"")
 		buffer.WriteString($7.(string))
+		buffer.WriteString("\"")		
 		$$ = Expect_action{FullText:buffer.String(),Label:$1.(string),Action:$3.(string),ObjectType:$5.(Object).ObjectType,ObjectId:$5.(Object).ObjectId,Param:$7.(string)}
 	}
 
@@ -210,8 +211,9 @@ Expect_expression:
 		buffer.WriteString($5.(Object).ObjectId)
 		buffer.WriteString(" ")
 		buffer.WriteString($6.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(" \"")
 		buffer.WriteString($7.(string))
+		buffer.WriteString("\"")
 		$$ = Expect_expression{FullText:buffer.String(),Label:$1.(string),Action:$3.(string),ObjectType:$5.(Object).ObjectType,ObjectId:$5.(Object).ObjectId,Param:$7.(string)}
 	}
 
@@ -284,7 +286,7 @@ Expect_expression4:
 Feature:
 	Feature_block Page_line Feature1
 	{
-		log.Infof("Feature found!")
+		log.Infof("Feature found! |%s|", $1.(Feature_block).Label)
 		featureBlock := $1.(Feature_block)
 		page := $2.(string)
 		feature := Feature{LineNum:featureBlock.LineNum, FullText:featureBlock.FullText, Name:featureBlock.Name, Label:featureBlock.Label, Scenarios:$3.([]Scenario), PageName: page}
@@ -309,11 +311,11 @@ Feature1:
 Feature_block:
 	FEATURE_LABEL Feature_block1
 	{
-		log.Infof("Feature_block found!")
+		log.Infof("Feature_block found! %s",$1.(string))
 		
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(": ")
 		buffer.WriteString($2.(string))
 		featureBlock := Feature_block{LineNum:1, FullText:buffer.String(), Label:$1.(string), Name: $2.(string)}
 		$$ = featureBlock
@@ -466,7 +468,7 @@ Scenario_line:
 		log.Infof("Scenario_line found!")
 		var buffer bytes.Buffer
 		buffer.WriteString($1.(string))
-		buffer.WriteString(" ")
+		buffer.WriteString(": ")
 		buffer.WriteString($2.(string))
 		lineNum := 0
 		if v,ok := Featurelex.(*BddTestLex); ok {
@@ -479,7 +481,7 @@ Scenario_line:
 Start:
 	Feature
 	{
-		log.Infof("Start")
+		log.Infof("Start,|%s|",$1.(Feature).Label)
 		//if v,ok := Featurelex.(*BddTestLex); ok {
 		//	v.OnBddTest($1)
 		//}
@@ -709,5 +711,6 @@ type (
 var parsedCode Feature
 
 func GetParsedCode() interface{} {
+	log.Infof("GetParsedCode |%s|",parsedCode.Label)
 	return parsedCode
 }

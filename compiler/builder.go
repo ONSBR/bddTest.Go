@@ -176,10 +176,10 @@ func (builder *Builder) BuildExecution(filename string, baseURI string) Executio
 				exec = Execution{Filename: filename, Feature: executionTestTreeResult.Feature, PageObject: page}
 			} else {
 				exec = Execution{Filename: filename, HasError: true, Error: errPage.Error()}
-			}
+			} 
 		}
 
-	}
+	} 
  
 	return exec
 }

@@ -232,7 +232,7 @@ var _ = Describe("Builder", func() {
 							Actions: []lexer.Expect_action{
 								lexer.Expect_action{
 									LineNum:    5,
-									FullText:   "Quando eu clico no botao teste com o valor clovis1",
+									FullText:   "Quando eu clico no botao teste com o valor \"clovis1\"",
 									Label:      "When",
 									Action:     "click",
 									ObjectType: "button",
@@ -241,7 +241,7 @@ var _ = Describe("Builder", func() {
 								},
 								lexer.Expect_action{
 									LineNum:    6,
-									FullText:   "E eu preencho o campo teste1 com o valor clovis2",
+									FullText:   "E eu preencho o campo teste1 com o valor \"clovis2\"",
 									Label:      "And",
 									Action:     "set",
 									ObjectType: "textbox",
@@ -252,7 +252,7 @@ var _ = Describe("Builder", func() {
 							Expectations: []lexer.Expect_expression{
 								lexer.Expect_expression{
 									LineNum:    7,
-									FullText:   "Entao eu espero a lista teste2 com a opcao clovis3",
+									FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
 									Label:      "Then",
 									Action:     "expect",
 									ObjectType: "selectbox",
@@ -283,7 +283,7 @@ var _ = Describe("Builder", func() {
 							Actions: []lexer.Expect_action{
 								lexer.Expect_action{
 									LineNum:    5,
-									FullText:   "Quando eu clico no botao teste com o valor clovis1",
+									FullText:   "Quando eu clico no botao teste com o valor \"clovis1\"",
 									Label:      "When",
 									Action:     "click",
 									ObjectType: "button",
@@ -292,7 +292,7 @@ var _ = Describe("Builder", func() {
 								},
 								lexer.Expect_action{
 									LineNum:    6,
-									FullText:   "E eu preencho o campo teste1 com o valor clovis2",
+									FullText:   "E eu preencho o campo teste1 com o valor \"clovis2\"",
 									Label:      "And",
 									Action:     "set",
 									ObjectType: "textbox",
@@ -303,7 +303,7 @@ var _ = Describe("Builder", func() {
 							Expectations: []lexer.Expect_expression{
 								lexer.Expect_expression{
 									LineNum:    7,
-									FullText:   "Entao eu espero a lista teste2 com a opcao clovis3",
+									FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
 									Label:      "Then",
 									Action:     "expect",
 									ObjectType: "selectbox",
@@ -321,7 +321,7 @@ var _ = Describe("Builder", func() {
 							Actions: []lexer.Expect_action{
 								lexer.Expect_action{
 									LineNum:    10,
-									FullText:   "Quando eu clico no botao teste com o valor clovis1",
+									FullText:   "Quando eu clico no botao teste com o valor \"clovis1\"",
 									Label:      "When",
 									Action:     "click",
 									ObjectType: "button",
@@ -330,7 +330,7 @@ var _ = Describe("Builder", func() {
 								},
 								lexer.Expect_action{
 									LineNum:    11,
-									FullText:   "E eu preencho o campo teste1 com o valor clovis2",
+									FullText:   "E eu preencho o campo teste1 com o valor \"clovis2\"",
 									Label:      "And",
 									Action:     "set",
 									ObjectType: "textbox",
@@ -341,7 +341,7 @@ var _ = Describe("Builder", func() {
 							Expectations: []lexer.Expect_expression{
 								lexer.Expect_expression{
 									LineNum:    12,
-									FullText:   "Entao eu espero a lista teste2 com a opcao clovis3",
+									FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
 									Label:      "Then",
 									Action:     "expect",
 									ObjectType: "selectbox",
