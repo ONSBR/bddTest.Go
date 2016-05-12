@@ -422,7 +422,7 @@ var _ = Describe("codeParser", func() {
 				Feature, retCode, err := codeParser.ParseCode(token)
 				_ = Feature
 				Expect(retCode).To(BeNumerically(">", 0))
-				Expect(err.Message).To(Equal("syntax error: unexpected SCENARIO_LABEL, expecting NEW_LINE or TEXT"))
+				Expect(err.Message).To(Equal("syntax error: unexpected SCENARIO_LABEL, expecting NEW_LINE or NUMBER or TEXT"))
 				Expect(err.LineNum).To(Equal(3))
 				Expect(err.LinePos).To(Equal(9))
 				Expect(err.Token).To(Equal("Cenario: "))
