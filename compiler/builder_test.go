@@ -376,8 +376,7 @@ var _ = Describe("Builder", func() {
 			execution := builder.BuildExecution(filename, baseUri)
 			Expect(execution.HasError).To(BeFalse())
 			Expect(execution.Filename).To(Equal(filename))
-			Expect(execution.ExecutionTree.HasError).To(BeFalse())
-			Expect(execution.ExecutionTree.Feature).To(Equal(tree1.Feature))
+			Expect(execution.Feature).To(Equal(tree1.Feature))
 			Expect(execution.PageObject).To(Equal(*page1))
 			close(done)
 		})
@@ -395,14 +394,12 @@ var _ = Describe("Builder", func() {
 				if execution.Filename == filename1 {
 					Expect(execution.HasError).To(BeFalse())
 					Expect(execution.Filename).To(Equal(filename1))
-					Expect(execution.ExecutionTree.HasError).To(BeFalse())
-					Expect(execution.ExecutionTree.Feature).To(Equal(tree1.Feature))
+					Expect(execution.Feature).To(Equal(tree1.Feature))
 					Expect(execution.PageObject).To(Equal(*page1))
 				} else if execution.Filename == filename2 {
 					Expect(execution.HasError).To(BeFalse())
 					Expect(execution.Filename).To(Equal(filename2))
-					Expect(execution.ExecutionTree.HasError).To(BeFalse())
-					Expect(execution.ExecutionTree.Feature).To(Equal(tree2.Feature))
+					Expect(execution.Feature).To(Equal(tree2.Feature))
 					Expect(execution.PageObject).To(Equal(*page2))
 				} else {
 					Expect(execution.HasError).To(BeTrue())

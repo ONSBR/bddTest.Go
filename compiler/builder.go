@@ -44,7 +44,7 @@ type (
 	Execution struct {
 		Filename      string
 		PageObject    pageObject.PageObject
-		ExecutionTree ExecutionTestTree
+		Feature		  lexer.Feature
 		HasError      bool
 		Error         string
 	}
@@ -161,7 +161,7 @@ func (builder *Builder) GeneratePageObject(filename string, baseURI string) (pag
 //BuildExecution get single spec and page object definition and create execution tree of test
 func (builder *Builder) BuildExecution(filename string, baseURI string) Execution {
 	fileHandler := &util.FileHandler{}
-	var exec Execution
+	var exec Execution 
 
 	executionTestTreeResult := builder.BuildFile(filename)
 
@@ -173,7 +173,7 @@ func (builder *Builder) BuildExecution(filename string, baseURI string) Executio
 			exec = Execution{Filename: filename, HasError: true, Error: fmt.Sprintf("Page Object file missing: %s", pageFilename)}
 		} else {
 			if page, errPage := builder.GeneratePageObject(pageFilename, baseURI); errPage == nil {
-				exec = Execution{Filename: filename, ExecutionTree: executionTestTreeResult, PageObject: page}
+				exec = Execution{Filename: filename, Feature: executionTestTreeResult.Feature, PageObject: page}
 			} else {
 				exec = Execution{Filename: filename, HasError: true, Error: errPage.Error()}
 			}
@@ -202,7 +202,7 @@ func (builder *Builder) BuildExecutions(folderPattern string, baseURI string) (e
 			exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, HasError: true, Error: fmt.Sprintf("Page Object file missing: %s", pageFilename)})
 		} else {
 			if page, errPage := builder.GeneratePageObject(pageFilename, baseURI); errPage == nil {
-				exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, ExecutionTree: executionTestTreeResult.ExecutionTree, PageObject: page})
+				exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, Feature: executionTestTreeResult.ExecutionTree.Feature, PageObject: page})
 			} else {
 				exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, HasError: true, Error: errPage.Error()})
 			}
