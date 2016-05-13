@@ -34,6 +34,7 @@ EXPTLAB     "Entao"
 EXPTACT     "espero"
 ACT         "clico"|"seleciono"|"preencho"|"existe"
 OBJTY       "botao"|"campo"|"lista"|"sessao"
+MATCHER     "igual a"|"maior que"|"maior ou igual a"|"menor que"|"menor ou igual a"|"contem"
 SIGN        "-"
 TXTPA       \".+\"
 TXT     [^ \t\n]+
@@ -61,6 +62,8 @@ FEATLAB     "Aspecto:"
 {EXPTLAB}           logP.Infof("Expect assertion Label found"); return EXPECT_ACTION_LABEL
 
 {EXPTACT}           logP.Infof("Expect Action found"); return EXPECT_ACTION_ACTION
+
+{MATCHER}           logP.Infof("Matcher found"); return MATCHER
             
 {SCNLAB}            logP.Infof("Scenario Label found"); return SCENARIO_LABEL
 
@@ -76,7 +79,7 @@ FEATLAB     "Aspecto:"
 
 {TXTPA}             logP.Infof("Text param found");return TEXT_PARAM
 
-\0                  return -1
+\0                  logP.Infof("EOF");return -1
 
 {TXT}               logP.Infof("Text found"); return TEXT
 

@@ -47,7 +47,7 @@ var _ = Describe("codeParser", func() {
 			"Dado que estou usando o usuario clovis.chedid",
 			"Quando eu clico no botao teste com o valor \"clovis1\"",
 			"E eu preencho o campo teste1 com o valor \"clovis2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\""}
+			"Entao eu espero a lista teste2 com a opcao igual a \"clovis3\""}
 
 		goodSpec2 = []string{"Aspecto: Este é um aspecto",
 			"Com uma segunda linha",
@@ -56,7 +56,7 @@ var _ = Describe("codeParser", func() {
 			"Dado que estou usando o usuario clovis.chedid",
 			"Quando eu clico no botao teste com o valor \"clovis1\"",
 			"E eu preencho o campo teste1 com o valor \"clovis2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\""}
+			"Entao eu espero a lista teste2 com a opcao contem \"clovis3\""}
 
 		goodSpec3 = []string{"Aspecto: Este é um aspecto",
 			"Pagina: Cadastro de Clientes",
@@ -64,12 +64,12 @@ var _ = Describe("codeParser", func() {
 			"Dado que estou usando o usuario clovis.chedid",
 			"Quando eu clico no botao teste com o valor \"clovis1\"",
 			"E eu preencho o campo teste1 com o valor \"clovis2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+			"Entao eu espero a lista teste2 com a opcao maior ou igual a \"clovis3\"",
 			"Cenario: quarto cenário",
 			"Dado que estou usando o usuario clovis.chedid2",
 			"Quando eu clico no botao teste.2 com o valor \"eu1\"",
 			"E eu preencho o campo teste1.2 com o valor \"eu2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\""}
+			"Entao eu espero a lista teste2 com a opcao menor ou igual a \"clovis3\""}
 
 		goodSpec4 = []string{"Aspecto: Este é um aspecto",
 			"Com uma segunda linha",
@@ -78,12 +78,12 @@ var _ = Describe("codeParser", func() {
 			"Dado que estou usando o usuario clovis.chedid",
 			"Quando eu clico no botao teste com o valor \"clovis1\"",
 			"E eu preencho o campo teste1 com o valor \"clovis2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+			"Entao eu espero a lista teste2 com a opcao menor que \"clovis3\"",
 			"Cenario: sexto cenário",
 			"Dado que estou usando o usuario clovis.chedid",
 			"Quando eu clico no botao teste.2 com o valor \"eu1\"",
 			"E eu preencho o campo teste1.2 com o valor \"eu2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\""}
+			"Entao eu espero a lista teste2 com a opcao maior que \"clovis3\""}
 
 		goodSpec5 = []string{"Aspecto: Este é um aspecto",
 			"Com uma segunda linha",
@@ -509,6 +509,7 @@ var _ = Describe("codeParser", func() {
 								Action:     "espero",
 								ObjectType: "botao",
 								ObjectId:   "teste",
+								Matcher: 	"igual a",
 								Param:      "clovis1",
 							},
 						},
@@ -915,6 +916,7 @@ var _ = Describe("codeParser", func() {
 				nFeat.Scenarios[0].Expectations[0].Label = "Then"
 				nFeat.Scenarios[0].Expectations[0].Action = "expect"
 				nFeat.Scenarios[0].Expectations[0].ObjectType = "button"
+				nFeat.Scenarios[0].Expectations[0].Matcher = "eq"
 				Expect(retCode).To(Equal(0))
 				Expect(feature).To(Equal(nFeat))
 				close(done)

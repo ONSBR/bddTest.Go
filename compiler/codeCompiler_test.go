@@ -27,7 +27,7 @@ var _ = Describe("codeCompiler", func() {
 			"Dado que estou usando o usuario clovis.chedid",
 			"Quando eu clico no botao teste com o valor \"clovis1\"",
 			"E eu preencho o campo teste1 com o valor \"clovis2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+			"Entao eu espero a lista teste2 com a opcao igual a \"clovis3\"",
 			""}
 
 		badSpec = []string{"Aspecto: Este é um aspecto",
@@ -37,12 +37,12 @@ var _ = Describe("codeCompiler", func() {
 			"Dad que estou usando o usuario clovis.chedid",
 			"Quando eu clico no botao teste com o valor \"clovis1\"",
 			"E eu preencho o campo teste1 com o valor \"clovis2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+			"Entao eu espero a lista teste2 com a opcao menor que \"clovis3\"",
 			"Cenario: sexto cenário",
 			"Dado que existe a sessao xpto",
 			"Quando eu clico no botao teste.2 com o valor \"eu1\"",
 			"E eu preencho o campo teste1.2 com o valor \"eu2\"",
-			"Entao eu espero a lista teste2 com a opcao \"clovis3\""}
+			"Entao eu espero a lista teste2 com a opcao maior ou igual a \"clovis3\""}
 	})
 	Describe("Building execution test tree", func() {
 		BeforeEach(func() {
@@ -82,11 +82,12 @@ var _ = Describe("codeCompiler", func() {
 						Expectations: []lexer.Expect_expression{
 							lexer.Expect_expression{
 								LineNum:    7,
-								FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+								FullText:   "Entao eu espero a lista teste2 com a opcao igual a \"clovis3\"",
 								Label:      "Entao",
 								Action:     "espero",
 								ObjectType: "lista",
 								ObjectId:   "teste2",
+								Matcher: "igual a",
 								Param:      "clovis3",
 							},
 						},
@@ -158,6 +159,7 @@ var _ = Describe("codeCompiler", func() {
 				nFeat.Scenarios[0].Expectations[0].Label = "Then"
 				nFeat.Scenarios[0].Expectations[0].Action = "expect"
 				nFeat.Scenarios[0].Expectations[0].ObjectType = "selectbox"
+				nFeat.Scenarios[0].Expectations[0].Matcher = "eq"
 
 				executionTree := codeCompiler.BuildExecutionTestTree(token)
 
@@ -167,19 +169,6 @@ var _ = Describe("codeCompiler", func() {
 
 				close(done)
 			})
-			// It("should not generate execution tree with unknown token translation", func(done Done) {
-			// 	codeCompiler := &CodeCompiler{}
-
-			// 	token := strings.Join(goodSpec, "\n")
-
-			// 	executionTree := codeCompiler.BuildExecutionTestTree(token)
-
-			// 	Expect(executionTree.HasError).To(Equal(true))
-			// 	Expect(executionTree.NumScenarios).To(Equal(0))
-			// 	Expect(executionTree.Error).To(Equal(lexer.ParserError{Message: "Invalid feature token translation", Token: "Aspect"}))
-
-			// 	close(done)
-			// })
 		})
 		Context("when string line is incorrect", func() {
 			It("should not generate execution tree with syntax error", func(done Done) {

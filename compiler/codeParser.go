@@ -120,6 +120,13 @@ func (*CodeParser) TranslateTokens(feat lexer.Feature) (feature lexer.Feature, r
 				return
 			}
 			feature.Scenarios[idx].Expectations[idx2].ObjectType = aObjT
+			aMat, ok := strategy.GetTranslation(expect.Matcher)
+			if !ok {
+				retCode = 1
+				err = TranslatorError{Message: "Invalid matcher token translation", Token: expect.Matcher}
+				return
+			}
+			feature.Scenarios[idx].Expectations[idx2].Matcher = aMat
 		}
 	}
 	retCode = 0

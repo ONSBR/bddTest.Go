@@ -13,6 +13,8 @@ import (
 	"os"
 )
 
+var logB = util.GetLogger("test")
+
 var (
 	tree1       ExecutionTestTree
 	tree2       ExecutionTestTree
@@ -252,11 +254,12 @@ var _ = Describe("Builder", func() {
 							Expectations: []lexer.Expect_expression{
 								lexer.Expect_expression{
 									LineNum:    7,
-									FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+									FullText:   "Entao eu espero a lista teste2 com a opcao menor que \"clovis3\"",
 									Label:      "Then",
 									Action:     "expect",
 									ObjectType: "selectbox",
 									ObjectId:   "teste2",
+									Matcher: "lt",
 									Param:      "clovis3",
 								},
 							},
@@ -303,11 +306,12 @@ var _ = Describe("Builder", func() {
 							Expectations: []lexer.Expect_expression{
 								lexer.Expect_expression{
 									LineNum:    7,
-									FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+									FullText:   "Entao eu espero a lista teste2 com a opcao igual a \"clovis3\"",
 									Label:      "Then",
 									Action:     "expect",
 									ObjectType: "selectbox",
 									ObjectId:   "teste2",
+									Matcher:	"eq",
 									Param:      "clovis3",
 								},
 							},
@@ -341,11 +345,12 @@ var _ = Describe("Builder", func() {
 							Expectations: []lexer.Expect_expression{
 								lexer.Expect_expression{
 									LineNum:    12,
-									FullText:   "Entao eu espero a lista teste2 com a opcao \"clovis3\"",
+									FullText:   "Entao eu espero a lista teste2 com a opcao contem \"clovis3\"",
 									Label:      "Then",
 									Action:     "expect",
 									ObjectType: "selectbox",
 									ObjectId:   "teste2",
+									Matcher:	"ct",
 									Param:      "clovis3",
 								},
 							},
@@ -458,6 +463,7 @@ var _ = Describe("Builder", func() {
 			folderPattern := "../test/BuilderSpecs/**/"
 
 			err := builder.BuildYamlPageObjectFiles(folderPattern,true)
+			logB.Errorf("%s", err)
 			Expect(len(err.(*BuilderError).Errors)).To(Equal(0))
 
 			files, _ := fileHandler.FindFiles(folderPattern + "*.spec.page")

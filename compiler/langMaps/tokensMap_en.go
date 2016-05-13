@@ -25,6 +25,12 @@ var tokenMapsEn = map[string]string{
     "set":"set",
     "exists":"exists",
     "expect":"expect",
+    "equal":"eq",
+    "greater then":"gt",
+    "less then":"lt",
+    "greater then or equal":"gte",
+    "less then or equal":"lte",
+    "contains":"ct",
 }
 
 func init() {

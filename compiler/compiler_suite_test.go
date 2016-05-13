@@ -40,7 +40,7 @@ Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"`
+Entao eu espero a lista teste2 com a opcao maior que "clovis3"`
 
 			files["2.spec"] = `#pt_BR
 Aspecto: Este é um aspecto
@@ -49,8 +49,8 @@ Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"
-Entao eu espero o campo teste4 com o valor "clovis3"`
+Entao eu espero a lista teste2 com a opcao menor que "clovis3"
+Entao eu espero o campo teste4 com o valor igual a "clovis3"`
 
 			files["Readme.txt"] = `page: Home
 uri: test/teste1.html
@@ -89,7 +89,7 @@ Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"
+Entao eu espero a lista teste2 com a opcao menor que "clovis3"
 `
 			files["teste2.spec"] = `#pt_BR
 Aspecto: Este é um aspecto
@@ -98,13 +98,13 @@ Cenario: primeiro cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"
+Entao eu espero a lista teste2 com a opcao igual a "clovis3"
 
 Cenario: segundo cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao "clovis3"
+Entao eu espero a lista teste2 com a opcao contem "clovis3"
 `
 			files["teste3.spec"] = `#en
 Feature: Este é um aspecto
@@ -113,7 +113,7 @@ Scenario: primeiro cenário
 Given que estou usando o user clovis.chedid
 When eu click no button teste com o valor "clovis1"
 And eu select o textbox teste1 com o valor "clovis2"
-Then eu expect a selectbox teste2 com a opcao "clovis3"`
+Then eu expect a selectbox teste2 com a opcao grater then or equal "clovis3"`
 			files["teste1.spec.page"] = `page: Home
 uri: test/teste1.html
 elements:

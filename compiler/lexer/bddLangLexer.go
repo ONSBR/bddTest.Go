@@ -35,18 +35,19 @@ type FeatureSymType struct {
 const ACTION = 57346
 const EXPECT_ACTION_ACTION = 57347
 const EXPECT_ACTION_LABEL = 57348
-const FEATURE_LABEL = 57349
-const INIT_SCENARIO_LABEL = 57350
-const LABEL = 57351
-const NEW_LINE = 57352
-const NUMBER = 57353
-const OBJECT_TYPE = 57354
-const PAGE_LABEL = 57355
-const SCENARIO_LABEL = 57356
-const SIGN = 57357
-const TEXT = 57358
-const TEXT_PARAM = 57359
-const USER_SCENARIO_LABEL = 57360
+const MATCHER = 57349
+const FEATURE_LABEL = 57350
+const INIT_SCENARIO_LABEL = 57351
+const LABEL = 57352
+const NEW_LINE = 57353
+const NUMBER = 57354
+const OBJECT_TYPE = 57355
+const PAGE_LABEL = 57356
+const SCENARIO_LABEL = 57357
+const SIGN = 57358
+const TEXT = 57359
+const TEXT_PARAM = 57360
+const USER_SCENARIO_LABEL = 57361
 
 var FeatureToknames = [...]string{
 	"$end",
@@ -55,6 +56,7 @@ var FeatureToknames = [...]string{
 	"ACTION",
 	"EXPECT_ACTION_ACTION",
 	"EXPECT_ACTION_LABEL",
+	"MATCHER",
 	"FEATURE_LABEL",
 	"INIT_SCENARIO_LABEL",
 	"LABEL",
@@ -75,7 +77,7 @@ const FeatureEofCode = 1
 const FeatureErrCode = 2
 const FeatureInitialStackSize = 16
 
-//line bddLangLexer.y:634
+//line bddLangLexer.y:639
 
 type (
 	Expect_action struct {
@@ -98,6 +100,7 @@ type (
 		Action     string
 		ObjectType string
 		ObjectId   string
+		Matcher    string
 		Param      string
 	}
 	Expect_expression1 string
@@ -156,7 +159,7 @@ type (
 	Test_block1             []Expect_action
 	Test_block2             []Expect_expression
 	Test_expect_line        Expect_expression
-	Test_expect_line1       interface{}
+	Test_expect_line1       int
 	Test_init_scenario_line string
 	Test_line               Expect_action
 	Text_line               string
@@ -177,13 +180,13 @@ var FeatureExca = [...]int{
 	1, -1,
 	-2, 0,
 	-1, 7,
-	13, 22,
+	14, 22,
 	-2, 53,
 	-1, 54,
-	11, 29,
+	12, 29,
 	-2, 8,
-	-1, 65,
-	11, 29,
+	-1, 67,
+	12, 29,
 	-2, 17,
 }
 
@@ -193,36 +196,36 @@ const FeaturePrivate = 57344
 var FeatureTokenNames []string
 var FeatureStates []string
 
-const FeatureLast = 77
+const FeatureLast = 78
 
 var FeatureAct = [...]int{
 
-	60, 50, 35, 25, 71, 64, 68, 61, 64, 59,
-	61, 34, 52, 33, 15, 18, 57, 52, 48, 39,
-	17, 51, 55, 41, 9, 14, 44, 6, 72, 49,
-	66, 40, 11, 38, 36, 31, 27, 23, 28, 24,
-	27, 4, 38, 16, 10, 47, 21, 43, 42, 30,
-	20, 1, 13, 19, 12, 56, 5, 70, 63, 62,
-	29, 22, 7, 3, 8, 2, 69, 67, 65, 53,
-	45, 37, 58, 54, 46, 32, 26,
+	60, 50, 35, 25, 70, 64, 59, 61, 34, 64,
+	33, 61, 15, 18, 67, 52, 52, 48, 17, 57,
+	51, 55, 39, 41, 68, 9, 14, 6, 73, 49,
+	27, 66, 44, 11, 36, 40, 31, 38, 28, 23,
+	24, 27, 4, 38, 16, 47, 10, 21, 43, 42,
+	30, 20, 1, 13, 19, 56, 12, 5, 69, 63,
+	62, 29, 22, 7, 3, 8, 2, 71, 72, 65,
+	53, 45, 37, 58, 54, 46, 32, 26,
 }
 var FeaturePact = [...]int{
 
-	34, -1000, -1000, 14, -1000, -1000, -1000, -1000, 11, -1000,
-	4, -1000, -1000, 29, -1000, -1000, -1000, -1000, -1000, -1000,
-	-1000, 31, 28, -1000, -1000, -1000, 25, -1000, -1000, -5,
-	27, -1000, 15, 7, -1000, -1000, -1000, 16, -1000, -1000,
-	-1000, -1000, 36, -1000, -1000, 13, 5, -1000, -1000, -1000,
-	-1000, -1000, 6, 0, -7, -1000, -1000, -1000, -1000, -1000,
-	-1000, -1000, -1000, 19, -1000, -10, -15, -1000, -1000, -1000,
-	-1000, 17, -1000,
+	34, -1000, -1000, 13, -1000, -1000, -1000, -1000, 11, -1000,
+	1, -1000, -1000, 30, -1000, -1000, -1000, -1000, -1000, -1000,
+	-1000, 20, 27, -1000, -1000, -1000, 25, -1000, -1000, -9,
+	31, -1000, 18, 6, -1000, -1000, -1000, 21, -1000, -1000,
+	-1000, -1000, 37, -1000, -1000, 12, 3, -1000, -1000, -1000,
+	-1000, -1000, 4, 2, -11, -1000, -1000, -1000, -1000, -1000,
+	-1000, -1000, -1000, 19, -1000, 7, -16, -7, -1000, -1000,
+	16, -1000, -1000, -1000,
 }
 var FeaturePgo = [...]int{
 
-	0, 76, 75, 74, 73, 72, 71, 70, 69, 68,
-	67, 65, 64, 63, 62, 61, 60, 59, 58, 57,
-	1, 56, 0, 54, 53, 52, 51, 50, 49, 48,
-	2, 47, 46, 3, 24, 44, 43,
+	0, 77, 76, 75, 74, 73, 72, 71, 70, 69,
+	67, 66, 65, 64, 63, 62, 61, 60, 59, 58,
+	1, 57, 0, 56, 54, 53, 52, 51, 50, 49,
+	2, 48, 47, 3, 25, 46, 44,
 }
 var FeatureR1 = [...]int{
 
@@ -236,7 +239,7 @@ var FeatureR1 = [...]int{
 var FeatureR2 = [...]int{
 
 	0, 7, 0, 2, 0, 2, 0, 2, 0, 1,
-	7, 0, 2, 0, 2, 0, 2, 0, 1, 3,
+	8, 0, 2, 0, 2, 0, 2, 0, 1, 3,
 	0, 2, 2, 0, 2, 4, 0, 2, 3, 0,
 	1, 0, 2, 2, 2, 1, 1, 2, 0, 1,
 	2, 1, 5, 0, 2, 0, 2, 2, 0, 1,
@@ -244,14 +247,14 @@ var FeatureR2 = [...]int{
 }
 var FeatureChk = [...]int{
 
-	-1000, -26, -11, -13, 7, -21, 13, -14, -12, -34,
-	-35, -34, -23, -25, 14, 10, -36, 16, 11, -24,
-	-27, -32, -15, 8, -34, -33, -1, 9, 10, -16,
-	-28, 10, -2, 18, 16, -30, -33, -6, 6, 4,
-	16, 16, -29, -31, 10, -7, -3, -30, 5, 16,
-	-20, 16, 12, -8, -4, 16, -20, 16, -5, 16,
-	-22, 17, -17, -18, 15, -9, 11, -10, 16, -22,
-	-19, 19, 11,
+	-1000, -26, -11, -13, 8, -21, 14, -14, -12, -34,
+	-35, -34, -23, -25, 15, 11, -36, 17, 12, -24,
+	-27, -32, -15, 9, -34, -33, -1, 10, 11, -16,
+	-28, 11, -2, 19, 17, -30, -33, -6, 6, 4,
+	17, 17, -29, -31, 11, -7, -3, -30, 5, 17,
+	-20, 17, 13, -8, -4, 17, -20, 17, -5, 17,
+	-22, 18, -17, -18, 16, -9, 12, 7, 17, -19,
+	20, -10, -22, 12,
 }
 var FeatureDef = [...]int{
 
@@ -261,8 +264,8 @@ var FeatureDef = [...]int{
 	0, 51, 0, 0, 27, 45, 44, 48, 11, 4,
 	3, 25, 42, 47, 49, 0, 0, 46, 13, 12,
 	6, 5, 0, 0, -2, 33, 15, 14, 1, 7,
-	9, 35, 36, 0, 30, -2, 31, 10, 16, 18,
-	28, 0, 32,
+	9, 35, 36, 0, 30, 0, 31, -2, 16, 28,
+	0, 10, 18, 32,
 }
 var FeatureTok1 = [...]int{
 
@@ -270,12 +273,12 @@ var FeatureTok1 = [...]int{
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
 	3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-	3, 3, 3, 3, 3, 3, 19,
+	3, 3, 3, 3, 3, 3, 20,
 }
 var FeatureTok2 = [...]int{
 
 	2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
-	12, 13, 14, 15, 16, 17, 18,
+	12, 13, 14, 15, 16, 17, 18, 19,
 }
 var FeatureTok3 = [...]int{
 	0,
@@ -620,7 +623,7 @@ Featuredefault:
 
 	case 1:
 		FeatureDollar = FeatureS[Featurept-7 : Featurept+1]
-		//line bddLangLexer.y:109
+		//line bddLangLexer.y:111
 		{
 			log.Infof("Expect_action found! |%s|", FeatureDollar[1].item.(string))
 			var buffer bytes.Buffer
@@ -644,14 +647,14 @@ Featuredefault:
 		}
 	case 2:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:133
+		//line bddLangLexer.y:135
 		{
 			log.Infof("Expect_action1 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 3:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:138
+		//line bddLangLexer.y:140
 		{
 			log.Infof("Expect_action1 found!")
 			var buffer bytes.Buffer
@@ -664,14 +667,14 @@ Featuredefault:
 		}
 	case 4:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:151
+		//line bddLangLexer.y:153
 		{
 			log.Infof("Expect_action2 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 5:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:156
+		//line bddLangLexer.y:158
 		{
 			log.Infof("Expect_action2 found!")
 			var buffer bytes.Buffer
@@ -684,14 +687,14 @@ Featuredefault:
 		}
 	case 6:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:169
+		//line bddLangLexer.y:171
 		{
 			log.Infof("Expect_action3 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 7:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:174
+		//line bddLangLexer.y:176
 		{
 			log.Infof("Expect_action3 found!")
 			var buffer bytes.Buffer
@@ -704,21 +707,21 @@ Featuredefault:
 		}
 	case 8:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:187
+		//line bddLangLexer.y:189
 		{
 			log.Infof("Expect_action4 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 9:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:192
+		//line bddLangLexer.y:194
 		{
 			log.Infof("Expect_action4 found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 10:
-		FeatureDollar = FeatureS[Featurept-7 : Featurept+1]
-		//line bddLangLexer.y:199
+		FeatureDollar = FeatureS[Featurept-8 : Featurept+1]
+		//line bddLangLexer.y:201
 		{
 			log.Infof("Expect_expression found!")
 			var buffer bytes.Buffer
@@ -735,21 +738,23 @@ Featuredefault:
 			buffer.WriteString(FeatureDollar[5].item.(Object).ObjectId)
 			buffer.WriteString(" ")
 			buffer.WriteString(FeatureDollar[6].item.(string))
-			buffer.WriteString(" \"")
+			buffer.WriteString(" ")
 			buffer.WriteString(FeatureDollar[7].item.(string))
+			buffer.WriteString(" \"")
+			buffer.WriteString(FeatureDollar[8].item.(string))
 			buffer.WriteString("\"")
-			FeatureVAL.item = Expect_expression{FullText: buffer.String(), Label: FeatureDollar[1].item.(string), Action: FeatureDollar[3].item.(string), ObjectType: FeatureDollar[5].item.(Object).ObjectType, ObjectId: FeatureDollar[5].item.(Object).ObjectId, Param: FeatureDollar[7].item.(string)}
+			FeatureVAL.item = Expect_expression{FullText: buffer.String(), Label: FeatureDollar[1].item.(string), Action: FeatureDollar[3].item.(string), ObjectType: FeatureDollar[5].item.(Object).ObjectType, ObjectId: FeatureDollar[5].item.(Object).ObjectId, Matcher: FeatureDollar[7].item.(string), Param: FeatureDollar[8].item.(string)}
 		}
 	case 11:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:223
+		//line bddLangLexer.y:227
 		{
 			log.Infof("Expect_expression1 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 12:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:228
+		//line bddLangLexer.y:232
 		{
 			log.Infof("Expect_expression1 found!")
 			var buffer bytes.Buffer
@@ -762,14 +767,14 @@ Featuredefault:
 		}
 	case 13:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:241
+		//line bddLangLexer.y:245
 		{
 			log.Infof("Expect_expression2 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 14:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:246
+		//line bddLangLexer.y:250
 		{
 			log.Infof("Expect_expression2 found!")
 			var buffer bytes.Buffer
@@ -782,14 +787,14 @@ Featuredefault:
 		}
 	case 15:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:259
+		//line bddLangLexer.y:263
 		{
 			log.Infof("Expect_expression3 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 16:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:264
+		//line bddLangLexer.y:268
 		{
 			log.Infof("Expect_expression3 found!")
 			var buffer bytes.Buffer
@@ -802,21 +807,21 @@ Featuredefault:
 		}
 	case 17:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:277
+		//line bddLangLexer.y:281
 		{
 			log.Infof("Expect_expression4 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 18:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:282
+		//line bddLangLexer.y:286
 		{
 			log.Infof("Expect_expression4 found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 19:
 		FeatureDollar = FeatureS[Featurept-3 : Featurept+1]
-		//line bddLangLexer.y:289
+		//line bddLangLexer.y:293
 		{
 			log.Infof("Feature found! |%s|", FeatureDollar[1].item.(Feature_block).Label)
 			featureBlock := FeatureDollar[1].item.(Feature_block)
@@ -826,13 +831,13 @@ Featuredefault:
 		}
 	case 20:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:299
+		//line bddLangLexer.y:303
 		{
 			FeatureVAL.item = []Scenario(nil)
 		}
 	case 21:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:303
+		//line bddLangLexer.y:307
 		{
 			log.Infof("Feature1 found!")
 			if nil != FeatureDollar[2].item {
@@ -843,7 +848,7 @@ Featuredefault:
 		}
 	case 22:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:314
+		//line bddLangLexer.y:318
 		{
 			log.Infof("Feature_block found! %s", FeatureDollar[1].item.(string))
 
@@ -856,13 +861,13 @@ Featuredefault:
 		}
 	case 23:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:327
+		//line bddLangLexer.y:331
 		{
 			FeatureVAL.item = ""
 		}
 	case 24:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:331
+		//line bddLangLexer.y:335
 		{
 			log.Infof("Feature_block1 found!")
 			var buffer bytes.Buffer
@@ -875,21 +880,21 @@ Featuredefault:
 		}
 	case 25:
 		FeatureDollar = FeatureS[Featurept-4 : Featurept+1]
-		//line bddLangLexer.y:344
+		//line bddLangLexer.y:348
 		{
 			log.Infof("Init_scenario found!")
 			FeatureVAL.item = FeatureDollar[4].item.(string)
 		}
 	case 26:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:351
+		//line bddLangLexer.y:355
 		{
 			log.Infof("Init_scenario1 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 27:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:356
+		//line bddLangLexer.y:360
 		{
 			log.Infof("Init_scenario1 found!")
 			var buffer bytes.Buffer
@@ -902,7 +907,7 @@ Featuredefault:
 		}
 	case 28:
 		FeatureDollar = FeatureS[Featurept-3 : Featurept+1]
-		//line bddLangLexer.y:369
+		//line bddLangLexer.y:373
 		{
 			log.Infof("Number_param found!")
 			var buffer bytes.Buffer
@@ -920,28 +925,28 @@ Featuredefault:
 		}
 	case 29:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:387
+		//line bddLangLexer.y:391
 		{
 			log.Infof("Number_param1 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 30:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:392
+		//line bddLangLexer.y:396
 		{
 			log.Infof("Number_param1 found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 31:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:399
+		//line bddLangLexer.y:403
 		{
 			log.Infof("Number_param2 empty found!")
 			FeatureVAL.item = ""
 		}
 	case 32:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:404
+		//line bddLangLexer.y:408
 		{
 			log.Infof("Number_param2 found!")
 			var buffer bytes.Buffer
@@ -951,14 +956,14 @@ Featuredefault:
 		}
 	case 33:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:414
+		//line bddLangLexer.y:418
 		{
 			log.Infof("Object found!")
 			FeatureVAL.item = Object{ObjectType: FeatureDollar[1].item.(string), ObjectId: FeatureDollar[2].item.(string)}
 		}
 	case 34:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:421
+		//line bddLangLexer.y:425
 		{
 			log.Infof("Page_line found!")
 
@@ -966,21 +971,21 @@ Featuredefault:
 		}
 	case 35:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:429
+		//line bddLangLexer.y:433
 		{
 			log.Infof("Text param found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 36:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:434
+		//line bddLangLexer.y:438
 		{
 			log.Infof("Number Param found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 37:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:441
+		//line bddLangLexer.y:445
 		{
 			log.Infof("Scenario found!")
 			line := FeatureDollar[1].item.(Scenario_line)
@@ -996,20 +1001,20 @@ Featuredefault:
 		}
 	case 38:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:457
+		//line bddLangLexer.y:461
 		{
 			FeatureVAL.item = Test_block{}
 		}
 	case 39:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:461
+		//line bddLangLexer.y:465
 		{
 			log.Infof("Scenario1 found!")
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 40:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:468
+		//line bddLangLexer.y:472
 		{
 			log.Infof("Scenario_line found!")
 			var buffer bytes.Buffer
@@ -1025,7 +1030,7 @@ Featuredefault:
 		}
 	case 41:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:484
+		//line bddLangLexer.y:488
 		{
 			log.Infof("Start,|%s|", FeatureDollar[1].item.(Feature).Label)
 			//if v,ok := Featurelex.(*BddTestLex); ok {
@@ -1035,7 +1040,7 @@ Featuredefault:
 		}
 	case 42:
 		FeatureDollar = FeatureS[Featurept-5 : Featurept+1]
-		//line bddLangLexer.y:494
+		//line bddLangLexer.y:498
 		{
 			log.Infof("Test_block")
 
@@ -1049,13 +1054,13 @@ Featuredefault:
 		}
 	case 43:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:508
+		//line bddLangLexer.y:512
 		{
 			FeatureVAL.item = []Expect_action(nil)
 		}
 	case 44:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:512
+		//line bddLangLexer.y:516
 		{
 			log.Infof("Test_block1")
 			if nil != FeatureDollar[2].item {
@@ -1073,13 +1078,13 @@ Featuredefault:
 		}
 	case 45:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:530
+		//line bddLangLexer.y:534
 		{
 			FeatureVAL.item = []Expect_expression(nil)
 		}
 	case 46:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:534
+		//line bddLangLexer.y:538
 		{
 			log.Infof("Test_block2")
 			if nil != FeatureDollar[2].item {
@@ -1096,7 +1101,7 @@ Featuredefault:
 		}
 	case 47:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:551
+		//line bddLangLexer.y:555
 		{
 			log.Infof("Test_expect_line")
 
@@ -1104,6 +1109,9 @@ Featuredefault:
 
 			lineNum := 0
 			if v, ok := Featurelex.(*BddTestLex); ok {
+				if FeatureDollar[2].item.(int) == -1 {
+					v.newLine()
+				}
 				lineNum = v.lineNum
 			}
 			expectation.LineNum = lineNum
@@ -1111,27 +1119,27 @@ Featuredefault:
 		}
 	case 48:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:566
+		//line bddLangLexer.y:571
 		{
-			FeatureVAL.item = nil
+			FeatureVAL.item = -1
 		}
 	case 49:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:570
+		//line bddLangLexer.y:575
 		{
 			log.Infof("New line")
-			FeatureVAL.item = nil
+			FeatureVAL.item = 0
 		}
 	case 50:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:577
+		//line bddLangLexer.y:582
 		{
 			log.Infof("Test_init_scenario_line found!")
 			FeatureVAL.item = FeatureDollar[1].item.(string)
 		}
 	case 51:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:584
+		//line bddLangLexer.y:589
 		{
 			log.Infof("Test_line")
 			action := FeatureDollar[1].item.(Expect_action)
@@ -1144,7 +1152,7 @@ Featuredefault:
 		}
 	case 52:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:597
+		//line bddLangLexer.y:602
 		{
 			log.Infof("Text_line found")
 			var buffer bytes.Buffer
@@ -1154,13 +1162,13 @@ Featuredefault:
 		}
 	case 53:
 		FeatureDollar = FeatureS[Featurept-0 : Featurept+1]
-		//line bddLangLexer.y:607
+		//line bddLangLexer.y:612
 		{
 			FeatureVAL.item = ""
 		}
 	case 54:
 		FeatureDollar = FeatureS[Featurept-2 : Featurept+1]
-		//line bddLangLexer.y:611
+		//line bddLangLexer.y:616
 		{
 			log.Infof("Text_line1 found")
 
@@ -1175,13 +1183,13 @@ Featuredefault:
 		}
 	case 55:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:626
+		//line bddLangLexer.y:631
 		{
 			FeatureVAL.item = FeatureDollar[1].item
 		}
 	case 56:
 		FeatureDollar = FeatureS[Featurept-1 : Featurept+1]
-		//line bddLangLexer.y:630
+		//line bddLangLexer.y:635
 		{
 			FeatureVAL.item = strconv.Itoa(FeatureDollar[1].item.(int))
 		}

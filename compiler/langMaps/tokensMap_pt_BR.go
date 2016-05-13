@@ -25,6 +25,12 @@ var tokenMapsPtBR = map[string]string{
     "preencho":"set",
     "existe":"exists",
     "espero":"expect",
+    "igual a":"eq",
+    "maior que":"gt",
+    "menor que":"lt",
+    "maior ou igual a":"gte",
+    "menor ou igual a":"lte",
+    "contem":"ct",
 }
 
 func init() {

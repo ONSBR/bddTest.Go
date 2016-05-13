@@ -34,6 +34,7 @@ EXPTLAB     "Then"
 EXPTACT     "expect"
 ACT         "click"|"select"|"set"|"exists"
 OBJTY       "button"|"textbox"|"selectbox"|"session"
+MATCHER     "equal"|"greater then"|"greater then or equal"|"less then"|"less then or equal"|"contains"
 SIGN        "-"
 TXTPA       \".+\"
 TXT     [^ \t\n]+
@@ -60,6 +61,8 @@ FEATLAB     "Feature:"
 {EXPTLAB}           logP.Infof("Expect assertion Label found"); return EXPECT_ACTION_LABEL
 
 {EXPTACT}           logP.Infof("Expect Action found"); return EXPECT_ACTION_ACTION
+
+{MATCHER}           logP.Infof("Matcher found"); return MATCHER
             
 {SCNLAB}            logP.Infof("Scenario Label found"); return SCENARIO_LABEL
 
@@ -75,7 +78,7 @@ FEATLAB     "Feature:"
 
 {TXTPA}             logP.Infof("Text param found");return TEXT_PARAM
 
-\0                  return -1
+\0                  logP.Infof("EOF");return -1
 
 {TXT}               logP.Infof("Text found"); return TEXT
 

@@ -31,3 +31,5 @@ definitions-backup:
 clean:
 	rm -f bddLangLexer.y bddLangLexer.go y.output
 	#rm -f lexer.yy.go
+list:
+	@(echo definitions-backup bddLangLexer.y bddLangLexer.go lexParsers)

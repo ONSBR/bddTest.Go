@@ -4,7 +4,7 @@
 		"compiler.parser":"CRITICAL",
 		"compiler.builder":"CRITICAL",
 		"lexer.lexer":"CRITICAL",
-		"lexer.parser":"CRITICAL",
+		"lexer.parser":"INFO",
 		"test":"INFO",
 		"pageObject.defParser":"CRITICAL",
 		"util.fileHandler":"CRITICAL",

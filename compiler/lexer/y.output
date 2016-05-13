@@ -19,7 +19,7 @@ state 1
 state 2
 	Start:  Feature.    (41)
 
-	.  reduce 41 (src line 482)
+	.  reduce 41 (src line 486)
 
 
 state 3
@@ -34,7 +34,7 @@ state 4
 	Feature_block:  FEATURE_LABEL.Feature_block1 
 	Feature_block1: .    (23)
 
-	.  reduce 23 (src line 325)
+	.  reduce 23 (src line 329)
 
 	Feature_block1  goto 7
 
@@ -42,7 +42,7 @@ state 5
 	Feature:  Feature_block Page_line.Feature1 
 	Feature1: .    (20)
 
-	.  reduce 20 (src line 297)
+	.  reduce 20 (src line 301)
 
 	Feature1  goto 8
 
@@ -50,7 +50,7 @@ state 6
 	Page_line:  PAGE_LABEL.Text_line 
 	Text_line1: .    (53)
 
-	.  reduce 53 (src line 605)
+	.  reduce 53 (src line 610)
 
 	Text_line  goto 9
 	Text_line1  goto 10
@@ -60,8 +60,8 @@ state 7
 	Feature_block1:  Feature_block1.Text_line 
 	Text_line1: .    (53)
 
-	PAGE_LABEL  reduce 22 (src line 312)
-	.  reduce 53 (src line 605)
+	PAGE_LABEL  reduce 22 (src line 316)
+	.  reduce 53 (src line 610)
 
 	Text_line  goto 11
 	Text_line1  goto 10
@@ -71,7 +71,7 @@ state 8
 	Feature1:  Feature1.Scenario 
 
 	SCENARIO_LABEL  shift 14
-	.  reduce 19 (src line 287)
+	.  reduce 19 (src line 291)
 
 	Scenario  goto 12
 	Scenario_line  goto 13
@@ -79,7 +79,7 @@ state 8
 state 9
 	Page_line:  PAGE_LABEL Text_line.    (34)
 
-	.  reduce 34 (src line 419)
+	.  reduce 34 (src line 423)
 
 
 state 10
@@ -96,13 +96,13 @@ state 10
 state 11
 	Feature_block1:  Feature_block1 Text_line.    (24)
 
-	.  reduce 24 (src line 330)
+	.  reduce 24 (src line 334)
 
 
 state 12
 	Feature1:  Feature1 Scenario.    (21)
 
-	.  reduce 21 (src line 302)
+	.  reduce 21 (src line 306)
 
 
 state 13
@@ -110,7 +110,7 @@ state 13
 	Scenario1: .    (38)
 
 	INIT_SCENARIO_LABEL  shift 23
-	.  reduce 38 (src line 455)
+	.  reduce 38 (src line 459)
 
 	Init_scenario  goto 22
 	Scenario1  goto 19
@@ -121,7 +121,7 @@ state 14
 	Scenario_line:  SCENARIO_LABEL.Text_line 
 	Text_line1: .    (53)
 
-	.  reduce 53 (src line 605)
+	.  reduce 53 (src line 610)
 
 	Text_line  goto 24
 	Text_line1  goto 10
@@ -129,37 +129,37 @@ state 14
 state 15
 	Text_line:  Text_line1 NEW_LINE.    (52)
 
-	.  reduce 52 (src line 595)
+	.  reduce 52 (src line 600)
 
 
 state 16
 	Text_line1:  Text_line1 Text_line11.    (54)
 
-	.  reduce 54 (src line 610)
+	.  reduce 54 (src line 615)
 
 
 state 17
 	Text_line11:  TEXT.    (55)
 
-	.  reduce 55 (src line 624)
+	.  reduce 55 (src line 629)
 
 
 state 18
 	Text_line11:  NUMBER.    (56)
 
-	.  reduce 56 (src line 629)
+	.  reduce 56 (src line 634)
 
 
 state 19
 	Scenario:  Scenario_line Scenario1.    (37)
 
-	.  reduce 37 (src line 439)
+	.  reduce 37 (src line 443)
 
 
 state 20
 	Scenario1:  Test_block.    (39)
 
-	.  reduce 39 (src line 460)
+	.  reduce 39 (src line 464)
 
 
 state 21
@@ -182,21 +182,21 @@ state 23
 	Init_scenario:  INIT_SCENARIO_LABEL.Init_scenario1 USER_SCENARIO_LABEL TEXT 
 	Init_scenario1: .    (26)
 
-	.  reduce 26 (src line 349)
+	.  reduce 26 (src line 353)
 
 	Init_scenario1  goto 29
 
 state 24
 	Scenario_line:  SCENARIO_LABEL Text_line.    (40)
 
-	.  reduce 40 (src line 466)
+	.  reduce 40 (src line 470)
 
 
 state 25
 	Test_block:  Test_init_scenario_line Test_line.Test_block1 Test_expect_line Test_block2 
 	Test_block1: .    (43)
 
-	.  reduce 43 (src line 506)
+	.  reduce 43 (src line 510)
 
 	Test_block1  goto 30
 
@@ -211,14 +211,14 @@ state 27
 	Expect_action:  LABEL.Expect_action1 ACTION Expect_action2 Object Expect_action3 Expect_action4 
 	Expect_action1: .    (2)
 
-	.  reduce 2 (src line 131)
+	.  reduce 2 (src line 133)
 
 	Expect_action1  goto 32
 
 state 28
 	Test_init_scenario_line:  Init_scenario NEW_LINE.    (50)
 
-	.  reduce 50 (src line 575)
+	.  reduce 50 (src line 580)
 
 
 state 29
@@ -246,7 +246,7 @@ state 30
 state 31
 	Test_line:  Expect_action NEW_LINE.    (51)
 
-	.  reduce 51 (src line 582)
+	.  reduce 51 (src line 587)
 
 
 state 32
@@ -268,21 +268,21 @@ state 33
 state 34
 	Init_scenario1:  Init_scenario1 TEXT.    (27)
 
-	.  reduce 27 (src line 355)
+	.  reduce 27 (src line 359)
 
 
 state 35
 	Test_block:  Test_init_scenario_line Test_line Test_block1 Test_expect_line.Test_block2 
 	Test_block2: .    (45)
 
-	.  reduce 45 (src line 528)
+	.  reduce 45 (src line 532)
 
 	Test_block2  goto 42
 
 state 36
 	Test_block1:  Test_block1 Test_line.    (44)
 
-	.  reduce 44 (src line 511)
+	.  reduce 44 (src line 515)
 
 
 state 37
@@ -290,15 +290,15 @@ state 37
 	Test_expect_line1: .    (48)
 
 	NEW_LINE  shift 44
-	.  reduce 48 (src line 564)
+	.  reduce 48 (src line 569)
 
 	Test_expect_line1  goto 43
 
 state 38
-	Expect_expression:  EXPECT_ACTION_LABEL.Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 Expect_expression4 
+	Expect_expression:  EXPECT_ACTION_LABEL.Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 MATCHER Expect_expression4 
 	Expect_expression1: .    (11)
 
-	.  reduce 11 (src line 221)
+	.  reduce 11 (src line 225)
 
 	Expect_expression1  goto 45
 
@@ -306,20 +306,20 @@ state 39
 	Expect_action:  LABEL Expect_action1 ACTION.Expect_action2 Object Expect_action3 Expect_action4 
 	Expect_action2: .    (4)
 
-	.  reduce 4 (src line 149)
+	.  reduce 4 (src line 151)
 
 	Expect_action2  goto 46
 
 state 40
 	Expect_action1:  Expect_action1 TEXT.    (3)
 
-	.  reduce 3 (src line 137)
+	.  reduce 3 (src line 139)
 
 
 state 41
 	Init_scenario:  INIT_SCENARIO_LABEL Init_scenario1 USER_SCENARIO_LABEL TEXT.    (25)
 
-	.  reduce 25 (src line 342)
+	.  reduce 25 (src line 346)
 
 
 state 42
@@ -327,7 +327,7 @@ state 42
 	Test_block2:  Test_block2.Test_expect_line 
 
 	EXPECT_ACTION_LABEL  shift 38
-	.  reduce 42 (src line 492)
+	.  reduce 42 (src line 496)
 
 	Expect_expression  goto 37
 	Test_expect_line  goto 47
@@ -335,17 +335,17 @@ state 42
 state 43
 	Test_expect_line:  Expect_expression Test_expect_line1.    (47)
 
-	.  reduce 47 (src line 549)
+	.  reduce 47 (src line 553)
 
 
 state 44
 	Test_expect_line1:  NEW_LINE.    (49)
 
-	.  reduce 49 (src line 569)
+	.  reduce 49 (src line 574)
 
 
 state 45
-	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1.EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 Expect_expression4 
+	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1.EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 MATCHER Expect_expression4 
 	Expect_expression1:  Expect_expression1.TEXT 
 
 	EXPECT_ACTION_ACTION  shift 48
@@ -366,35 +366,35 @@ state 46
 state 47
 	Test_block2:  Test_block2 Test_expect_line.    (46)
 
-	.  reduce 46 (src line 533)
+	.  reduce 46 (src line 537)
 
 
 state 48
-	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION.Expect_expression2 Object Expect_expression3 Expect_expression4 
+	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION.Expect_expression2 Object Expect_expression3 MATCHER Expect_expression4 
 	Expect_expression2: .    (13)
 
-	.  reduce 13 (src line 239)
+	.  reduce 13 (src line 243)
 
 	Expect_expression2  goto 53
 
 state 49
 	Expect_expression1:  Expect_expression1 TEXT.    (12)
 
-	.  reduce 12 (src line 227)
+	.  reduce 12 (src line 231)
 
 
 state 50
 	Expect_action:  LABEL Expect_action1 ACTION Expect_action2 Object.Expect_action3 Expect_action4 
 	Expect_action3: .    (6)
 
-	.  reduce 6 (src line 167)
+	.  reduce 6 (src line 169)
 
 	Expect_action3  goto 54
 
 state 51
 	Expect_action2:  Expect_action2 TEXT.    (5)
 
-	.  reduce 5 (src line 155)
+	.  reduce 5 (src line 157)
 
 
 state 52
@@ -405,7 +405,7 @@ state 52
 
 
 state 53
-	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2.Object Expect_expression3 Expect_expression4 
+	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2.Object Expect_expression3 MATCHER Expect_expression4 
 	Expect_expression2:  Expect_expression2.TEXT 
 
 	OBJECT_TYPE  shift 52
@@ -420,11 +420,11 @@ state 54
 	Expect_action4: .    (8)
 	Number_param1: .    (29)
 
-	NUMBER  reduce 29 (src line 385)
+	NUMBER  reduce 29 (src line 389)
 	SIGN  shift 64
 	TEXT  shift 59
 	TEXT_PARAM  shift 61
-	.  reduce 8 (src line 185)
+	.  reduce 8 (src line 187)
 
 	Expect_action4  goto 58
 	Number_param  goto 62
@@ -434,51 +434,51 @@ state 54
 state 55
 	Object:  OBJECT_TYPE TEXT.    (33)
 
-	.  reduce 33 (src line 412)
+	.  reduce 33 (src line 416)
 
 
 state 56
-	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object.Expect_expression3 Expect_expression4 
+	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object.Expect_expression3 MATCHER Expect_expression4 
 	Expect_expression3: .    (15)
 
-	.  reduce 15 (src line 257)
+	.  reduce 15 (src line 261)
 
 	Expect_expression3  goto 65
 
 state 57
 	Expect_expression2:  Expect_expression2 TEXT.    (14)
 
-	.  reduce 14 (src line 245)
+	.  reduce 14 (src line 249)
 
 
 state 58
 	Expect_action:  LABEL Expect_action1 ACTION Expect_action2 Object Expect_action3 Expect_action4.    (1)
 
-	.  reduce 1 (src line 107)
+	.  reduce 1 (src line 109)
 
 
 state 59
 	Expect_action3:  Expect_action3 TEXT.    (7)
 
-	.  reduce 7 (src line 173)
+	.  reduce 7 (src line 175)
 
 
 state 60
 	Expect_action4:  Param.    (9)
 
-	.  reduce 9 (src line 191)
+	.  reduce 9 (src line 193)
 
 
 state 61
 	Param:  TEXT_PARAM.    (35)
 
-	.  reduce 35 (src line 427)
+	.  reduce 35 (src line 431)
 
 
 state 62
 	Param:  Number_param.    (36)
 
-	.  reduce 36 (src line 433)
+	.  reduce 36 (src line 437)
 
 
 state 63
@@ -491,81 +491,88 @@ state 63
 state 64
 	Number_param1:  SIGN.    (30)
 
-	.  reduce 30 (src line 391)
+	.  reduce 30 (src line 395)
 
 
 state 65
-	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3.Expect_expression4 
+	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3.MATCHER Expect_expression4 
 	Expect_expression3:  Expect_expression3.TEXT 
-	Expect_expression4: .    (17)
-	Number_param1: .    (29)
 
-	NUMBER  reduce 29 (src line 385)
-	SIGN  shift 64
+	MATCHER  shift 67
 	TEXT  shift 68
-	TEXT_PARAM  shift 61
-	.  reduce 17 (src line 275)
+	.  error
 
-	Expect_expression4  goto 67
-	Number_param  goto 62
-	Number_param1  goto 63
-	Param  goto 69
 
 state 66
 	Number_param:  Number_param1 NUMBER.Number_param2 
 	Number_param2: .    (31)
 
-	'.'  shift 71
-	.  reduce 31 (src line 397)
+	'.'  shift 70
+	.  reduce 31 (src line 401)
 
-	Number_param2  goto 70
+	Number_param2  goto 69
 
 state 67
-	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 Expect_expression4.    (10)
+	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 MATCHER.Expect_expression4 
+	Expect_expression4: .    (17)
+	Number_param1: .    (29)
 
-	.  reduce 10 (src line 197)
+	NUMBER  reduce 29 (src line 389)
+	SIGN  shift 64
+	TEXT_PARAM  shift 61
+	.  reduce 17 (src line 279)
 
+	Expect_expression4  goto 71
+	Number_param  goto 62
+	Number_param1  goto 63
+	Param  goto 72
 
 state 68
 	Expect_expression3:  Expect_expression3 TEXT.    (16)
 
-	.  reduce 16 (src line 263)
+	.  reduce 16 (src line 267)
 
 
 state 69
-	Expect_expression4:  Param.    (18)
+	Number_param:  Number_param1 NUMBER Number_param2.    (28)
 
-	.  reduce 18 (src line 281)
+	.  reduce 28 (src line 371)
 
 
 state 70
-	Number_param:  Number_param1 NUMBER Number_param2.    (28)
-
-	.  reduce 28 (src line 367)
-
-
-state 71
 	Number_param2:  '.'.NUMBER 
 
-	NUMBER  shift 72
+	NUMBER  shift 73
 	.  error
 
 
+state 71
+	Expect_expression:  EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 MATCHER Expect_expression4.    (10)
+
+	.  reduce 10 (src line 199)
+
+
 state 72
+	Expect_expression4:  Param.    (18)
+
+	.  reduce 18 (src line 285)
+
+
+state 73
 	Number_param2:  '.' NUMBER.    (32)
 
-	.  reduce 32 (src line 403)
+	.  reduce 32 (src line 407)
 
 
-19 terminals, 37 nonterminals
-57 grammar rules, 73/2000 states
+20 terminals, 37 nonterminals
+57 grammar rules, 74/2000 states
 0 shift/reduce, 0 reduce/reduce conflicts reported
 86 working sets used
 memory: parser 62/30000
 11 extra closures
-35 shift entries, 4 exceptions
+36 shift entries, 4 exceptions
 42 goto entries
 6 entries saved by goto default
-Optimizer space used: output 77/30000
-77 table entries, 0 zero
-maximum spread: 19, maximum offset: 65
+Optimizer space used: output 78/30000
+78 table entries, 0 zero
+maximum spread: 20, maximum offset: 67

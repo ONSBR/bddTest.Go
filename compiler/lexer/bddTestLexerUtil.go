@@ -137,6 +137,9 @@ func (this *BddTestLex) Lex(lval *FeatureSymType) (ret int) {
 		case EXPECT_ACTION_ACTION:
 			lval.item = this.getStr()
 			break
+		case MATCHER:
+			lval.item = this.getStr()
+			break
 		case SCENARIO_LABEL:
 			lval.item = this.getLabel()
 			break

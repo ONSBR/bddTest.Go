@@ -32,6 +32,7 @@ var log = util.GetLogger("lexer.lexer")
 %token	ACTION
 %token	EXPECT_ACTION_ACTION
 %token	EXPECT_ACTION_LABEL
+%token	MATCHER
 %token	FEATURE_LABEL
 %token	INIT_SCENARIO_LABEL
 %token	LABEL
@@ -49,6 +50,7 @@ var log = util.GetLogger("lexer.lexer")
 	ACTION
 	EXPECT_ACTION_ACTION
 	EXPECT_ACTION_LABEL
+	MATCHER
 	FEATURE_LABEL
 	INIT_SCENARIO_LABEL
 	LABEL
@@ -195,7 +197,7 @@ Expect_action4:
 	}
 
 Expect_expression:
-	EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 Expect_expression4
+	EXPECT_ACTION_LABEL Expect_expression1 EXPECT_ACTION_ACTION Expect_expression2 Object Expect_expression3 MATCHER Expect_expression4
 	{
 		log.Infof("Expect_expression found!")
 		var buffer bytes.Buffer
@@ -212,10 +214,12 @@ Expect_expression:
 		buffer.WriteString($5.(Object).ObjectId)
 		buffer.WriteString(" ")
 		buffer.WriteString($6.(string))
-		buffer.WriteString(" \"")
+		buffer.WriteString(" ")
 		buffer.WriteString($7.(string))
+		buffer.WriteString(" \"")
+		buffer.WriteString($8.(string))
 		buffer.WriteString("\"")
-		$$ = Expect_expression{FullText:buffer.String(),Label:$1.(string),Action:$3.(string),ObjectType:$5.(Object).ObjectType,ObjectId:$5.(Object).ObjectId,Param:$7.(string)}
+		$$ = Expect_expression{FullText:buffer.String(),Label:$1.(string),Action:$3.(string),ObjectType:$5.(Object).ObjectType,ObjectId:$5.(Object).ObjectId,Matcher:$7.(string), Param:$8.(string)}
 	}
 
 Expect_expression1:
@@ -555,6 +559,7 @@ Test_expect_line:
 		
 		lineNum := 0
 		if v,ok := Featurelex.(*BddTestLex); ok {
+			if $2.(int) == -1 {v.newLine()}
 			lineNum = v.lineNum
 		}
 		expectation.LineNum = lineNum
@@ -564,12 +569,12 @@ Test_expect_line:
 Test_expect_line1:
 	/* EMPTY */
 	{
-		$$ = nil
+		$$ = -1
 	}
 |	NEW_LINE
 	{
 		log.Infof("New line")
-		$$ = nil
+		$$ = 0
 	}
 
 Test_init_scenario_line:
@@ -654,6 +659,7 @@ type (
 		Action string
 		ObjectType string
 		ObjectId string
+		Matcher string
 		Param string
 	}
 	Expect_expression1 string
@@ -712,7 +718,7 @@ type (
 	Test_block1 []Expect_action
 	Test_block2 []Expect_expression
 	Test_expect_line Expect_expression
-	Test_expect_line1 interface{}
+	Test_expect_line1 int
 	Test_init_scenario_line string
 	Test_line Expect_action
 	Text_line string
