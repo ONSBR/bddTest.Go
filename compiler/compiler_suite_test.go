@@ -32,6 +32,14 @@ func prepareFiles() {
 			destinations["teste2.spec"] = []string{"../test/BuilderSpecs/specs1"}
 			destinations["teste2.spec.page"] = []string{"../test/BuilderSpecs/specs1"}
 			destinations["teste3.spec"] = []string{"../test/BuilderSpecs/specs1"}
+			destinations["guide.script"] = []string{"../test/BuilderSpecs"}
+			destinations["guide2.script"] = []string{"../test/BuilderSpecs"}
+			
+			files["guide.script"] = `../test/BuilderSpecs/specs1/teste1.spec
+../test/BuilderSpecs/specs1/teste2.spec`
+			files["guide2.script"] = `../test/CliSpecs/specs1/error1.spec
+../test/CliSpecs/specs3/teste1.spec
+../test/CliSpecs/specs3/teste2.spec`
 			
 			files["1.spec"] = `#pt_BR
 Aspecto: Este é um aspecto

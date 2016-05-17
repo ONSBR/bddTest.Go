@@ -24,6 +24,7 @@ type (
     OptionsDef struct {
         SpecFile        string `goptions:"-f, --specfile, description='Single spec file to be used'"`
         Multi           string `goptions:"-m, --multi, description='Spec file path pattern'"`
+        Guide           string `goptions:"-g, --guide, description='Script guide for execution order'"`
         BaseURI         string `goptions:"-u, --uri, description='Base URI concatenated to page URI on test execution'"`
         SeleniumServer  string `goptions:"-s, --seleniumserver, description='URI of selenium server'"`
         Config          string `goptions:"-c, --configfile, description='Configuration file'"`

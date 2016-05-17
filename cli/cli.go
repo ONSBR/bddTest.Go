@@ -1,10 +1,10 @@
 package cli
 
 import (
-	"fmt"
+	// "fmt"
 
 	"github.com/ONSBR/bddTest.Go/compiler"
-	"github.com/ONSBR/bddTest.Go/processor"
+	// "github.com/ONSBR/bddTest.Go/processor"
 	"github.com/ONSBR/bddTest.Go/util"
 )
 
@@ -22,7 +22,7 @@ type (
 
 //Run is the main execution function of bddTest.Go
 func (cli *Cli) Run() int {
-	retCode := -1
+	retCode := -1 
 	parseFlag := NewFlagParser()
 	parseCode := parseFlag.Parse()
 	util.InitLog(parseFlag.Options.Config)
@@ -65,25 +65,36 @@ func (cli *Cli) Run() int {
 				logCli.Errorf("%s", err.Error())
 				retCode = -1
 			} else {
-				retCode = 0
+				retCode = 0 
 			}
 		}
 		break
 	case RunCommand: //Execute known tests
+		retCode = -1
 		builder := compiler.NewBuilder()
 		executions := []compiler.Execution{}
 		if parseFlag.Options.SpecFile != "" {
 			execution := builder.BuildExecution(parseFlag.Options.SpecFile, parseFlag.Options.BaseURI)
 			executions = append(executions, execution)
+			retCode = 0
 		} else if parseFlag.Options.Multi != "" {
 			executions, _ = builder.BuildExecutions(parseFlag.Options.Multi, parseFlag.Options.BaseURI)
+			retCode = 0
+		} else if parseFlag.Options.Guide != "" {
+			var err error
+			executions, err = builder.BuildExecutionsFromGuide(parseFlag.Options.Guide, parseFlag.Options.BaseURI)
+			logCli.Errorf("Executions %d %s", len(executions), err)
+			if err != nil {
+				retCode = -1
+			} else {
+				retCode = 0
+			}
 		}
 
-		t := processor.NewTestProcessor(&executions[0])
-		fmt.Printf("Page Object: %s", t.Execution.PageObject)
-		t.Process()
+		// t := processor.NewTestProcessor(&executions[0])
+		// fmt.Printf("Page Object: %s", t.Execution.PageObject)
+		// t.Process()
 
-		retCode = 0
 		break
 	}
 	return retCode

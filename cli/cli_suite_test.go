@@ -13,6 +13,7 @@ import (
 )
 
 var (
+	logSuite = util.GetLogger("test")
 	destinations = map[string][]string{}
 	files = map[string]string{}
 	folders = []string{"../test/CliSpecs","../test/CliSpecs/specs1","../test/CliSpecs/specs2","../test/CliSpecs/specs3"}
@@ -34,7 +35,15 @@ func prepareFiles() {
 			destinations["teste1.spec.page"] = []string{"../test/CliSpecs/specs3"}
 			destinations["teste2.spec"] = []string{"../test/CliSpecs/specs3"}
 			destinations["teste2.spec.page"] = []string{"../test/CliSpecs/specs3"}
+			destinations["guide.script"] = []string{"../test/CliSpecs"}
+			destinations["guide2.script"] = []string{"../test/CliSpecs"}
 			
+			files["guide.script"] = `../test/CliSpecs/specs3/teste1.spec
+../test/CliSpecs/specs3/teste2.spec`
+			files["guide2.script"] = `../test/CliSpecs/specs1/error1.spec
+../test/CliSpecs/specs3/teste1.spec
+../test/CliSpecs/specs3/teste2.spec`
+				
 			files["error1.spec"] = `#pt_BR
 Aspect: Este é um aspecto
 Pagina: Cadastro de Clientes
@@ -52,6 +61,7 @@ Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste com o valor "clovis1"
 E eu preencho o campo teste1 com o valor "clovis2"
 Entao eu espero a lista teste2 com a opcao maior que "clovis3"`
+
 			files["teste1.spec"] = `#en
 Feature: Este é um aspecto
 Page: Cadastro de Clientes
@@ -124,6 +134,7 @@ elements:
 			for k,v := range files {
 				dest := destinations[k]
 				for _,d := range dest {
+					// logSuite.Errorf("%s %s", d, k)
 					_ = fileHandler.WriteFile(d+"/"+k,v)
 				}
 			}

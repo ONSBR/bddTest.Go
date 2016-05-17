@@ -211,6 +211,40 @@ func (builder *Builder) BuildExecutions(folderPattern string, baseURI string) (e
 	return
 }
 
+//BuildExecutionsFromGuide find specs and page object definitions on folder pattern and create execution tree of tests
+func (builder *Builder) BuildExecutionsFromGuide(guide string, baseURI string) (exec []Execution, err error) {
+	fileHandler := &util.FileHandler{}
+	var builderError = &BuilderError{}
+	script, errRead := fileHandler.ReadFile(guide)
+	if errRead != nil {
+		err = errRead
+		return
+	}
+	files := strings.Split(script, "\n")
+	
+	for _,file := range files {
+		executionTestTree := builder.BuildFile(file)
+		if executionTestTree.HasError {
+			message := concatenateErrorMessage(file, executionTestTree.Error)
+			builderFileError := BuilderFileError{Filename: file, Error: message}
+			builderError.Errors = append(builderError.Errors, builderFileError)
+			err = builderError 
+		}
+		executionTestTreeResult := ExecutionTestTreeResult{Filename: file, ExecutionTree: executionTestTree}
+		pageFilename := fmt.Sprintf("%s.page", executionTestTreeResult.Filename)
+		if !fileHandler.DoesFileExists(pageFilename) {
+			exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, HasError: true, Error: fmt.Sprintf("Page Object file missing: %s", pageFilename)})
+		} else {
+			if page, errPage := builder.GeneratePageObject(pageFilename, baseURI); errPage == nil {
+				exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, Feature: executionTestTreeResult.ExecutionTree.Feature, PageObject: page})
+			} else {
+				exec = append(exec, Execution{Filename: executionTestTreeResult.Filename, HasError: true, Error: errPage.Error()})
+			}
+		}
+	}
+	return
+}
+
 //BuildYamlPageObjectFile get a single spec file and create stub of Yaml Page Object Definition file
 func (builder *Builder) BuildYamlPageObjectFile(filename string, backup bool) error {
 	fileHandler := &util.FileHandler{}

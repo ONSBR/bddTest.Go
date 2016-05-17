@@ -31,7 +31,7 @@ var _ = Describe("FlagParser", func() {
 			var flagParser *FlagParser = NewFlagParser()
 			usage := flagParser.Usage()
 			usageSplit := strings.Split(usage, "\n")
-			Expect(len(usageSplit)).To(Equal(16))
+			Expect(len(usageSplit)).To(Equal(17))
 			close(done)
 		})
 		It("should parse and return invalid command", func (done Done)  {
@@ -131,6 +131,24 @@ var _ = Describe("FlagParser", func() {
 			Expect(commandOk).To(Equal(RunCommand))
 			Expect(flagParser.Options.Verb).To(Equal(goptions.Verbs("run")))
 			Expect(flagParser.Options.Multi).To(Equal("../test/**"))
+			close(done) 
+		})
+		It("should parse and return valid run command with guide script flag short", func (done Done)  {
+			os.Args = []string{"cli.test", "-g", "../test/guide.script", "run"}
+			flagParser := NewFlagParser()
+			commandOk := flagParser.Parse()
+			Expect(commandOk).To(Equal(RunCommand))
+			Expect(flagParser.Options.Verb).To(Equal(goptions.Verbs("run")))
+			Expect(flagParser.Options.Guide).To(Equal("../test/guide.script"))
+			close(done) 
+		})
+		It("should parse and return valid run command with guide script flag long", func (done Done)  {
+			os.Args = []string{"cli.test", "--guide", "../test/guide.script", "run"}
+			flagParser := NewFlagParser()
+			commandOk := flagParser.Parse()
+			Expect(commandOk).To(Equal(RunCommand))
+			Expect(flagParser.Options.Verb).To(Equal(goptions.Verbs("run")))
+			Expect(flagParser.Options.Guide).To(Equal("../test/guide.script"))
 			close(done) 
 		})
 		It("should parse and return valid run command with base uri flag short", func (done Done)  {

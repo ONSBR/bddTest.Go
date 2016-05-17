@@ -224,5 +224,21 @@ var _ = Describe("Cli", func() {
 			Expect(retCode).To(Equal(0))
 			close(done) 
 		})
+		It("should generate a collection of execution tree based on a guide script file and return ok", func (done Done)  {
+			os.Args = []string{"cli.test", "-g", "../test/CLISpecs/guide.script", "run"}
+			cli := NewCli()
+			retCode := cli.Run()
+			
+			Expect(retCode).To(Equal(0))
+			close(done) 
+		})
+		It("should generate an error of parsing based on a guide script file and return ok", func (done Done)  {
+			os.Args = []string{"cli.test", "-g", "../test/CLISpecs/guide2.script", "run"}
+			cli := NewCli()
+			retCode := cli.Run()
+			
+			Expect(retCode).To(Equal(-1))
+			close(done) 
+		})
 	})
 })

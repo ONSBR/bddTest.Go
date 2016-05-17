@@ -414,6 +414,65 @@ var _ = Describe("Builder", func() {
 
 			close(done)
 		})
+		
+		It("should generate a collection of execution objects based on a guide script", func(done Done) {
+			builder := NewBuilder()
+			baseUri := "http://localhost:3000" 
+			filename1 := "../test/BuilderSpecs/specs1/teste1.spec"
+			filename2 := "../test/BuilderSpecs/specs1/teste2.spec"
+			executions, err := builder.BuildExecutionsFromGuide("../test/BuilderSpecs/guide.script", baseUri)
+			Expect(err).To(BeNil())
+			Expect(len(executions)).To(Equal(2))
+
+			for _, execution := range executions {
+				if execution.Filename == filename1 {
+					Expect(execution.HasError).To(BeFalse())
+					Expect(execution.Filename).To(Equal(filename1))
+					Expect(execution.Feature).To(Equal(tree1.Feature))
+					Expect(execution.PageObject).To(Equal(*page1))
+				} else if execution.Filename == filename2 {
+					Expect(execution.HasError).To(BeFalse())
+					Expect(execution.Filename).To(Equal(filename2))
+					Expect(execution.Feature).To(Equal(tree2.Feature))
+					Expect(execution.PageObject).To(Equal(*page2))
+				} else {
+					Expect(execution.HasError).To(BeTrue())
+					Expect(execution.Error).To(Equal(fmt.Sprintf("Page Object file missing: %s.page", execution.Filename)))
+				}
+			}
+
+			close(done)
+		})
+		
+		It("should generate an error of parser based on a guide script", func(done Done) {
+			builder := NewBuilder()
+			baseUri := "http://localhost:3000" 
+			filename2 := "../test/BuilderSpecs/specs1/teste2.spec"
+			errContent := `#pt_BR
+Aspect: Este é um aspecto
+Pagina: Cadastro de Clientes
+Cenario: primeiro cenário
+Dado que estou usando o usuario clovis.chedid
+Quando eu clico no botao teste com o valor "clovis1"
+E eu preencho o campo teste1 com o valor "clovis2"
+Entao eu espero a lista teste2 com a opcao igual a "clovis3"
+
+Cenario: segundo cenário
+Dado que estou usando o usuario clovis.chedid
+Quando eu clico no botao teste com o valor "clovis1"
+E eu preencho o campo teste1 com o valor "clovis2"
+Entao eu espero a lista teste2 com a opcao contem "clovis3"
+`
+			
+			fileHandler := util.NewFileHandler()
+			fileHandler.WriteFile(filename2, errContent)
+			
+			_, err := builder.BuildExecutionsFromGuide("../test/BuilderSpecs/guide.script", baseUri)
+			Expect(err).ToNot(BeNil())
+			Expect(len(err.(*BuilderError).Errors)).To(Equal(1))
+			
+			close(done)
+		})
 	})
 	Describe("generating page files", func() {
 		BeforeEach(func() {
