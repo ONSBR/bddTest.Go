@@ -22,9 +22,10 @@ type (
 	}
 
 	YamlElement struct {
-		Element string
-		Locator string
-		Type    string
+		Element    string
+		Locator    string
+		Expression string
+		Type       string
 	}
 
 	YamlPage struct {

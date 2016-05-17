@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"time"
+
 	loggo "github.com/juju/loggo"
 )
 
@@ -12,7 +13,9 @@ type (
 )
 
 func InitLog(path string) {
-	if path == "" {path = "/Users/coichedid/Projetos/Golang/src/github.com/ONSBR/bddTest.Go/util/conf.json"}
+	if path == "" {
+		path = "./util/conf.json"
+	}
 	configuration, err := GetConfig(path)
 	if err != nil {
 		fmt.Println("Error reading config")
@@ -32,6 +35,6 @@ func (formatter *CustomFormatter) Format(level loggo.Level, module, filename str
 }
 
 func ReplaceLoggerDefaultFormatter() {
-    writer := loggo.NewSimpleWriter(os.Stderr, &CustomFormatter{})
+	writer := loggo.NewSimpleWriter(os.Stderr, &CustomFormatter{})
 	loggo.ReplaceDefaultWriter(writer)
 }
