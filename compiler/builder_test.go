@@ -162,8 +162,8 @@ var _ = Describe("Builder", func() {
 				},
 			}
 
-			definition1 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  type: selectbox\n"
-			definition2 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste5\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: salvar\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste6\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
+			definition1 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: selectbox\n"
+			definition2 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n- element: teste5\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n- element: salvar\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n- element: teste6\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n"
 			prepareFiles()
 		})
 		AfterEach(func ()  {
@@ -190,15 +190,15 @@ var _ = Describe("Builder", func() {
 	Describe("generating Page Objects", func() {
 		BeforeEach(func() {
 			page1 = pageObject.NewPageObject("Home", "http://localhost:3000/test/teste1.html")
-			_ = pageObject.NewPageElement(page1, "By.Id(\"teste\")", "button", "teste")
-			_ = pageObject.NewPageElement(page1, "By.Id(\"teste1\")", "textbox", "teste1")
-			_ = pageObject.NewPageElement(page1, "By.Id(\"teste2\")", "selectbox", "teste2")
+			_ = pageObject.NewPageElement(page1, "Id", "teste", "button", "teste")
+			_ = pageObject.NewPageElement(page1, "Id", "teste1", "textbox", "teste1")
+			_ = pageObject.NewPageElement(page1, "Id", "teste2", "selectbox", "teste2")
 
 			page2 = pageObject.NewPageObject("Home", "http://localhost:3000/test/teste2.html")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"teste4\")", "textbox", "teste4")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"teste5\")", "textbox", "teste5")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"salvar\")", "button", "salvar")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"teste6\")", "textbox", "teste6")
+			_ = pageObject.NewPageElement(page2, "Id", "teste4", "textbox", "teste4")
+			_ = pageObject.NewPageElement(page2, "Id", "teste5", "textbox", "teste5")
+			_ = pageObject.NewPageElement(page2, "Id", "salvar", "button", "salvar")
+			_ = pageObject.NewPageElement(page2, "Id", "teste6", "textbox", "teste6")
 			prepareFiles()
 		})
 		AfterEach(func ()  {
@@ -359,15 +359,15 @@ var _ = Describe("Builder", func() {
 				},
 			}
 			page1 = pageObject.NewPageObject("Home", "http://localhost:3000/test/teste1.html")
-			_ = pageObject.NewPageElement(page1, "By.Id(\"teste\")", "button", "teste")
-			_ = pageObject.NewPageElement(page1, "By.Id(\"teste1\")", "textbox", "teste1")
-			_ = pageObject.NewPageElement(page1, "By.Id(\"teste2\")", "selectbox", "teste2")
+			_ = pageObject.NewPageElement(page1, "Id", "teste", "button", "teste")
+			_ = pageObject.NewPageElement(page1, "Id", "teste1", "textbox", "teste1")
+			_ = pageObject.NewPageElement(page1, "Id", "teste2", "selectbox", "teste2")
 
 			page2 = pageObject.NewPageObject("Home", "http://localhost:3000/test/teste2.html")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"teste4\")", "textbox", "teste4")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"teste5\")", "textbox", "teste5")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"salvar\")", "button", "salvar")
-			_ = pageObject.NewPageElement(page2, "By.Id(\"teste6\")", "textbox", "teste6")
+			_ = pageObject.NewPageElement(page2, "Id", "teste4", "textbox", "teste4")
+			_ = pageObject.NewPageElement(page2, "Id", "teste5", "textbox", "teste5")
+			_ = pageObject.NewPageElement(page2, "Id", "salvar", "button", "salvar")
+			_ = pageObject.NewPageElement(page2, "Id", "teste6", "textbox", "teste6")
 			prepareFiles()
 		})
 		AfterEach(func ()  {

@@ -185,7 +185,7 @@ func (this *PageObjectDefParser) GetPageObject(definition string, baseUri string
 
 	page = pageObject.NewPageObject(yamlPage.Page, uri)
 	for _, element := range yamlPage.Elements {
-		_ = pageObject.NewPageElement(page, element.Locator, element.Type, element.Element)
+		_ = pageObject.NewPageElement(page, element.Locator, element.Expression, element.Type, element.Element)
 	}
 	return
 }

@@ -14,11 +14,11 @@ type MockedHTTPHandler struct {
 
 func (h *MockedHTTPHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<input type='button' id='elementId'/>HTML Content")
+	fmt.Fprint(w, "<input type='button' id='objectId'/>HTML Content")
 }
 
 // initTestServer inits a test HTTP Server
-func initTestServer() {
+func InitTestServer() string {
 	server := manners.NewWithServer(&http.Server{
 		Addr:           fmt.Sprintf("172.17.0.1:8080"),
 		Handler:        &MockedHTTPHandler{},
@@ -28,4 +28,6 @@ func initTestServer() {
 	})
 
 	go server.ListenAndServe()
+
+	return "http://172.17.0.1:8080"
 }

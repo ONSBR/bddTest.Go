@@ -419,15 +419,15 @@ var _ = Describe("PageObjectDefParser", func() {
 		}
 
 		definition1 = "page: Home\nuri: <ENTER PAGE URI>\nelements: []\n"
-		definition2 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n"
-		definition3 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
-		definition6 = "page: HomeExpect\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n"
-		definition7 = "page: HomeExpect2\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
-		definition8 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n- element: teste3\n  locator: <ENTER ELEMENT LOCATOR>\n  type: button\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  type: textbox\n"
+		definition2 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n"
+		definition3 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n"
+		definition6 = "page: HomeExpect\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n"
+		definition7 = "page: HomeExpect2\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n"
+		definition8 = "page: Home\nuri: <ENTER PAGE URI>\nelements:\n- element: teste1\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n- element: teste2\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n- element: teste3\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: button\n- element: teste4\n  locator: <ENTER ELEMENT LOCATOR>\n  expression: <ENTER ELEMENT LOCATOR EXPRESSION>\n  type: textbox\n"
 		definition1Compl = "page: Home\nuri: teste1/home.html\nelements: []\n"
-		definition2Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n"
-		definition3Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n- element: teste1\n  locator: By.Id()\n  type: textbox\n"
-		definition8Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste1\n  locator: By.Id()\n  type: button\n- element: teste2\n  locator: By.Id()\n  type: textbox\n- element: teste3\n  locator: By.Id()\n  type: button\n- element: teste4\n  locator: By.Id()\n  type: textbox\n"
+		definition2Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste\n  locator: Id\n  expression: teste\n  type: button\n"
+		definition3Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste\n  locator: Id\n  expression: teste\n  type: button\n- element: teste1\n  locator: Id\n  expression: teste1\n  type: textbox\n"
+		definition8Compl = "page: Home\nuri: teste1/home.html\nelements:\n- element: teste1\n  locator: Id\n  expression: teste1\n  type: button\n- element: teste2\n  locator: Id\n  expression: teste2\n  type: textbox\n- element: teste3\n  locator: Id\n  expression: teste3\n  type: button\n- element: teste4\n  locator: Id\n  expression: teste4\n  type: textbox\n"
 	})
 	Describe("Generating Page Object Definitions", func() {
 		Context("When valid incomplete trees", func() {
@@ -512,7 +512,8 @@ var _ = Describe("PageObjectDefParser", func() {
 				Expect(yamlPage.Page).To(Equal("Home"))
 				Expect(len(yamlPage.Elements)).To(Equal(1))
 				Expect(yamlPage.Elements[0].Element).To(Equal("teste"))
-				Expect(yamlPage.Elements[0].Locator).To(Equal("By.Id()"))
+				Expect(yamlPage.Elements[0].Locator).To(Equal("Id"))
+				Expect(yamlPage.Elements[0].Expression).To(Equal("teste"))
 				Expect(yamlPage.Elements[0].Type).To(Equal("button"))
 				close(done)
 			})
@@ -524,10 +525,12 @@ var _ = Describe("PageObjectDefParser", func() {
 				Expect(yamlPage.Page).To(Equal("Home"))
 				Expect(len(yamlPage.Elements)).To(Equal(2))
 				Expect(yamlPage.Elements[0].Element).To(Equal("teste"))
-				Expect(yamlPage.Elements[0].Locator).To(Equal("By.Id()"))
+				Expect(yamlPage.Elements[0].Locator).To(Equal("Id"))
+				Expect(yamlPage.Elements[0].Expression).To(Equal("teste"))
 				Expect(yamlPage.Elements[0].Type).To(Equal("button"))
 				Expect(yamlPage.Elements[1].Element).To(Equal("teste1"))
-				Expect(yamlPage.Elements[1].Locator).To(Equal("By.Id()"))
+				Expect(yamlPage.Elements[1].Locator).To(Equal("Id"))
+				Expect(yamlPage.Elements[1].Expression).To(Equal("teste1"))
 				Expect(yamlPage.Elements[1].Type).To(Equal("textbox"))
 				close(done)
 			})
@@ -539,18 +542,22 @@ var _ = Describe("PageObjectDefParser", func() {
 				Expect(yamlPage.Page).To(Equal("Home"))
 				Expect(len(yamlPage.Elements)).To(Equal(4))
 				Expect(yamlPage.Elements[0].Element).To(Equal("teste1"))
-				Expect(yamlPage.Elements[0].Locator).To(Equal("By.Id()"))
+				Expect(yamlPage.Elements[0].Locator).To(Equal("Id"))
+				Expect(yamlPage.Elements[0].Expression).To(Equal("teste1"))
 				Expect(yamlPage.Elements[0].Type).To(Equal("button"))
 				Expect(yamlPage.Elements[1].Element).To(Equal("teste2"))
-				Expect(yamlPage.Elements[1].Locator).To(Equal("By.Id()"))
+				Expect(yamlPage.Elements[1].Locator).To(Equal("Id"))
+				Expect(yamlPage.Elements[1].Expression).To(Equal("teste2"))
 				Expect(yamlPage.Elements[1].Type).To(Equal("textbox"))
 				Expect(yamlPage.Elements[2].Element).To(Equal("teste3"))
-				Expect(yamlPage.Elements[2].Locator).To(Equal("By.Id()"))
+				Expect(yamlPage.Elements[2].Locator).To(Equal("Id"))
+				Expect(yamlPage.Elements[2].Expression).To(Equal("teste3"))
 				Expect(yamlPage.Elements[2].Type).To(Equal("button"))
 				Expect(yamlPage.Elements[3].Element).To(Equal("teste4"))
-				Expect(yamlPage.Elements[3].Locator).To(Equal("By.Id()"))
+				Expect(yamlPage.Elements[3].Locator).To(Equal("Id"))
+				Expect(yamlPage.Elements[3].Expression).To(Equal("teste4"))
 				Expect(yamlPage.Elements[3].Type).To(Equal("textbox"))
-				close(done)
+				close(done) 
 			})
 		})
 		Context("When invalid definition", func() {
@@ -605,14 +612,14 @@ var _ = Describe("PageObjectDefParser", func() {
 			})
 			It("Should return a err with missing element type field", func(done Done) {
 				parser = &PageObjectDefParser{}
-				_, err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  tye: button\n")
+				_, err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: Id\n  expression: teste\n  tye: button\n")
 				Expect(err).To(Not(BeNil()))
-				Expect(err.Error()).To(Equal("Missing element type for locator By.Id() and name teste"))
+				Expect(err.Error()).To(Equal("Missing element type for locator Id and name teste"))
 				close(done)
 			})
 			It("Should return a err with duplicated element name", func(done Done) {
 				parser = &PageObjectDefParser{}
-				_, err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: By.Id()\n  type: button\n- element: teste1\n  locator: By.Id()\n  type: textbox\n- element: teste\n  locator: By.Id()\n  type: textbox\n")
+				_, err := parser.GetYamlPage("page: Home\nuri: http://www\nelements:\n- element: teste\n  locator: Id\n  expression: teste\n  type: button\n- element: teste1\n  locator: Id\n  expression: teste1\n  type: textbox\n- element: teste\n  locator: Id\n  expression: teste\n  type: textbox\n")
 				Expect(err).To(Not(BeNil()))
 				Expect(err.Error()).To(Equal("Duplicated element teste with different types textbox || button"))
 				close(done)
@@ -641,7 +648,8 @@ var _ = Describe("PageObjectDefParser", func() {
 				Expect(len(pageObj.Elements)).To(Equal(1))
 				Expect(pageObj.Elements[0].ElementId).To(Equal("teste"))
 				Expect(pageObj.Elements[0].ElementType).To(Equal("button"))
-				Expect(pageObj.Elements[0].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[0].Locator).To(Equal("Id"))
+				Expect(pageObj.Elements[0].Expression).To(Equal("teste"))
 				close(done)
 			})
 			It("Should return a valid PageObject four elements", func(done Done) {
@@ -654,16 +662,20 @@ var _ = Describe("PageObjectDefParser", func() {
 				Expect(len(pageObj.Elements)).To(Equal(4))
 				Expect(pageObj.Elements[0].ElementId).To(Equal("teste1"))
 				Expect(pageObj.Elements[0].ElementType).To(Equal("button"))
-				Expect(pageObj.Elements[0].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[0].Locator).To(Equal("Id"))
+				Expect(pageObj.Elements[0].Expression).To(Equal("teste1"))
 				Expect(pageObj.Elements[1].ElementId).To(Equal("teste2"))
 				Expect(pageObj.Elements[1].ElementType).To(Equal("textbox"))
-				Expect(pageObj.Elements[1].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[1].Locator).To(Equal("Id"))
+				Expect(pageObj.Elements[1].Expression).To(Equal("teste2"))
 				Expect(pageObj.Elements[2].ElementId).To(Equal("teste3"))
 				Expect(pageObj.Elements[2].ElementType).To(Equal("button"))
-				Expect(pageObj.Elements[2].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[2].Locator).To(Equal("Id"))
+				Expect(pageObj.Elements[2].Expression).To(Equal("teste3"))
 				Expect(pageObj.Elements[3].ElementId).To(Equal("teste4"))
 				Expect(pageObj.Elements[3].ElementType).To(Equal("textbox"))
-				Expect(pageObj.Elements[3].Locator).To(Equal("By.Id()"))
+				Expect(pageObj.Elements[3].Locator).To(Equal("Id"))
+				Expect(pageObj.Elements[3].Expression).To(Equal("teste4"))
 				close(done)
 			})
 		})

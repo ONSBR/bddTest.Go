@@ -56,13 +56,16 @@ Entao eu espero o campo teste4 com o valor igual a "clovis3"`
 uri: test/teste1.html
 elements:
 - element: teste
-  locator: By.Id("teste")
+  locator: Id
+  expression: teste
   type: button
 - element: teste1
-  locator: By.Id("teste1")
+  locator: Id
+  expression: teste1
   type: textbox
 - element: teste2
-  locator: By.Id("teste2")
+  locator: Id
+  expression: teste2
   type: selectbox
 
 
@@ -70,16 +73,20 @@ page: Home
 uri: test/teste2.html
 elements:
 - element: teste4
-  locator: By.Id("teste4")
+  locator: Id
+  expression: teste4
   type: textbox
 - element: teste5
-  locator: By.Id("teste5")
+  locator: Id
+  expression: teste5
   type: textbox
 - element: salvar
-  locator: By.Id("salvar")
+  locator: Id
+  expression: salvar
   type: button
 - element: teste6
-  locator: By.Id("teste6")
+  locator: Id
+  expression: teste6
   type: textbox
 `
 			files["teste1.spec"] = `#pt_BR
@@ -118,29 +125,36 @@ Then eu expect a selectbox teste2 com a opcao grater then or equal "clovis3"`
 uri: test/teste1.html
 elements:
 - element: teste
-  locator: By.Id("teste")
+  locator: Id
+  expression: teste
   type: button
 - element: teste1
-  locator: By.Id("teste1")
+  locator: Id
+  expression: teste1
   type: textbox
 - element: teste2
-  locator: By.Id("teste2")
+  locator: Id
+  expression: teste2
   type: selectbox
 `
 			files["teste2.spec.page"] = `page: Home
 uri: test/teste2.html
 elements:
 - element: teste4
-  locator: By.Id("teste4")
+  locator: Id
+  expression: teste4
   type: textbox
 - element: teste5
-  locator: By.Id("teste5")
+  locator: Id
+  expression: teste5
   type: textbox
 - element: salvar
-  locator: By.Id("salvar")
+  locator: Id
+  expression: salvar
   type: button
 - element: teste6
-  locator: By.Id("teste6")
+  locator: Id
+  expression: teste6
   type: textbox
 `
 			for _,f := range folders {

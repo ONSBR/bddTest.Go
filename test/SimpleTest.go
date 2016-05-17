@@ -2,9 +2,10 @@ package main
 
 import (
 	"bufio"
+
 	"github.com/ONSBR/bddTest.Go/compiler"
-	"github.com/ONSBR/bddTest.Go/util"
 	_ "github.com/ONSBR/bddTest.Go/compiler/lexer/locales"
+	"github.com/ONSBR/bddTest.Go/util"
 	//	"fmt"
 	//	"os"
 	//	"flag"
@@ -62,7 +63,7 @@ func main() {
 Pagina: Cadastro de Clientes
 Cenario: primeiro 1 cenário
 Dado que estou usando o usuario clovis.chedid
-Quando eu clico no botao teste com o valor "clovis1"
+Quando eu clico no botao teste
 E eu preencho o campo teste1 com o valor "clovis2"
 Entao eu espero a lista teste2 com a opcao maior que "clovis3"`
 	//	token = "aspecto: Este é um aspecto\ncenario: primeiro cenário\nquando eu clico no botao teste com o valor \"clovis1\"\nquando eu preencho o campo teste1 com o valor \"clovis2\"\nquando eu seleciono a lista teste2 com a opcao \"clovis3\""
@@ -75,7 +76,7 @@ Entao eu espero a lista teste2 com a opcao maior que "clovis3"`
 		log.Errorf("Line: %d, Pos: %d, Token: %s", err.LineNum, err.LinePos, err.Token)
 	} else {
 		log.Infof("Page Name: %s", Feature.PageName)
-		log.Infof("Line: %d |%s|: %s", Feature.LineNum, Feature.Label,Feature.Name)
+		log.Infof("Line: %d |%s|: %s", Feature.LineNum, Feature.Label, Feature.Name)
 		for idx, scn := range Feature.Scenarios {
 			_ = idx
 			log.Infof("Line: %d Scenario: %s", scn.LineNum, scn.Name)

@@ -21,7 +21,7 @@ var (
 var _ = Describe("FlagParser", func() {
 	Describe("base construction", func(){
 		BeforeEach(func ()  {
-			prepareFiles()
+			prepareFiles() 
 		})
 		
 		AfterEach(func ()  {

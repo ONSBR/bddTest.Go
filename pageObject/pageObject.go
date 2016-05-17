@@ -1,6 +1,7 @@
 package pageObject
 
 import (
+	"errors"
 	"fmt"
 	"sourcegraph.com/sourcegraph/go-selenium"
 )
@@ -40,4 +41,17 @@ func (p *PageObject) Open() {
 	if err = p.driver.Get(p.Uri); err != nil {
 		fmt.Printf("Failed to load page: %s\n", err)
 	}
+}
+
+/*
+FindPageElement finds an element by name.
+*/
+func (p *PageObject) FindPageElement(objectId string) (*PageElement, error) {
+	for _, el := range p.Elements {
+		if el.ElementId == objectId {
+			return &el, nil
+		}
+	}
+
+	return nil, errors.New("Element could not be found.")
 }
