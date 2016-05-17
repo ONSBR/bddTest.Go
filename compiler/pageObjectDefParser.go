@@ -24,6 +24,7 @@ type (
 	YamlElement struct {
 		Element string
 		Locator string
+		Expression string
 		Type    string
 	}
 
@@ -90,6 +91,7 @@ func defineActionElement(page *YamlPage, feature lexer.Feature) error {
 				element := YamlElement{
 					Element: action.ObjectId,
 					Locator: "<ENTER ELEMENT LOCATOR>",
+					Expression: "<ENTER ELEMENT LOCATOR EXPRESSION>",
 					Type:    action.ObjectType,
 				}
 				elements[action.ObjectId] = action.ObjectType
@@ -110,6 +112,7 @@ func defineExpectationElement(page *YamlPage, feature lexer.Feature) error {
 				element := YamlElement{
 					Element: expect.ObjectId,
 					Locator: "<ENTER ELEMENT LOCATOR>",
+					Expression: "<ENTER ELEMENT LOCATOR EXPRESSION>",
 					Type:    expect.ObjectType,
 				}
 				elements[expect.ObjectId] = expect.ObjectType
@@ -147,6 +150,10 @@ func (this *PageObjectDefParser) GetYamlPage(definition string) (page YamlPage, 
 		}
 		if element.Locator == "<ENTER ELEMENT LOCATOR>" || element.Locator == "" {
 			err = ParseError{Errors: []string{fmt.Sprintf("Missing element locator for name %s and type %s", element.Element, element.Type)}}
+			return
+		}
+		if element.Expression == "<ENTER ELEMENT LOCATOR EXPRESSION>" || element.Expression == "" {
+			err = ParseError{Errors: []string{fmt.Sprintf("Missing element locator expression for name %s and type %s", element.Element, element.Type)}}
 			return
 		}
 		if element.Type == "" {
