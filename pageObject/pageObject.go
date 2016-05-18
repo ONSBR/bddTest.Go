@@ -3,12 +3,11 @@ package pageObject
 import (
 	"errors"
 	"fmt"
+	"os"
+
 	"sourcegraph.com/sourcegraph/go-selenium"
 )
 
-/*
-
- */
 type PageObject struct {
 	Page     string
 	driver   selenium.WebDriver
@@ -35,23 +34,56 @@ func NewPageObject(page string, uri string) *PageObject {
 /*
 Open navigates to the web page object.
 */
-func (p *PageObject) Open() {
+func (p *PageObject) Open() error {
 	var err error
 
 	if err = p.driver.Get(p.Uri); err != nil {
-		fmt.Printf("Failed to load page: %s\n", err)
+		return err
 	}
+
+	// if _, err := p.driver.Status(); err != nil {
+	// 	return err
+	// }
+
+	return nil
 }
 
 /*
 FindPageElement finds an element by name.
 */
-func (p *PageObject) FindPageElement(objectId string) (*PageElement, error) {
+func (p *PageObject) FindPageElement(objectID string) (*PageElement, error) {
 	for _, el := range p.Elements {
-		if el.ElementId == objectId {
+		if el.ElementId == objectID {
 			return &el, nil
 		}
 	}
 
 	return nil, errors.New("Element could not be found.")
+}
+
+/*
+SaveScreenShot saves a screenshot.
+*/
+func (p *PageObject) SaveScreenShot(filename string) {
+	screenshot, err := p.driver.Screenshot()
+
+	if err != nil {
+		panic(err)
+	}
+
+	fo, err := os.Create(filename)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer func() {
+		if err := fo.Close(); err != nil {
+			panic(err)
+		}
+	}()
+
+	if _, err := fo.Write(screenshot); err != nil {
+		panic(err)
+	}
 }

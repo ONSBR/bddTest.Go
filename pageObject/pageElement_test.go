@@ -34,7 +34,7 @@ func TestShouldAppendElementToPageObject(t *testing.T) {
 
 func TestShouldFindPageElement(t *testing.T) {
 	pageObject := NewPageObject("pageName", serverUrl)
-	pageElement := NewPageElement(pageObject, "id", "objectId", "button", "objectId")
+	pageElement := NewPageElement(pageObject, "id", "buttonId", "button", "objectId")
 
 	// act
 	pageObject.Open()

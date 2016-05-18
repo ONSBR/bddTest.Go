@@ -1,17 +1,22 @@
 package main
 
 import (
-    "github.com/ONSBR/bddTest.Go/cli"
-    
-    //Bootstrap strategy handler
-	_ "github.com/ONSBR/bddTest.Go/compiler/lexer/locales"
+	"io/ioutil"
+	"log"
+
+	"github.com/ONSBR/bddTest.Go/cli"
+
+	//Bootstrap strategy handler
 	_ "github.com/ONSBR/bddTest.Go/compiler/langMaps"
-    
-    "os"
+	_ "github.com/ONSBR/bddTest.Go/compiler/lexer/locales"
+
+	"os"
 )
 
-func main()  {
-    mainCli := cli.NewCli()
-    retCode := mainCli.Run()
-    os.Exit(retCode)
+func main() {
+	log.SetOutput(ioutil.Discard)
+
+	mainCli := cli.NewCli()
+	retCode := mainCli.Run()
+	os.Exit(retCode)
 }

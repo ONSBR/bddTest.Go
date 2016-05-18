@@ -19,13 +19,13 @@ type PageElement struct {
 }
 
 /*
-Find finds the web element in the Page
+Find finds the web element in the Pagep
 */
 func (p *PageElement) Find() error {
 	var err error
 
 	if p.element, err = p.Page.driver.FindElement(p.Locator, p.Expression); err != nil {
-		return fmt.Errorf("Failed to find element %s: %s\n", p.ElementId, err)
+		return fmt.Errorf("Failed to find element \"%s\" using %s=%s", p.ElementId, p.Locator, p.Expression)
 	}
 
 	return nil

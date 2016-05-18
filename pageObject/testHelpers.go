@@ -2,26 +2,27 @@ package pageObject
 
 import (
 	"fmt"
-	"github.com/braintree/manners"
-	"github.com/stretchr/testify/mock"
 	"net/http"
 	"time"
+
+	"github.com/braintree/manners"
+	"github.com/stretchr/testify/mock"
 )
 
-type MockedHTTPHandler struct {
+type mockedHTTPHandler struct {
 	mock.Mock
 }
 
-func (h *MockedHTTPHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+func (h *mockedHTTPHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprint(w, "<input type='button' id='objectId'/>HTML Content")
+	fmt.Fprint(w, "<input type='button' id='buttonId'/><input type='text' id='txtId'/>HTML Content")
 }
 
-// initTestServer inits a test HTTP Server
+// InitTestServer inits a test HTTP Server
 func InitTestServer() string {
 	server := manners.NewWithServer(&http.Server{
 		Addr:           fmt.Sprintf("172.17.0.1:8080"),
-		Handler:        &MockedHTTPHandler{},
+		Handler:        &mockedHTTPHandler{},
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
