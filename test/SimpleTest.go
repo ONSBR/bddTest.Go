@@ -65,7 +65,8 @@ Cenario: primeiro 1 cenário
 Dado que estou usando o usuario clovis.chedid
 Quando eu clico no botao teste
 E eu preencho o campo teste1 com o valor "clovis2"
-Entao eu espero a lista teste2 com a opcao maior que "clovis3"`
+E eu seleciono na lista teste2 o valor "opção 1"
+Entao eu espero a lista teste2 com a opcao maior que 9`
 	//	token = "aspecto: Este é um aspecto\ncenario: primeiro cenário\nquando eu clico no botao teste com o valor \"clovis1\"\nquando eu preencho o campo teste1 com o valor \"clovis2\"\nquando eu seleciono a lista teste2 com a opcao \"clovis3\""
 
 	log.Infof("Lines %s", token)
