@@ -6,34 +6,28 @@ import (
 	"sourcegraph.com/sourcegraph/go-selenium"
 )
 
-/*
-PageElement is a PageObject web element.
-*/
+// PageElement is a PageObject web element.
 type PageElement struct {
 	Page        PageObject
 	Locator     string
 	Expression  string
 	ElementType string
 	ElementId   string
-	element     selenium.WebElement
+	Element     selenium.WebElement
 }
 
-/*
-Find finds the web element in the Pagep
-*/
+// Find finds the web element in the Pagep
 func (p *PageElement) Find() error {
 	var err error
 
-	if p.element, err = p.Page.driver.FindElement(p.Locator, p.Expression); err != nil {
+	if p.Element, err = p.Page.Driver.FindElement(p.Locator, p.Expression); err != nil {
 		return fmt.Errorf("Failed to find element \"%s\" using %s=%s", p.ElementId, p.Locator, p.Expression)
 	}
 
 	return nil
 }
 
-/*
-NewPageElement creates a new instance of PageElement
-*/
+// NewPageElement creates a new instance of PageElement
 func NewPageElement(page *PageObject, locator string, expression string, elementType string, elementID string) *PageElement {
 	pageElement := &PageElement{
 		Page:        *page,

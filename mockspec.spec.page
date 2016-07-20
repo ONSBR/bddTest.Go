@@ -3,9 +3,13 @@ uri: /
 elements:
 - element: nome
   locator: id
-  expression: txtNome
+  expression: txtId
   type: textbox
 - element: salvar
   locator: id
-  expression: btnSalvar
+  expression: buttonId
   type: button
+- element: retorno
+  locator: id
+  expression: txtRet
+  type: textbox

@@ -33,7 +33,7 @@ func TestShouldAppendElementToPageObject(t *testing.T) {
 }
 
 func TestShouldFindPageElement(t *testing.T) {
-	pageObject := NewPageObject("pageName", serverUrl)
+	pageObject := NewPageObject("pageName", serverURL)
 	pageElement := NewPageElement(pageObject, "id", "buttonId", "button", "objectId")
 
 	// act
@@ -41,15 +41,15 @@ func TestShouldFindPageElement(t *testing.T) {
 	pageElement.Find()
 
 	// assert
-	assert.NotNil(t, pageElement.element)
+	assert.NotNil(t, pageElement.Element)
 
 	// cleanup
-	pageObject.driver.Quit()
+	pageObject.Driver.Quit()
 }
 
 func TestShouldFindPageElementFromObjectId(t *testing.T) {
 	// mock
-	pageObject := NewPageObject("pageName", serverUrl)
+	pageObject := NewPageObject("pageName", serverURL)
 	pageElement := NewPageElement(pageObject, "id", "objectId", "button", "objectId")
 
 	// act
@@ -60,12 +60,12 @@ func TestShouldFindPageElementFromObjectId(t *testing.T) {
 	assert.Nil(t, err)
 
 	// cleanup
-	pageObject.driver.Quit()
+	pageObject.Driver.Quit()
 }
 
 func TestShouldReturnErrorForNonExistingObjectId(t *testing.T) {
 	// mock
-	pageObject := NewPageObject("pageName", serverUrl)
+	pageObject := NewPageObject("pageName", serverURL)
 	NewPageElement(pageObject, "id", "objectId", "button", "objectId")
 
 	// act
@@ -76,5 +76,5 @@ func TestShouldReturnErrorForNonExistingObjectId(t *testing.T) {
 	assert.NotNil(t, err)
 
 	// cleanup
-	pageObject.driver.Quit()
+	pageObject.Driver.Quit()
 }

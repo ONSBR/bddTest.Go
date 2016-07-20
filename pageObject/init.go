@@ -1,9 +1,3 @@
 package pageObject
 
-var (
-	serverUrl string
-)
-
-func init() {
-	serverUrl = InitTestServer()
-}
+const serverURL = "http://172.17.0.1:8080"

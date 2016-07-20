@@ -8,49 +8,40 @@ import (
 	"sourcegraph.com/sourcegraph/go-selenium"
 )
 
+// PageObject represents a full or partial web page.
 type PageObject struct {
 	Page     string
-	driver   selenium.WebDriver
-	Uri      string
+	Driver   selenium.WebDriver
+	URI      string
 	Elements []PageElement
 }
 
-/*
-NewPageObject creates a new instance of PageObject
-*/
+// NewPageObject creates a new instance of PageObject
 func NewPageObject(page string, uri string) *PageObject {
-	p := &PageObject{Page: page, Uri: uri}
+	p := &PageObject{Page: page, URI: uri}
 	caps := selenium.Capabilities(map[string]interface{}{"browserName": "phantomjs"})
 
 	var err error
 
-	if p.driver, err = selenium.NewRemote(caps, "http://127.0.0.1:4444/wd/hub"); err != nil {
+	if p.Driver, err = selenium.NewRemote(caps, "http://127.0.0.1:4444/wd/hub"); err != nil {
 		fmt.Printf("Failed to open session: %s\n", err)
 	}
 
 	return p
 }
 
-/*
-Open navigates to the web page object.
-*/
+// Open navigates to the web page object.
 func (p *PageObject) Open() error {
 	var err error
 
-	if err = p.driver.Get(p.Uri); err != nil {
+	if err = p.Driver.Get(p.URI); err != nil {
 		return err
 	}
-
-	// if _, err := p.driver.Status(); err != nil {
-	// 	return err
-	// }
 
 	return nil
 }
 
-/*
-FindPageElement finds an element by name.
-*/
+// FindPageElement finds an element by name.
 func (p *PageObject) FindPageElement(objectID string) (*PageElement, error) {
 	for _, el := range p.Elements {
 		if el.ElementId == objectID {
@@ -61,11 +52,9 @@ func (p *PageObject) FindPageElement(objectID string) (*PageElement, error) {
 	return nil, errors.New("Element could not be found.")
 }
 
-/*
-SaveScreenShot saves a screenshot.
-*/
+// SaveScreenShot saves a screenshot.
 func (p *PageObject) SaveScreenShot(filename string) {
-	screenshot, err := p.driver.Screenshot()
+	screenshot, err := p.Driver.Screenshot()
 
 	if err != nil {
 		panic(err)
