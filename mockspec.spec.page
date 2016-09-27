@@ -1,0 +1,15 @@
+page: Cadastro de Clientes
+uri: /
+elements:
+- element: nome
+  locator: id
+  expression: txtId
+  type: textbox
+- element: salvar
+  locator: id
+  expression: buttonId
+  type: button
+- element: retorno
+  locator: id
+  expression: txtRet
+  type: textbox

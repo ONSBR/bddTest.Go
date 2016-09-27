@@ -1,9 +1,8 @@
 package cli
 
 import (
-	// "fmt"
-
 	"github.com/ONSBR/bddTest.Go/compiler"
+	"github.com/ONSBR/bddTest.Go/processor"
 	// "github.com/ONSBR/bddTest.Go/processor"
 	"github.com/ONSBR/bddTest.Go/util"
 )
@@ -22,7 +21,7 @@ type (
 
 //Run is the main execution function of bddTest.Go
 func (cli *Cli) Run() int {
-	retCode := -1 
+	retCode := -1
 	parseFlag := NewFlagParser()
 	parseCode := parseFlag.Parse()
 	util.InitLog(parseFlag.Options.Config)
@@ -65,7 +64,7 @@ func (cli *Cli) Run() int {
 				logCli.Errorf("%s", err.Error())
 				retCode = -1
 			} else {
-				retCode = 0 
+				retCode = 0
 			}
 		}
 		break
@@ -91,9 +90,8 @@ func (cli *Cli) Run() int {
 			}
 		}
 
-		// t := processor.NewTestProcessor(&executions[0])
-		// fmt.Printf("Page Object: %s", t.Execution.PageObject)
-		// t.Process()
+		t := processor.NewTestProcessor(&executions[0])
+		t.Process()
 
 		break
 	}

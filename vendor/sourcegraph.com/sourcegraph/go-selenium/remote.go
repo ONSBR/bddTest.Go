@@ -15,11 +15,10 @@ import (
 	"log"
 	"net/http"
 	"net/http/httputil"
-	"os"
 	"strings"
 )
 
-var Log = log.New(os.Stderr, "[selenium] ", log.Ltime|log.Lmicroseconds)
+var Log = log.New(ioutil.Discard, "[seleniumX] ", log.Ltime|log.Lmicroseconds)
 var Trace bool
 
 /* Errors returned by Selenium server. */
